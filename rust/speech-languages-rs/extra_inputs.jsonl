@@ -1,0 +1,6 @@
+{"fn": "normalize_language", "args": ["  English  "]}
+{"fn": "normalize_language", "args": ["FRENCH"]}
+{"fn": "normalize_language", "args": ["en"]}
+{"fn": "normalize_language", "args": ["Persian"]}
+{"fn": "normalize_language", "args": ["Haitian Creole"]}
+{"fn": "normalize_language", "args": ["unknown-lang"]}

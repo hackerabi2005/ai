@@ -1,0 +1,7 @@
+{"fn": "find_json_tool_call_end", "args": ["<tool_call>{\"name\": \"browser_task\", \"arguments\": {\"goal\": \"open youtube\"}}</tool_call> trailing"]}
+{"fn": "find_json_tool_call_end", "args": ["<tool_call>{\"name\": \"x\", \"arguments\": {\"text\": \"ignore </tool_call> inside quotes and \\\"</tool_call>\\\"\"}}</tool_call>"]}
+{"fn": "find_json_tool_call_end", "args": ["<tool_call>{\"name\": \"Zürich ✈️\", \"arguments\": {}}</tool_call>"]}
+{"fn": "find_json_tool_call_end", "args": ["no closing tag here"]}
+{"fn": "build_block_regex", "args": ["<code>", "</code>"]}
+{"fn": "build_block_regex", "args": ["[TOOL]", "[/TOOL]"]}
+{"fn": "build_block_regex", "args": ["<tool_call>", "</tool_call>"]}

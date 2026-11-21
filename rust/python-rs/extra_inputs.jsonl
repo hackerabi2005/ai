@@ -1,0 +1,7 @@
+{"fn": "page_summary", "args": [{"url": "https://www.youtube.com/watch?v=123", "title": "YouTube", "text": "Hello world", "fingerprint": "abc123"}]}
+{"fn": "page_summary", "args": [{"url": "https://example.com", "title": "Test", "text": null, "fingerprint": "def456"}]}
+{"fn": "page_summary", "args": [{}]}
+{"fn": "classify_error", "args": ["Missing EXPERIENTIAL_API_KEY; no action executed."]}
+{"fn": "classify_error", "args": ["Step budget exceeded after 15 steps"]}
+{"fn": "classify_error", "args": ["Chrome DevTools session closed"]}
+{"fn": "classify_error", "args": ["Unexpected timeout waiting for element"]}

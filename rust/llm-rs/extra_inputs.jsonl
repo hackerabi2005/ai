@@ -1,0 +1,9 @@
+{"fn": "remove_markdown", "args": ["# Heading 1\n- Bullet item\nThis is **bold** and *italic* and `inline *code*`.\n```python\n# keep comment\nx = 2 * 3\n```"]}
+{"fn": "remove_markdown", "args": ["*A* or *B* and snake_case_var and 2*3*4"]}
+{"fn": "remove_unspeechable", "args": ["Hello \u2018world\u2019 \u201cquote\u201d 😀 $100 — 50%!"]}
+{"fn": "resolve_auto_language", "args": ["en"]}
+{"fn": "resolve_auto_language", "args": ["fr-auto"]}
+{"fn": "resolve_auto_language", "args": [null]}
+{"fn": "language_name_for_prompt", "args": ["en-auto"], "kwargs": {"enable": true}}
+{"fn": "language_name_for_prompt", "args": ["en-auto"], "kwargs": {"enable": false}}
+{"fn": "language_name_for_prompt", "args": [null], "kwargs": {"enable": true}}

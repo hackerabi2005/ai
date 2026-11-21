@@ -1,0 +1,187 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "C:\\Users\\Abish\\Desktop\\combinned jarvis",
+  "unit": "borwse harness/jev-ultrafast/jev_ultrafast/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "jev-ultrafast-rs",
+  "exports": [
+    {
+      "name": "fingerprint",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/browser.py",
+      "line": 662,
+      "params": [
+        {
+          "name": "state",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "unknown",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "validate_choice",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/model.py",
+      "line": 44,
+      "params": [
+        {
+          "name": "answer",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "ids",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "unknown",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "action_space",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/model.py",
+      "line": 62,
+      "params": [
+        {
+          "name": "actions",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "unknown",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "field_context",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/model.py",
+      "line": 219,
+      "params": [
+        {
+          "name": "goal",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "action",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "page",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "history",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "unknown",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "Agent",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/agent.py",
+      "line": 12,
+      "reason": "class: async or generator method `run`, public attribute `browser`, public attribute `pending_text`, public attribute `record_dir`, public attribute `screenshots`, public attribute `state`, special method `__enter__`, special method `__exit__`"
+    },
+    {
+      "name": "browser_operation",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/browser.py",
+      "line": 804,
+      "reason": "calls live Chrome CDP via browser_harness"
+    },
+    {
+      "name": "StalePage",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/browser.py",
+      "line": 43,
+      "reason": "class: inherits from ValueError"
+    },
+    {
+      "name": "Browser",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/browser.py",
+      "line": 232,
+      "reason": "class: public attribute `session`, public attribute `target`"
+    },
+    {
+      "name": "load_environment",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/demo.py",
+      "line": 24,
+      "reason": "mutates os.environ from local .env"
+    },
+    {
+      "name": "response_state",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/demo.py",
+      "line": 33,
+      "reason": "reads module-global AGENT state"
+    },
+    {
+      "name": "close_browser",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/demo.py",
+      "line": 38,
+      "reason": "mutates module-global AGENT and closes CDP target"
+    },
+    {
+      "name": "command",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/demo.py",
+      "line": 45,
+      "reason": "mutates module-global AGENT and spawns live browser"
+    },
+    {
+      "name": "main",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/demo.py",
+      "line": 132,
+      "reason": "a command-line entry point: it stays in Python, and `app front-door` takes the command line over when the whole app moves"
+    },
+    {
+      "name": "Handler",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/demo.py",
+      "line": 71,
+      "reason": "class: inherits from BaseHTTPRequestHandler"
+    },
+    {
+      "name": "post_json",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/model.py",
+      "line": 22,
+      "reason": "performs live HTTP/2 requests via httpx.Client"
+    },
+    {
+      "name": "choose",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/model.py",
+      "line": 154,
+      "reason": "reads os.environ API keys and calls live post_json"
+    },
+    {
+      "name": "field_text",
+      "file": "borwse harness/jev-ultrafast/jev_ultrafast/model.py",
+      "line": 240,
+      "reason": "reads os.environ API keys and calls live post_json"
+    }
+  ]
+}

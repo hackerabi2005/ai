@@ -1,0 +1,400 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "C:\\Users\\Abish\\Desktop\\combinned jarvis",
+  "unit": "s2s/speech-to-speech/src/speech_to_speech/LLM/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "llm-rs",
+  "exports": [
+    {
+      "name": "build_text_system_prompt",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/text_prompt.py",
+      "line": 30,
+      "params": [
+        {
+          "name": "session_prompt",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "tool_section",
+          "ts_type": "string",
+          "optional": true,
+          "rest": false,
+          "default": "\"\"",
+          "keyword_only": true
+        },
+        {
+          "name": "language_name",
+          "ts_type": "string | undefined",
+          "optional": true,
+          "rest": false,
+          "default": "None",
+          "keyword_only": true
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "remove_markdown",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py",
+      "line": 118,
+      "params": [
+        {
+          "name": "text",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "remove_unspeechable",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py",
+      "line": 131,
+      "params": [
+        {
+          "name": "text",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "format_language_instruction",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py",
+      "line": 143,
+      "params": [
+        {
+          "name": "lang_name",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "language_name_for_prompt",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py",
+      "line": 148,
+      "params": [
+        {
+          "name": "language_code",
+          "ts_type": "string | undefined",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "enable",
+          "ts_type": "boolean",
+          "optional": false,
+          "rest": false,
+          "keyword_only": true
+        }
+      ],
+      "returns": "string | undefined",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "resolve_auto_language",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py",
+      "line": 156,
+      "params": [
+        {
+          "name": "language_code",
+          "ts_type": "string | undefined",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "tuple",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "build_voice_system_prompt",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/voice_prompt.py",
+      "line": 35,
+      "params": [
+        {
+          "name": "session_prompt",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "tool_section",
+          "ts_type": "string",
+          "optional": true,
+          "rest": false,
+          "default": "\"\"",
+          "keyword_only": true
+        },
+        {
+          "name": "language_name",
+          "ts_type": "string | undefined",
+          "optional": true,
+          "rest": false,
+          "default": "None",
+          "keyword_only": true
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "AudioInputNotifier",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/audio_input_notifier.py",
+      "line": 18,
+      "reason": "class: async or generator method `process`, inherits from BaseHandler[VADAudio, LLMIn]"
+    },
+    {
+      "name": "TextDelta",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py",
+      "line": 117,
+      "reason": "class: inherits from BaseModel, public class attribute `text`"
+    },
+    {
+      "name": "ReasoningDelta",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py",
+      "line": 124,
+      "reason": "class: inherits from BaseModel, public class attribute `kind`, public class attribute `text`"
+    },
+    {
+      "name": "AssistantMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py",
+      "line": 131,
+      "reason": "class: inherits from BaseModel, public class attribute `content`, public class attribute `id`, public class attribute `response_item`"
+    },
+    {
+      "name": "ToolCall",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py",
+      "line": 149,
+      "reason": "class: inherits from BaseModel, public class attribute `item`, public class attribute `response_item`"
+    },
+    {
+      "name": "Usage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py",
+      "line": 156,
+      "reason": "class: inherits from BaseModel, public class attribute `input_tokens`, public class attribute `output_tokens`"
+    },
+    {
+      "name": "ProviderResponseEnd",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py",
+      "line": 163,
+      "reason": "class: inherits from BaseModel, public class attribute `error`, public class attribute `history_item_order`, public class attribute `reason`, public class attribute `status`"
+    },
+    {
+      "name": "BaseOpenAICompatibleHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py",
+      "line": 217,
+      "reason": "class: `@abstractmethod` method `warmup`, `@property` method `timing_log_level`, async or generator method `process`, inherits from BaseHandler[LLMIn, LLMOut], ABC"
+    },
+    {
+      "name": "make_user_message",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1674,
+      "reason": "returns Pydantic RealtimeConversationItemUserMessage instance"
+    },
+    {
+      "name": "make_user_audio_message",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1682,
+      "reason": "returns Pydantic RealtimeConversationItemUserMessage instance"
+    },
+    {
+      "name": "make_assistant_message",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1690,
+      "reason": "returns Pydantic RealtimeConversationItemAssistantMessage instance"
+    },
+    {
+      "name": "make_system_message",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1698,
+      "reason": "returns Pydantic RealtimeConversationItemSystemMessage instance"
+    },
+    {
+      "name": "add_supported_item",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1706,
+      "reason": "mutates custom Chat instance with Pydantic ConversationItem"
+    },
+    {
+      "name": "build_active_chat",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1734,
+      "reason": "returns custom Chat instance"
+    },
+    {
+      "name": "ChatItemError",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 71,
+      "reason": "class: inherits from Exception"
+    },
+    {
+      "name": "CompactionResult",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 75,
+      "reason": "class: inherits from BaseModel, public class attribute `assistant_summary`, public class attribute `user_summary`"
+    },
+    {
+      "name": "ResponsesFunctionCall",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 90,
+      "reason": "class: inherits from RealtimeConversationItemFunctionCall, public class attribute `response_item`"
+    },
+    {
+      "name": "ResponsesAssistantMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 103,
+      "reason": "class: inherits from RealtimeConversationItemAssistantMessage, public class attribute `response_item`"
+    },
+    {
+      "name": "Chat",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 132,
+      "reason": "class: method `copy_without_provisional_generation` returns an instance, method `copy` returns an instance, public attribute `buffer`, public attribute `init_chat_message`, public attribute `size`"
+    },
+    {
+      "name": "TransformersToolCallFunction",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1574,
+      "reason": "class: inherits from BaseModel, public class attribute `arguments`, public class attribute `name`"
+    },
+    {
+      "name": "TransformersToolCall",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1579,
+      "reason": "class: inherits from BaseModel, public class attribute `function`, public class attribute `id`, public class attribute `type`"
+    },
+    {
+      "name": "TransformersSystemMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1585,
+      "reason": "class: inherits from BaseModel, public class attribute `content`, public class attribute `role`"
+    },
+    {
+      "name": "TransformersUserMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1590,
+      "reason": "class: inherits from BaseModel, public class attribute `content`, public class attribute `role`"
+    },
+    {
+      "name": "TransformersAssistantMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1595,
+      "reason": "class: inherits from BaseModel, public class attribute `content`, public class attribute `role`"
+    },
+    {
+      "name": "TransformersFunctionCallMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1600,
+      "reason": "class: inherits from BaseModel, public class attribute `content`, public class attribute `role`, public class attribute `tool_calls`"
+    },
+    {
+      "name": "TransformersToolMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat.py",
+      "line": 1608,
+      "reason": "class: inherits from BaseModel, public class attribute `content`, public class attribute `name`, public class attribute `role`, public class attribute `tool_call_id`"
+    },
+    {
+      "name": "ChatCompletionsApiModelHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/chat_completions_language_model.py",
+      "line": 330,
+      "reason": "class: inherits from BaseOpenAICompatibleHandler"
+    },
+    {
+      "name": "build_compactor",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/compaction_prompt.py",
+      "line": 139,
+      "reason": "calls its parameter `generate_fn`: a callable"
+    },
+    {
+      "name": "StreamContext",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/language_model.py",
+      "line": 138,
+      "reason": "class: `@property` method `interrupted`, inherits from BaseModel, public class attribute `block_regex`, public class attribute `cancel_generation`, public class attribute `cancelled`, public class attribute `end_code`, public class attribute `enter_code`, public class attribute `function_tools`, public class attribute `generated_text`, public class attribute `input_tokens`, public class attribute `llm_start_s`, public class attribute `model_config`, public class attribute `output_parts`, public class attribute `prefetch_transaction`, public class attribute `printable_text`, public class attribute `raw_generated_text`, public class attribute `sentence_batch`, public class attribute `speech_stopped_at_s`, public class attribute `stopped`, public class attribute `stream_exhausted`, public class attribute `tools`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "BaseLanguageModelHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/language_model.py",
+      "line": 171,
+      "reason": "class: async or generator method `process`, inherits from BaseHandler[LLMIn, LLMOut], ABC, public class attribute `streamer`, public class attribute `tokenizer`"
+    },
+    {
+      "name": "LanguageModelHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/language_model.py",
+      "line": 809,
+      "reason": "class: inherits from BaseLanguageModelHandler, public class attribute `gen_kwargs`, public class attribute `model`, public class attribute `pipe`, public class attribute `streamer`, public class attribute `tokenizer`, public class attribute `torch_dtype`"
+    },
+    {
+      "name": "VisionLanguageModelHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/language_model.py",
+      "line": 1010,
+      "reason": "class: inherits from BaseLanguageModelHandler, public class attribute `gen_kwargs`, public class attribute `model`, public class attribute `processor`, public class attribute `streamer`, public class attribute `tokenizer`, public class attribute `torch_dtype`"
+    },
+    {
+      "name": "LMOutputProcessor",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/lm_output_processor.py",
+      "line": 45,
+      "reason": "class: async or generator method `process`, inherits from BaseHandler[LLMOut, TTSIn | PipelineEvent]"
+    },
+    {
+      "name": "ResponsesApiModelHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/responses_api_language_model.py",
+      "line": 74,
+      "reason": "class: inherits from BaseOpenAICompatibleHandler"
+    },
+    {
+      "name": "sent_tokenize_preserving_markdown_code",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py",
+      "line": 103,
+      "reason": "calls its parameter `tokenizer`: a callable"
+    },
+    {
+      "name": "image_url_to_pil",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py",
+      "line": 171,
+      "reason": "returns PIL.Image.Image instance and performs network I/O"
+    },
+    {
+      "name": "ZeroGPULLMHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/zerogpu_handler.py",
+      "line": 10,
+      "reason": "class: inherits from BaseLanguageModelHandler"
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "C:\\Users\\Abish\\Desktop\\combinned jarvis",
+  "unit": "s2s/speech-to-speech/src/speech_to_speech/TTS/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "tts-rs",
+  "exports": [
+    {
+      "name": "number_to_words",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/persian_normalization.py",
+      "line": 151,
+      "params": [
+        {
+          "name": "n",
+          "ts_type": "int",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "numbers_to_words",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/persian_normalization.py",
+      "line": 197,
+      "params": [
+        {
+          "name": "text",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "normalize",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/persian_normalization.py",
+      "line": 208,
+      "params": [
+        {
+          "name": "text",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "spell_numbers",
+          "ts_type": "boolean",
+          "optional": true,
+          "rest": false,
+          "default": "True",
+          "keyword_only": true
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "BaseTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/base_tts_handler.py",
+      "line": 16,
+      "reason": "class: inherits from BaseHandler[TTSIn, TTSOut], public class attribute `cancel_scope`, public class attribute `speculative_turns`, public class attribute `turn_latency_store`"
+    },
+    {
+      "name": "ChatTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/chatTTS_handler.py",
+      "line": 26,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "Drama3TTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/drama3_handler.py",
+      "line": 21,
+      "reason": "class: inherits from OpenAICompatibleTTSHandler"
+    },
+    {
+      "name": "FacebookMMSTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/facebookmms_handler.py",
+      "line": 66,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "KittenTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/kitten_tts_handler.py",
+      "line": 27,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "KokoroTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/kokoro_handler.py",
+      "line": 79,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "MiniMaxSpeechOperation",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/minimax_tts_handler.py",
+      "line": 28,
+      "reason": "class: inherits from HttpSpeechOperation"
+    },
+    {
+      "name": "MiniMaxTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/minimax_tts_handler.py",
+      "line": 37,
+      "reason": "class: inherits from OpenAICompatibleTTSHandler"
+    },
+    {
+      "name": "OmniVoiceTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/omnivoice_handler.py",
+      "line": 25,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "SpeechRequestCancelled",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/openai_compatible_handler.py",
+      "line": 36,
+      "reason": "class: inherits from RuntimeError"
+    },
+    {
+      "name": "SpeechRequestError",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/openai_compatible_handler.py",
+      "line": 40,
+      "reason": "class: inherits from RuntimeError"
+    },
+    {
+      "name": "HttpSpeechOperation",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/openai_compatible_handler.py",
+      "line": 57,
+      "reason": "class: async or generator method `iter_bytes`, public attribute `api_key`, public attribute `endpoint_url`, public attribute `payload`, public attribute `response_format`, public attribute `timeout_s`, public attribute `trace`"
+    },
+    {
+      "name": "OpenAICompatibleTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/openai_compatible_handler.py",
+      "line": 361,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "PCMBlockBuffer",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/pcm_blocks.py",
+      "line": 6,
+      "reason": "class: async or generator method `flush`, async or generator method `push`, public attribute `blocksize`"
+    },
+    {
+      "name": "PhononTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/phonon_tts_handler.py",
+      "line": 93,
+      "reason": "class: `@property` method `min_time_to_debug`, async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "PersianPhonemizer",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/pocket_tts_farsi.py",
+      "line": 9,
+      "reason": "class: public attribute `device`, public attribute `model`, public attribute `tokenizer`, special method `__call__`"
+    },
+    {
+      "name": "PocketTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/pocket_tts_handler.py",
+      "line": 28,
+      "reason": "class: `@property` method `min_time_to_debug`, async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "Qwen3TTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/qwen3_tts_handler.py",
+      "line": 96,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "RivaTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/riva_tts_handler.py",
+      "line": 84,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "SupertonicTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/supertonic_tts_handler.py",
+      "line": 59,
+      "reason": "class: async or generator method `process`, inherits from BaseTTSHandler"
+    },
+    {
+      "name": "ZeroGPUTTSHandler",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/TTS/zerogpu_handler.py",
+      "line": 17,
+      "reason": "class: async or generator method `process`, inherits from BaseHandler[TTSIn, TTSOut]"
+    }
+  ]
+}

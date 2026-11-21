@@ -1,0 +1,340 @@
+{"fn": "fingerprint", "args": [null], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "fingerprint", "args": [{"a": "b"}], "error": "KeyError: 'url'"}
+{"fn": "fingerprint", "args": [0], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "fingerprint", "args": [["a", 1]], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "fingerprint", "args": [[]], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "fingerprint", "args": [{"a": {"b": "c"}}], "error": "KeyError: 'url'"}
+{"fn": "fingerprint", "args": [{}], "error": "KeyError: 'url'"}
+{"fn": "fingerprint", "args": [true], "error": "TypeError: 'bool' object is not subscriptable"}
+{"fn": "fingerprint", "args": ["x"], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "fingerprint", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "error": "KeyError: 'url'"}
+{"fn": "fingerprint", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "error": "KeyError: 'url'"}
+{"fn": "fingerprint", "args": [[3, 1, 2]], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, 0], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [["a", 1], ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, []], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [0, {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, {"a": {"b": "c"}}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [true, {"a": "b"}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [null, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, true], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{}, {}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[], ["a", 1]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": "b"}, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["X", "x"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": ["x", "X"], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [[3, 1, 2], null], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"a": {"b": "c"}}, [3, 1, 2]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "action_space", "args": [[]], "ok": {"$tuple": [[], {}, {}]}}
+{"fn": "action_space", "args": [{"a": {"b": "c"}}], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "action_space", "args": [true], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "action_space", "args": ["x"], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "action_space", "args": [null], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "action_space", "args": [{}], "ok": {"$tuple": [[], {}, {}]}}
+{"fn": "action_space", "args": [0], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "action_space", "args": [{"a": "b"}], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "action_space", "args": [["a", 1]], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "action_space", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "action_space", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "action_space", "args": [[3, 1, 2]], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [null, ["a", 1], {"a": "b"}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, true, true, true], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, [], [], 0], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, "x", {}, {"a": {"b": "c"}}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], [], ["a", 1], {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, {"a": "b"}, true, {"a": "b"}], "error": "TypeError: 'bool' object is not subscriptable"}
+{"fn": "field_context", "args": [0, {}, null, null], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, {"a": "b"}, 0, {"a": {"b": "c"}}], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [["a", 1], {"a": {"b": "c"}}, {}, "x"], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [["a", 1], {}, [], true], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [{"a": "b"}, "x", {"a": {"b": "c"}}, true], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], "x", 0, ["a", 1]], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], {"a": {"b": "c"}}, {"a": "b"}, 0], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [["a", 1], {}, ["a", 1], {}], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [null, {}, {"a": {"b": "c"}}, {"a": {"b": "c"}}], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [[], {"a": {"b": "c"}}, null, "x"], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "field_context", "args": [0, {"a": "b"}, ["a", 1], "x"], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [["a", 1], null, null, true], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, {}, 0, []], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [{"a": "b"}, {"a": "b"}, true, []], "error": "TypeError: 'bool' object is not subscriptable"}
+{"fn": "field_context", "args": [0, 0, null, {"a": "b"}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, "x", "x", true], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], ["a", 1], {"a": {"b": "c"}}, true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, null, {"a": "b"}, {}], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], "x", null, ["a", 1]], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], null, ["a", 1], 0], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", null, 0, null], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", {"a": {"b": "c"}}, "x", ["a", 1]], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "field_context", "args": [true, true, {"a": {"b": "c"}}, 0], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {}, [], {"a": {"b": "c"}}], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [{"a": "b"}, "x", [], ["a", 1]], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, null, null, null], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, true, {"a": {"b": "c"}}, []], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, {}, {"a": "b"}, ["a", 1]], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [{"a": "b"}, "x", ["a", 1], {}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, null, {"a": {"b": "c"}}, {"a": "b"}], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, true, {}, {"a": "b"}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {}, {"a": {"b": "c"}}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, {"a": "b"}, ["a", 1], 0], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [null, [], 0, {"a": "b"}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {"a": {"b": "c"}}, {"a": {"b": "c"}}, "x"], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": ["x", null, ["a", 1], 0], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, "x", ["a", 1], true], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", ["a", 1], true, true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], ["a", 1], 0, {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, {}, null, 0], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "field_context", "args": [0, ["a", 1], [], {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, "x", 0, {}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, {}, true, {"a": {"b": "c"}}], "error": "TypeError: 'bool' object is not subscriptable"}
+{"fn": "field_context", "args": [{"a": "b"}, {"a": "b"}, {}, "x"], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": ["x", {}, ["a", 1], {}], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [["a", 1], {}, {"a": {"b": "c"}}, 0], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [{"a": "b"}, {}, {"a": "b"}, null], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [[], true, ["a", 1], ["a", 1]], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", ["a", 1], [], ["a", 1]], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, 0, ["a", 1], {"a": {"b": "c"}}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", 0, {"a": "b"}, {"a": "b"}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, 0, "x", ["a", 1]], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, [], {"a": "b"}, true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", true, {"a": {"b": "c"}}, "x"], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, "x", {}, 0], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", {"a": {"b": "c"}}, true, 0], "error": "TypeError: 'bool' object is not subscriptable"}
+{"fn": "field_context", "args": [["a", 1], {}, [], {"a": "b"}], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [["a", 1], ["a", 1], ["a", 1], null], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, 0, true, {"a": {"b": "c"}}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, 0, {"a": {"b": "c"}}, {}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], [], [], {"a": "b"}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], [], true, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, {"a": "b"}, {"a": {"b": "c"}}, []], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [[], {"a": "b"}, 0, {}], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [0, null, 0, true], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, {"a": {"b": "c"}}, null, true], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "field_context", "args": ["x", null, {}, {"a": {"b": "c"}}], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], [], {}, true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, 0, {"a": "b"}, 0], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, true, "x", {}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, true, 0, "x"], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, true, [], true], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], {"a": "b"}, 0, ["a", 1]], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [true, ["a", 1], {}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, {}, ["a", 1], ["a", 1]], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [{}, null, null, true], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, "x", ["a", 1], 0], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {"a": "b"}, null, null], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "field_context", "args": ["x", ["a", 1], 0, 0], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, true, true, {"a": {"b": "c"}}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, {"a": "b"}, {"a": "b"}, "x"], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [{}, {"a": {"b": "c"}}, 0, "x"], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [[], {}, {}, {"a": {"b": "c"}}], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, "x", ["a", 1], []], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, "x", null, true], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, "x", {"a": "b"}, []], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, true, {"a": {"b": "c"}}, {"a": {"b": "c"}}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, {"a": {"b": "c"}}, "x", {"a": "b"}], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "field_context", "args": ["x", 0, {"a": "b"}, {"a": {"b": "c"}}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, {"a": "b"}, null, []], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "field_context", "args": [{"a": "b"}, "x", true, true], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, 0, [], {"a": {"b": "c"}}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, {"a": {"b": "c"}}, {}, null], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [["a", 1], {"a": "b"}, ["a", 1], null], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": ["x", {"a": {"b": "c"}}, {"a": {"b": "c"}}, {}], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": ["x", true, ["a", 1], "x"], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, null, ["a", 1], "x"], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], null, ["a", 1], null], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], true, {"a": "b"}, {}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, ["a", 1], [], []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, {"a": "b"}, "x", true], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "field_context", "args": [[], ["a", 1], {}, ["a", 1]], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, "x", null, ["a", 1]], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {"a": "b"}, {"a": {"b": "c"}}, {}], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [0, {"a": "b"}, 0, ["a", 1]], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [true, {"a": "b"}, 0, 0], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [null, {}, {}, null], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [["a", 1], 0, {}, ["a", 1]], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, null, 0, 0], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, ["a", 1], null, true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, null, {"a": {"b": "c"}}, ["a", 1]], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], ["a", 1], [], {"a": "b"}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, {"a": "b"}, {"a": {"b": "c"}}, {}], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [null, null, {"a": {"b": "c"}}, null], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, 0, {}, {"a": {"b": "c"}}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, null, "x", true], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], null, {"a": {"b": "c"}}, true], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, 0, ["a", 1], null], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], [], {}, ["a", 1]], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, 0, null, ["a", 1]], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, 0, [], {"a": {"b": "c"}}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, "x", {}, "x"], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, true, 0, ["a", 1]], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, {"a": "b"}, null, ["a", 1]], "error": "TypeError: 'NoneType' object is not subscriptable"}
+{"fn": "field_context", "args": [{}, "x", [], []], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", 0, null, {"a": {"b": "c"}}], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], ["a", 1], [], {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, 0, {"a": {"b": "c"}}, ["a", 1]], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], {"a": {"b": "c"}}, [], {"a": "b"}], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [0, {"a": "b"}, true, ["a", 1]], "error": "TypeError: 'bool' object is not subscriptable"}
+{"fn": "field_context", "args": [{}, true, null, ["a", 1]], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {"a": {"b": "c"}}, [], []], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, {"a": {"b": "c"}}, 0, null], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": ["x", true, null, "x"], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], "x", true, {"a": {"b": "c"}}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], null, null, "x"], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, null, null, {}], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {"a": {"b": "c"}}, {"a": "b"}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], [], ["a", 1], []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, {}, {}, {"a": {"b": "c"}}], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [{}, 0, null, true], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, "x", [], {"a": "b"}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], "x", [], []], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, ["a", 1], true, {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, "x", {"a": {"b": "c"}}, "x"], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, {"a": {"b": "c"}}, 0, {"a": {"b": "c"}}], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": [["a", 1], "x", true, ["a", 1]], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", null, [], []], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, true, [], {"a": "b"}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], true, [], null], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", true, {}, {}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, null, {}, null], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {}, "x", 0], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "field_context", "args": [[], true, "x", {}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], 0, "x", "x"], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", "x", {}, {}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, [], 0, {"a": "b"}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], "x", {}, []], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {"a": {"b": "c"}}, {"a": "b"}, true], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [{"a": "b"}, null, ["a", 1], {}], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], {"a": "b"}, [], 0], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [true, true, ["a", 1], {}], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, {"a": "b"}, 0, true], "error": "TypeError: 'int' object is not subscriptable"}
+{"fn": "field_context", "args": ["x", {}, ["a", 1], ["a", 1]], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [0, {}, [], {"a": "b"}], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [[], [], true, true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, null, 0, "x"], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, ["a", 1], {"a": "b"}, {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], [], {"a": {"b": "c"}}, {"a": "b"}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, [], ["a", 1], true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": "b"}, ["a", 1], "x", "x"], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, null, true, "x"], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, {}, [], {"a": "b"}], "error": "TypeError: list indices must be integers or slices, not str"}
+{"fn": "field_context", "args": [{"a": "b"}, 0, {"a": "b"}, 0], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, [], 0, {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], null, {"a": "b"}, ["a", 1]], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, [], true, null], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, null, {"a": "b"}, null], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], {}, {}, null], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [[], {}, "x", {"a": {"b": "c"}}], "error": "TypeError: string indices must be integers, not 'str'"}
+{"fn": "field_context", "args": [null, 0, "x", null], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"a": {"b": "c"}}, ["a", 1], 0, 0], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, [], {"a": "b"}, ["a", 1]], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], null, "x", 0], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], null, null, 0], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[], "x", 0, {"a": {"b": "c"}}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, "x", true, {}], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, true, 0, "x"], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "field_context", "args": [true, null, {"a": "b"}, []], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "field_context", "args": [0, "x", [], "x"], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "field_context", "args": ["x", ["a", 1], {"a": "b"}, 0], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, {"a": {"b": "c"}}, true, "x"], "error": "TypeError: 'bool' object is not subscriptable"}
+{"fn": "field_context", "args": ["x", ["a", 1], {}, true], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [["a", 1], {"a": {"b": "c"}}, {}, 0], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, ["a", 1], {"a": "b"}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, ["a", 1], {"a": "b"}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [[3, 1, 2], ["a", 1], {"a": "b"}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [{}, ["a", 1], {"a": "b"}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, {"a": "b"}, []], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [null, {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, {"a": "b"}, []], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [null, [3, 1, 2], {"a": "b"}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, {}, {"a": "b"}, []], "error": "KeyError: 'title'"}
+{"fn": "field_context", "args": [null, ["a", 1], {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], [3, 1, 2], []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {}, []], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {"a": "b"}, {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {"a": "b"}, {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {"a": "b"}, [3, 1, 2]], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "field_context", "args": [null, ["a", 1], {"a": "b"}, {}], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "fingerprint", "args": [{"url": "https://example.test/", "title": "Search", "text": "Search", "scroll": {"y": 0}, "actions": [{"id": "e1", "kind": "fill", "label": "Search", "role": "textbox", "value": "", "node": 10}, {"id": "e2", "kind": "click", "label": "Open Search", "role": "textbox", "value": "", "node": 10}, {"id": "e3", "kind": "click", "label": "Go", "role": "button", "value": "", "node": 20}, {"id": "wait", "kind": "wait", "label": "Wait"}]}], "ok": "c4416e8b83abb3aae2cdb612cb84dacdfa283614c0e3a8c3f5872799d7c0285f"}
+{"fn": "fingerprint", "args": [{"url": "https://www.google.com/travel/flights?hl=en", "text": "Zürich → London ✈️", "scroll": {"x": 0, "y": 420}, "actions": [], "screenshot": "ignored"}], "ok": "21d84bcc0d562eb7f0c654c3d3b9433d0358dac914db145696e1a7a7352d8b9a"}
+{"fn": "validate_choice", "args": [{"choice": "a", "confidence": 1.0, "probabilities": {"a": 1.0, "b": 0.0}}, ["a", "b"]], "ok": {"choice": "a", "confidence": {"$float": "1.0"}, "probabilities": {"a": {"$float": "1.0"}, "b": {"$float": "0.0"}}}}
+{"fn": "validate_choice", "args": [{"choice": "CLICK", "confidence": 0.92, "probabilities": {"CLICK": 0.7, "TYPE_TEXT": 0.2, "DONE": 0.1}}, ["CLICK", "TYPE_TEXT", "DONE"]], "ok": {"choice": "CLICK", "confidence": 0.92, "probabilities": {"CLICK": 0.7, "TYPE_TEXT": 0.2, "DONE": 0.1}}}
+{"fn": "validate_choice", "args": [{"choice": "a", "confidence": 0.5, "probabilities": {"a": 0.5, "b": 0.5}}, ["a", "b"]], "ok": {"choice": "a", "confidence": 0.5, "probabilities": {"a": 0.5, "b": 0.5}}}
+{"fn": "validate_choice", "args": [{"choice": "a", "confidence": true, "probabilities": {"a": 1.0, "b": 0.0}}, ["a", "b"]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "validate_choice", "args": [{"choice": "b", "confidence": 1.0, "probabilities": {"a": 0.9, "b": 0.1}}, ["a", "b"]], "error": "ValueError: Invalid TypeSafe response; no action executed."}
+{"fn": "action_space", "args": [[]], "ok": {"$tuple": [[], {}, {}]}}
+{"fn": "action_space", "args": [[{"id": "e1", "kind": "fill", "label": "Search", "role": "textbox", "value": "", "node": 10}, {"id": "e2", "kind": "click", "label": "Open Search → Dropdown", "role": "textbox", "value": "", "node": 10}, {"id": "e3", "kind": "click", "label": "Go", "role": "button", "value": "", "node": 20, "checked": "true", "selected": false, "expanded": true}, {"id": "s1", "kind": "select", "label": "Ticket → One way", "role": "combobox", "value": "one_way", "current_value": "round_trip", "node": 30}, {"id": "s2", "kind": "select", "label": "Ticket → Round trip", "role": "combobox", "value": "round_trip", "current_value": "round_trip", "node": 30}, {"id": "wait", "kind": "wait", "label": "Wait"}, {"id": "scroll_down", "kind": "scroll", "label": "Scroll down", "delta": 500}]], "ok": {"$tuple": [[{"role": "textbox", "value": "", "index": "1", "label": "Search", "operations": ["TYPE_TEXT", "CLICK"]}, {"role": "button", "value": "", "checked": "true", "selected": false, "expanded": true, "index": "2", "label": "Go", "operations": ["CLICK"]}, {"role": "combobox", "value": "round_trip", "index": "3", "label": "Ticket", "operations": ["SELECT"], "options": [{"index": "3:1", "label": "Ticket → One way", "value": "one_way"}, {"index": "3:2", "label": "Ticket → Round trip", "value": "round_trip"}]}], {"TYPE_TEXT": {"1": {"id": "e1", "kind": "fill", "label": "Search", "role": "textbox", "value": "", "node": 10}}, "CLICK": {"1": {"id": "e2", "kind": "click", "label": "Open Search → Dropdown", "role": "textbox", "value": "", "node": 10}, "2": {"id": "e3", "kind": "click", "label": "Go", "role": "button", "value": "", "node": 20, "checked": "true", "selected": false, "expanded": true}}, "SELECT": {"3:1": {"id": "s1", "kind": "select", "label": "Ticket → One way", "role": "combobox", "value": "one_way", "current_value": "round_trip", "node": 30}, "3:2": {"id": "s2", "kind": "select", "label": "Ticket → Round trip", "role": "combobox", "value": "round_trip", "current_value": "round_trip", "node": 30}}}, {"WAIT": {"id": "wait", "kind": "wait", "label": "Wait"}, "SCROLL_DOWN": {"id": "scroll_down", "kind": "scroll", "label": "Scroll down", "delta": 500}}]}}
+{"fn": "field_context", "args": ["Fly from \"Zurich\" to London", {"id": "e1", "kind": "fill", "label": "Where from?", "role": "combobox", "value": "Zürich"}, {"title": "Google Flights", "text": "Search flights from Zürich to London"}, [{"action": "Click Origin", "text": "", "kind": "click"}, {"action": "Type Origin", "text": "Zürich", "kind": "fill"}]], "ok": {"goal": "Fly from \"Zurich\" to London", "field": {"label": "Where from?", "role": "combobox", "value": "Zürich"}, "page": {"title": "Google Flights", "text": "Search flights from Zürich to London"}, "recent_actions": [{"action": "Click Origin", "text": ""}, {"action": "Type Origin", "text": "Zürich"}]}}
+{"fn": "field_context", "args": ["Goal", {}, {"title": "T", "text": "é"}, [{"action": "1"}, {"action": "2"}, {"action": "3"}, {"action": "4"}, {"action": "5"}, {"action": "6"}, {"action": "7", "text": "last"}]], "ok": {"goal": "Goal", "field": {"label": null, "role": null, "value": null}, "page": {"title": "T", "text": "é"}, "recent_actions": [{"action": "2", "text": null}, {"action": "3", "text": null}, {"action": "4", "text": null}, {"action": "5", "text": null}, {"action": "6", "text": null}, {"action": "7", "text": "last"}]}}

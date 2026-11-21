@@ -1,0 +1,276 @@
+{"fn": "safe_identifier", "args": [{"a": {"b": "c"}}], "ok": null}
+{"fn": "safe_identifier", "args": [0], "ok": null}
+{"fn": "safe_identifier", "args": [null], "ok": null}
+{"fn": "safe_identifier", "args": [{"a": "b"}], "ok": null}
+{"fn": "safe_identifier", "args": [["a", 1]], "ok": null}
+{"fn": "safe_identifier", "args": [[]], "ok": null}
+{"fn": "safe_identifier", "args": ["x"], "ok": "x"}
+{"fn": "safe_identifier", "args": [true], "ok": null}
+{"fn": "safe_identifier", "args": [{}], "ok": null}
+{"fn": "safe_identifier", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "ok": null}
+{"fn": "safe_identifier", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "ok": null}
+{"fn": "safe_identifier", "args": [[3, 1, 2]], "ok": null}
+{"fn": "next_power_of_2", "args": [255], "ok": 256}
+{"fn": "next_power_of_2", "args": [-2147483648], "ok": 4294967296}
+{"fn": "next_power_of_2", "args": [-100], "ok": 128}
+{"fn": "next_power_of_2", "args": [2], "ok": 2}
+{"fn": "next_power_of_2", "args": [2147483647], "ok": 2147483648}
+{"fn": "next_power_of_2", "args": [9223372036854775807], "ok": {"$int": "9223372036854775808"}}
+{"fn": "next_power_of_2", "args": [100], "ok": 128}
+{"fn": "next_power_of_2", "args": [0], "ok": 1}
+{"fn": "next_power_of_2", "args": [1], "ok": 1}
+{"fn": "next_power_of_2", "args": [7], "ok": 8}
+{"fn": "next_power_of_2", "args": [42], "ok": 64}
+{"fn": "next_power_of_2", "args": [-1], "ok": 4}
+{"fn": "next_power_of_2", "args": [-7], "ok": 16}
+{"fn": "next_power_of_2", "args": [2147483648], "ok": 2147483648}
+{"fn": "next_power_of_2", "args": [-2147483649], "ok": 4294967296}
+{"fn": "next_power_of_2", "args": [9007199254740993], "ok": {"$int": "18014398509481984"}}
+{"fn": "next_power_of_2", "args": [-9223372036854775808], "ok": {"$int": "18446744073709551616"}}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödéünïcödé", [], "Hello Worldstraße"], "error": "ValueError: Hello Worldstraße supports device 'auto' or one of: ; got 'ünïcödéünïcödé'."}
+{"fn": "validate_device", "args": ["line1\nline2./x/**/*.json", ["emoji 👍🏽 mix", "trailing.ΣΊΣΥΦΟΣ", "hello worlda😀b😀c"], "line1\nline2İstanbul"], "error": "ValueError: line1\nline2İstanbul supports device 'auto' or one of: emoji 👍🏽 mix, trailing.ΣΊΣΥΦΟΣ, hello worlda😀b😀c; got 'line1\\nline2./x/**/*.json'."}
+{"fn": "validate_device", "args": ["a.b.c", [], "a..b"], "error": "ValueError: a..b supports device 'auto' or one of: ; got 'a.b.c'."}
+{"fn": "validate_device", "args": ["line1\nline2", [], "key_name-1"], "error": "ValueError: key_name-1 supports device 'auto' or one of: ; got 'line1\\nline2'."}
+{"fn": "validate_device", "args": ["ab", [], ":"], "error": "ValueError: : supports device 'auto' or one of: ; got 'ab'."}
+{"fn": "validate_device", "args": ["tab\tseparated", ["emoji 👍🏽 mix"], "ab"], "error": "ValueError: ab supports device 'auto' or one of: emoji 👍🏽 mix; got 'tab\\tseparated'."}
+{"fn": "validate_device", "args": ["a😀b😀c", ["emoji 👍🏽 mixHello World", "{name} has {count} items"], "😀"], "error": "ValueError: 😀 supports device 'auto' or one of: emoji 👍🏽 mixHello World, {name} has {count} items; got 'a😀b😀c'."}
+{"fn": "validate_device", "args": ["line1\nline2straße", ["hello", "  padded  ns:key.path", "ΣΊΣΥΦΟΣ"], "İstanbul{name} has {count} items"], "error": "ValueError: İstanbul{name} has {count} items supports device 'auto' or one of: hello,   padded  ns:key.path, ΣΊΣΥΦΟΣ; got 'line1\\nline2straße'."}
+{"fn": "validate_device", "args": ["İstanbul", ["日本語のテキスト", "", "emoji 👍🏽 mix"], ""], "error": "ValueError:  supports device 'auto' or one of: 日本語のテキスト, , emoji 👍🏽 mix; got 'İstanbul'."}
+{"fn": "validate_device", "args": ["g", ["ab", "Hello World"], "trailing."], "error": "ValueError: trailing. supports device 'auto' or one of: ab, Hello World; got 'g'."}
+{"fn": "validate_device", "args": ["hello world", ["a..b./x/**/*.json", "abc"], "hello"], "error": "ValueError: hello supports device 'auto' or one of: a..b./x/**/*.json, abc; got 'hello world'."}
+{"fn": "validate_device", "args": ["tab\tseparated", [], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: ; got 'tab\\tseparated'."}
+{"fn": "validate_device", "args": ["a", ["ab", "😀", "abc"], "a"], "error": "ValueError: a supports device 'auto' or one of: ab, 😀, abc; got 'a'."}
+{"fn": "validate_device", "args": ["ünïcödé", [], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ; got 'ünïcödé'."}
+{"fn": "validate_device", "args": ["ns:key.path", ["straße"], "ünïcödé"], "error": "ValueError: ünïcödé supports device 'auto' or one of: straße; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["a:b:c", ["ΣΊΣΥΦΟΣ{name} has {count} items"], "Hello World"], "error": "ValueError: Hello World supports device 'auto' or one of: ΣΊΣΥΦΟΣ{name} has {count} items; got 'a:b:c'."}
+{"fn": "validate_device", "args": ["😀", [], "tab\tseparatedsrc/a/b.ts"], "error": "ValueError: tab\tseparatedsrc/a/b.ts supports device 'auto' or one of: ; got '😀'."}
+{"fn": "validate_device", "args": ["line1\nline2", ["tab\tseparatedtab\tseparated", "ns:key.pathkey_name-1"], "a.b.c"], "error": "ValueError: a.b.c supports device 'auto' or one of: tab\tseparatedtab\tseparated, ns:key.pathkey_name-1; got 'line1\\nline2'."}
+{"fn": "validate_device", "args": ["é", ["😀", "abca.b.c", "ab﻿bom"], "😀Hello World"], "error": "ValueError: 😀Hello World supports device 'auto' or one of: 😀, abca.b.c, ab﻿bom; got 'é'."}
+{"fn": "validate_device", "args": ["ns:key.path", ["a:b:c", "abc"], "a"], "error": "ValueError: a supports device 'auto' or one of: a:b:c, abc; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["hello", ["straße{name} has {count} items", "İstanbul", "emoji 👍🏽 mixtrailing."], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: straße{name} has {count} items, İstanbul, emoji 👍🏽 mixtrailing.; got 'hello'."}
+{"fn": "validate_device", "args": ["./x/**/*.json", ["é"], "a..b﻿bom"], "error": "ValueError: a..b﻿bom supports device 'auto' or one of: é; got './x/**/*.json'."}
+{"fn": "validate_device", "args": ["a:b:c", [], ""], "error": "ValueError:  supports device 'auto' or one of: ; got 'a:b:c'."}
+{"fn": "validate_device", "args": ["a..b", ["straße", "./x/**/*.json"], "."], "error": "ValueError: . supports device 'auto' or one of: straße, ./x/**/*.json; got 'a..b'."}
+{"fn": "validate_device", "args": ["hello world", ["trailing.emoji 👍🏽 mix", "ns:key.path"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: trailing.emoji 👍🏽 mix, ns:key.path; got 'hello world'."}
+{"fn": "validate_device", "args": ["Hello World", ["{name} has {count} itemsstraße", "a😀b😀c"], ".leading:"], "error": "ValueError: .leading: supports device 'auto' or one of: {name} has {count} itemsstraße, a😀b😀c; got 'Hello World'."}
+{"fn": "validate_device", "args": ["a😀b😀cns:key.path", ["﻿bom"], "H"], "error": "ValueError: H supports device 'auto' or one of: ﻿bom; got 'a😀b😀cns:key.path'."}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣ", [], ".leading"], "error": "ValueError: .leading supports device 'auto' or one of: ; got 'ΣΊΣΥΦΟΣ'."}
+{"fn": "validate_device", "args": ["straße", ["Hello Worlda.b.c"], "日本語のテキスト"], "error": "ValueError: 日本語のテキスト supports device 'auto' or one of: Hello Worlda.b.c; got 'straße'."}
+{"fn": "validate_device", "args": [":a", ["./x/**/*.jsonHELLO", "ns:key.path", "a.b.c"], "İstanbula..b"], "error": "ValueError: İstanbula..b supports device 'auto' or one of: ./x/**/*.jsonHELLO, ns:key.path, a.b.c; got ':a'."}
+{"fn": "validate_device", "args": ["a:b:c", ["HELLO", "line1\nline2", "key_name-1ünïcödé"], "😀"], "error": "ValueError: 😀 supports device 'auto' or one of: HELLO, line1\nline2, key_name-1ünïcödé; got 'a:b:c'."}
+{"fn": "validate_device", "args": ["tab\tseparated", [], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: ; got 'tab\\tseparated'."}
+{"fn": "validate_device", "args": ["  padded  ", ["atab\tseparated"], "a"], "error": "ValueError: a supports device 'auto' or one of: atab\tseparated; got '  padded  '."}
+{"fn": "validate_device", "args": ["日本語の", ["hello", "ns:key.path", "HELLOa..b"], "日本語のテキスト"], "error": "ValueError: 日本語のテキスト supports device 'auto' or one of: hello, ns:key.path, HELLOa..b; got '日本語の'."}
+{"fn": "validate_device", "args": ["﻿bom", ["a😀b😀c", "😀a.b.c", "😀{name} has {count} items"], "😀hello"], "error": "ValueError: 😀hello supports device 'auto' or one of: a😀b😀c, 😀a.b.c, 😀{name} has {count} items; got '\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé", [], "abc"], "error": "ValueError: abc supports device 'auto' or one of: ; got 'ünïcödé'."}
+{"fn": "validate_device", "args": ["a", ["a:b:c"], "hello worldünïcödé"], "error": "ValueError: hello worldünïcödé supports device 'auto' or one of: a:b:c; got 'a'."}
+{"fn": "validate_device", "args": ["a😀b😀ctrailing.", [""], "Hello World"], "error": "ValueError: Hello World supports device 'auto' or one of: ; got 'a😀b😀ctrailing.'."}
+{"fn": "validate_device", "args": ["key_name-1", ["日本語のテキスト", "ΣΊΣΥΦΟΣ日本語のテキスト"], "ame"], "error": "ValueError: ame supports device 'auto' or one of: 日本語のテキスト, ΣΊΣΥΦΟΣ日本語のテキスト; got 'key_name-1'."}
+{"fn": "validate_device", "args": [".leadinga", ["trailing.", "ns:key.path", "😀"], "a.b.c"], "error": "ValueError: a.b.c supports device 'auto' or one of: trailing., ns:key.path, 😀; got '.leadinga'."}
+{"fn": "validate_device", "args": ["  padded  ", ["key_name-1tab\tseparated", "hello world"], "  padde"], "error": "ValueError:   padde supports device 'auto' or one of: key_name-1tab\tseparated, hello world; got '  padded  '."}
+{"fn": "validate_device", "args": ["ab", [], "日本語のテキスト"], "error": "ValueError: 日本語のテキスト supports device 'auto' or one of: ; got 'ab'."}
+{"fn": "validate_device", "args": ["straße", [], "日本語のテキスト"], "error": "ValueError: 日本語のテキスト supports device 'auto' or one of: ; got 'straße'."}
+{"fn": "validate_device", "args": ["ns:key.path", ["日本語のテキスト"], "ns:key.pa"], "error": "ValueError: ns:key.pa supports device 'auto' or one of: 日本語のテキスト; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣ", ["é", "trailing."], "Hello World"], "error": "ValueError: Hello World supports device 'auto' or one of: é, trailing.; got 'ΣΊΣΥΦΟΣ'."}
+{"fn": "validate_device", "args": ["ünïcödé", ["hello", ":", "a:b:c"], "  padded  "], "error": "ValueError:   padded   supports device 'auto' or one of: hello, :, a:b:c; got 'ünïcödé'."}
+{"fn": "validate_device", "args": ["Hello Worldhello", ["  padded  ", "tab\tseparated"], "HELLO"], "error": "ValueError: HELLO supports device 'auto' or one of:   padded  , tab\tseparated; got 'Hello Worldhello'."}
+{"fn": "validate_device", "args": [".leadingé", ["ΣΊΣΥΦΟΣ", "line1\nline2emoji 👍🏽 mix", "a"], "﻿bom"], "error": "ValueError: ﻿bom supports device 'auto' or one of: ΣΊΣΥΦΟΣ, line1\nline2emoji 👍🏽 mix, a; got '.leadingé'."}
+{"fn": "validate_device", "args": ["ünïcödétrailing.", ["hello world", "src/a/b.ts  padded  "], "😀"], "error": "ValueError: 😀 supports device 'auto' or one of: hello world, src/a/b.ts  padded  ; got 'ünïcödétrailing.'."}
+{"fn": "validate_device", "args": ["src/a/b.ts", ["hello world"], "a"], "error": "ValueError: a supports device 'auto' or one of: hello world; got 'src/a/b.ts'."}
+{"fn": "validate_device", "args": ["a.b.cns:key.path", ["tab\tseparated"], "tab\tseparated"], "error": "ValueError: tab\tseparated supports device 'auto' or one of: tab\tseparated; got 'a.b.cns:key.path'."}
+{"fn": "validate_device", "args": [".leading", ["key_name-1"], "a.b.c"], "error": "ValueError: a.b.c supports device 'auto' or one of: key_name-1; got '.leading'."}
+{"fn": "validate_device", "args": ["ns:key.pathtrailing.", [], "  padded  ünïcödé"], "error": "ValueError:   padded  ünïcödé supports device 'auto' or one of: ; got 'ns:key.pathtrailing.'."}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣ", ["emoji 👍🏽 mix"], "İstanbul./x/**/*.json"], "error": "ValueError: İstanbul./x/**/*.json supports device 'auto' or one of: emoji 👍🏽 mix; got 'ΣΊΣΥΦΟΣ'."}
+{"fn": "validate_device", "args": ["c", [], "a.b.c"], "error": "ValueError: a.b.c supports device 'auto' or one of: ; got 'c'."}
+{"fn": "validate_device", "args": ["日本語のテキスト", ["ünïcödéHello World", "😀", ":"], "ス"], "error": "ValueError: ス supports device 'auto' or one of: ünïcödéHello World, 😀, :; got '日本語のテキスト'."}
+{"fn": "validate_device", "args": ["ns:key.path", [], "😀"], "error": "ValueError: 😀 supports device 'auto' or one of: ; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["ab", [], "HELLO"], "error": "ValueError: HELLO supports device 'auto' or one of: ; got 'ab'."}
+{"fn": "validate_device", "args": ["", [], "😀"], "error": "ValueError: 😀 supports device 'auto' or one of: ; got ''."}
+{"fn": "validate_device", "args": ["{name} has {count} items", ["a:b:c", "ns:key.path", "{name} has {count} items"], "e} has {count} ite"], "ok": null}
+{"fn": "validate_device", "args": ["ünïcödé", ["hello world", "src/a/b.ts", "tab\tseparated"], "./x/**/*.json"], "error": "ValueError: ./x/**/*.json supports device 'auto' or one of: hello world, src/a/b.ts, tab\tseparated; got 'ünïcödé'."}
+{"fn": "validate_device", "args": ["key_name-1😀", ["straße", "hello"], "😀"], "error": "ValueError: 😀 supports device 'auto' or one of: straße, hello; got 'key_name-1😀'."}
+{"fn": "validate_device", "args": [":", ["emoji 👍🏽 mix", "trailing.trailing.", "a"], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: emoji 👍🏽 mix, trailing.trailing., a; got ':'."}
+{"fn": "validate_device", "args": ["trailing.", [], "line1\nline2"], "error": "ValueError: line1\nline2 supports device 'auto' or one of: ; got 'trailing.'."}
+{"fn": "validate_device", "args": ["日本語のテキスト", ["a..b", ""], "  padded  "], "error": "ValueError:   padded   supports device 'auto' or one of: a..b, ; got '日本語のテキスト'."}
+{"fn": "validate_device", "args": ["straßesrc/a/b.ts", ["./x/**/*.json./x/**/*.json", "a:b:c"], "a.b.c"], "error": "ValueError: a.b.c supports device 'auto' or one of: ./x/**/*.json./x/**/*.json, a:b:c; got 'straßesrc/a/b.ts'."}
+{"fn": "validate_device", "args": ["😀", [], "a"], "error": "ValueError: a supports device 'auto' or one of: ; got '😀'."}
+{"fn": "validate_device", "args": ["line1\nline2", [], "n"], "error": "ValueError: n supports device 'auto' or one of: ; got 'line1\\nline2'."}
+{"fn": "validate_device", "args": ["e", ["src/a/b.ts", "a..b{name} has {count} items"], "line1\nline2"], "error": "ValueError: line1\nline2 supports device 'auto' or one of: src/a/b.ts, a..b{name} has {count} items; got 'e'."}
+{"fn": "validate_device", "args": ["😀", ["ünïcödé"], "HELLO"], "error": "ValueError: HELLO supports device 'auto' or one of: ünïcödé; got '😀'."}
+{"fn": "validate_device", "args": ["日本語のテキスト", ["emoji 👍🏽 mix", "a:b:c"], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: emoji 👍🏽 mix, a:b:c; got '日本語のテキスト'."}
+{"fn": "validate_device", "args": ["hello world", ["日本語のテキスト", "emoji 👍🏽 mix"], "rld"], "error": "ValueError: rld supports device 'auto' or one of: 日本語のテキスト, emoji 👍🏽 mix; got 'hello world'."}
+{"fn": "validate_device", "args": ["HELLO.leading", [], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: ; got 'HELLO.leading'."}
+{"fn": "validate_device", "args": ["boma..b", [":", "ΣΊΣΥΦΟΣ"], "﻿boma..b"], "error": "ValueError: ﻿boma..b supports device 'auto' or one of: :, ΣΊΣΥΦΟΣ; got 'boma..b'."}
+{"fn": "validate_device", "args": ["./x/**/*.json", ["﻿bom"], "é"], "error": "ValueError: é supports device 'auto' or one of: ﻿bom; got './x/**/*.json'."}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣ", ["a..bline1\nline2"], ":"], "error": "ValueError: : supports device 'auto' or one of: a..bline1\nline2; got 'ΣΊΣΥΦΟΣ'."}
+{"fn": "validate_device", "args": ["ns:key.path", ["src/a/b.ts"], ":"], "error": "ValueError: : supports device 'auto' or one of: src/a/b.ts; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["hello", ["ab"], "日本語のテキスト  padded  "], "error": "ValueError: 日本語のテキスト  padded   supports device 'auto' or one of: ab; got 'hello'."}
+{"fn": "validate_device", "args": ["Hello World", ["tab\tseparated  padded  "], ":line1\nline2"], "error": "ValueError: :line1\nline2 supports device 'auto' or one of: tab\tseparated  padded  ; got 'Hello World'."}
+{"fn": "validate_device", "args": ["日本語のテキスト", ["hello", "trailing."], "./x/**/*.json"], "error": "ValueError: ./x/**/*.json supports device 'auto' or one of: hello, trailing.; got '日本語のテキスト'."}
+{"fn": "validate_device", "args": ["a..babc", ["ünïcödé", ":a..b"], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: ünïcödé, :a..b; got 'a..babc'."}
+{"fn": "validate_device", "args": ["a.b.c", ["hello worldabc"], "trailing."], "error": "ValueError: trailing. supports device 'auto' or one of: hello worldabc; got 'a.b.c'."}
+{"fn": "validate_device", "args": ["abc", [":", ":", "emoji 👍🏽 mix"], ":"], "error": "ValueError: : supports device 'auto' or one of: :, :, emoji 👍🏽 mix; got 'abc'."}
+{"fn": "validate_device", "args": ["İstanbul", ["hello world", "a.b.c", "é"], "straße"], "error": "ValueError: straße supports device 'auto' or one of: hello world, a.b.c, é; got 'İstanbul'."}
+{"fn": "validate_device", "args": ["./x/**/*.jsona😀b😀c", ["abtrailing."], ".leading"], "error": "ValueError: .leading supports device 'auto' or one of: abtrailing.; got './x/**/*.jsona😀b😀c'."}
+{"fn": "validate_device", "args": ["a.b.c", ["{name} has {count} items", "key_name-1", "a:b:c"], "emoji 👍🏽 mix"], "error": "ValueError: emoji 👍🏽 mix supports device 'auto' or one of: {name} has {count} items, key_name-1, a:b:c; got 'a.b.c'."}
+{"fn": "validate_device", "args": ["", [":", ""], "emoji 👍🏽 mix"], "ok": null}
+{"fn": "validate_device", "args": ["a:b:c", ["  padded  ", "﻿bomhello", "ünïcödé"], "straße"], "error": "ValueError: straße supports device 'auto' or one of:   padded  , ﻿bomhello, ünïcödé; got 'a:b:c'."}
+{"fn": "validate_device", "args": ["a😀b😀c", ["😀", "HELLO", "key_name-1"], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: 😀, HELLO, key_name-1; got 'a😀b😀c'."}
+{"fn": "validate_device", "args": ["İstanbul", ["a.b.c", "a:b:c"], "trailing.emoji 👍🏽 mix"], "error": "ValueError: trailing.emoji 👍🏽 mix supports device 'auto' or one of: a.b.c, a:b:c; got 'İstanbul'."}
+{"fn": "validate_device", "args": ["  padded  line1\nline2", ["a", "﻿bom", "emoji 👍🏽 mix"], "src/a/b.ts"], "error": "ValueError: src/a/b.ts supports device 'auto' or one of: a, ﻿bom, emoji 👍🏽 mix; got '  padded  line1\\nline2'."}
+{"fn": "validate_device", "args": ["straße", [], "hello worldhello"], "error": "ValueError: hello worldhello supports device 'auto' or one of: ; got 'straße'."}
+{"fn": "validate_device", "args": ["ΣΊΣ", [], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: ; got 'ΣΊΣ'."}
+{"fn": "validate_device", "args": ["src/a/b.tshello", [":", ":", "a😀b😀c"], "ΣΊΣΥΦΟΣ.leading"], "error": "ValueError: ΣΊΣΥΦΟΣ.leading supports device 'auto' or one of: :, :, a😀b😀c; got 'src/a/b.tshello'."}
+{"fn": "validate_device", "args": ["a:b:c", [], "  padded  src/a/b.ts"], "error": "ValueError:   padded  src/a/b.ts supports device 'auto' or one of: ; got 'a:b:c'."}
+{"fn": "validate_device", "args": ["a", ["a", "a😀b😀c", ""], "a"], "ok": null}
+{"fn": "validate_device", "args": ["tab\tseparated", ["abca.b.c", "./x/**/*.json", "{name} has {count} items"], "trailing."], "error": "ValueError: trailing. supports device 'auto' or one of: abca.b.c, ./x/**/*.json, {name} has {count} items; got 'tab\\tseparated'."}
+{"fn": "validate_device", "args": ["  padded  key_name-1", ["a.b.c", "ΣΊΣΥΦΟΣ"], "emoji 👍🏽 mix"], "error": "ValueError: emoji 👍🏽 mix supports device 'auto' or one of: a.b.c, ΣΊΣΥΦΟΣ; got '  padded  key_name-1'."}
+{"fn": "validate_device", "args": ["a😀b😀c", [], "ab"], "error": "ValueError: ab supports device 'auto' or one of: ; got 'a😀b😀c'."}
+{"fn": "validate_device", "args": ["a😀b😀c", ["{name} has {count} items", "a:b:cünïcödé", "﻿bom"], "tab\tseparateda.b.c"], "error": "ValueError: tab\tseparateda.b.c supports device 'auto' or one of: {name} has {count} items, a:b:cünïcödé, ﻿bom; got 'a😀b😀c'."}
+{"fn": "validate_device", "args": ["line1\nline2", ["trailing.", "😀"], ""], "error": "ValueError:  supports device 'auto' or one of: trailing., 😀; got 'line1\\nline2'."}
+{"fn": "validate_device", "args": [":b:cns:k", ["hello"], "a:b:cns:key.path"], "error": "ValueError: a:b:cns:key.path supports device 'auto' or one of: hello; got ':b:cns:k'."}
+{"fn": "validate_device", "args": ["﻿bom", ["hello world", "{name} has {count} items"], ":"], "error": "ValueError: : supports device 'auto' or one of: hello world, {name} has {count} items; got '\\ufeffbom'."}
+{"fn": "validate_device", "args": ["trailing.", ["HELLO"], "ab"], "error": "ValueError: ab supports device 'auto' or one of: HELLO; got 'trailing.'."}
+{"fn": "validate_device", "args": ["ne1\nli", [], "line1\nline2"], "error": "ValueError: line1\nline2 supports device 'auto' or one of: ; got 'ne1\\nli'."}
+{"fn": "validate_device", "args": [".leading", ["key_name-1"], "éstraße"], "error": "ValueError: éstraße supports device 'auto' or one of: key_name-1; got '.leading'."}
+{"fn": "validate_device", "args": ["é", [":", "日本語のテキスト"], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: :, 日本語のテキスト; got 'é'."}
+{"fn": "validate_device", "args": ["abc", [":"], "a"], "error": "ValueError: a supports device 'auto' or one of: :; got 'abc'."}
+{"fn": "validate_device", "args": ["😀", ["hello", "./x/**/*.json"], "helloa😀b😀c"], "error": "ValueError: helloa😀b😀c supports device 'auto' or one of: hello, ./x/**/*.json; got '😀'."}
+{"fn": "validate_device", "args": ["straßea.b.c", ["./x/**/*.json", "ΣΊΣΥΦΟΣİstanbul"], "trailing."], "error": "ValueError: trailing. supports device 'auto' or one of: ./x/**/*.json, ΣΊΣΥΦΟΣİstanbul; got 'straßea.b.c'."}
+{"fn": "validate_device", "args": ["trailing.HELLO", ["a", ":"], "Hello World"], "error": "ValueError: Hello World supports device 'auto' or one of: a, :; got 'trailing.HELLO'."}
+{"fn": "validate_device", "args": [".leading", ["straße"], "line1\nline2"], "error": "ValueError: line1\nline2 supports device 'auto' or one of: straße; got '.leading'."}
+{"fn": "validate_device", "args": ["Hello World", ["ns:key.path", "ΣΊΣΥΦΟΣ", "atrailing."], " World"], "error": "ValueError:  World supports device 'auto' or one of: ns:key.path, ΣΊΣΥΦΟΣ, atrailing.; got 'Hello World'."}
+{"fn": "validate_device", "args": ["straßea.b.c", ["ab", "ns:key.path.leading", "HELLO"], "line1\nline2"], "error": "ValueError: line1\nline2 supports device 'auto' or one of: ab, ns:key.path.leading, HELLO; got 'straßea.b.c'."}
+{"fn": "validate_device", "args": ["tab\tseparated", [], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ; got 'tab\\tseparated'."}
+{"fn": "validate_device", "args": ["trailing.", ["{name} has {count} items日本語のテキスト", "hello world", "a..b"], ""], "error": "ValueError:  supports device 'auto' or one of: {name} has {count} items日本語のテキスト, hello world, a..b; got 'trailing.'."}
+{"fn": "validate_device", "args": ["{name} has {count} items", ["a:b:c", "Hello World"], "hello"], "error": "ValueError: hello supports device 'auto' or one of: a:b:c, Hello World; got '{name} has {count} items'."}
+{"fn": "validate_device", "args": ["", [], "Hello World"], "error": "ValueError: Hello World supports device 'auto' or one of: ; got ''."}
+{"fn": "validate_device", "args": ["trailing.", [], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: ; got 'trailing.'."}
+{"fn": "validate_device", "args": ["a:b:c", ["é"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: é; got 'a:b:c'."}
+{"fn": "validate_device", "args": ["Hello World", ["日本語のテキスト", "tab\tseparated"], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: 日本語のテキスト, tab\tseparated; got 'Hello World'."}
+{"fn": "validate_device", "args": [":", ["ab"], ":"], "error": "ValueError: : supports device 'auto' or one of: ab; got ':'."}
+{"fn": "validate_device", "args": ["hello", ["ΣΊΣΥΦΟΣ", "straßeemoji 👍🏽 mix"], "Hello World"], "error": "ValueError: Hello World supports device 'auto' or one of: ΣΊΣΥΦΟΣ, straßeemoji 👍🏽 mix; got 'hello'."}
+{"fn": "validate_device", "args": ["Hello Worldhello", ["helloab", "tab\tseparatedİstanbul"], "HELLO"], "error": "ValueError: HELLO supports device 'auto' or one of: helloab, tab\tseparatedİstanbul; got 'Hello Worldhello'."}
+{"fn": "validate_device", "args": ["{name} has {count} itemsİstanbul", ["ab", "😀"], "trailing."], "error": "ValueError: trailing. supports device 'auto' or one of: ab, 😀; got '{name} has {count} itemsİstanbul'."}
+{"fn": "validate_device", "args": ["é", ["Hello World", "ΣΊΣΥΦΟΣ", "hello"], "ünïcödéa.b.c"], "error": "ValueError: ünïcödéa.b.c supports device 'auto' or one of: Hello World, ΣΊΣΥΦΟΣ, hello; got 'é'."}
+{"fn": "validate_device", "args": ["A", ["abc", "﻿bomHELLO"], "a"], "error": "ValueError: a supports device 'auto' or one of: abc, ﻿bomHELLO; got 'A'."}
+{"fn": "validate_device", "args": ["😀", ["src/a/b.ts"], "src/a/b.ts"], "error": "ValueError: src/a/b.ts supports device 'auto' or one of: src/a/b.ts; got '😀'."}
+{"fn": "validate_device", "args": ["ünïcödé", ["trailing.", "line1\nline2"], "😀trailing."], "error": "ValueError: 😀trailing. supports device 'auto' or one of: trailing., line1\nline2; got 'ünïcödé'."}
+{"fn": "validate_device", "args": ["ns:key.path", ["key_name-1"], "key_name-1"], "error": "ValueError: key_name-1 supports device 'auto' or one of: key_name-1; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["straße", ["日本語のテキスト"], "é"], "error": "ValueError: é supports device 'auto' or one of: 日本語のテキスト; got 'straße'."}
+{"fn": "validate_device", "args": ["hello world", ["﻿bom"], "ΣΊΣΥΦΟΣstraße"], "error": "ValueError: ΣΊΣΥΦΟΣstraße supports device 'auto' or one of: ﻿bom; got 'hello world'."}
+{"fn": "validate_device", "args": [" ", ["ΣΊΣΥΦΟΣline1\nline2"], "  padded  "], "error": "ValueError:   padded   supports device 'auto' or one of: ΣΊΣΥΦΟΣline1\nline2; got ' '."}
+{"fn": "validate_device", "args": ["hello", ["﻿bom", "emoji 👍🏽 mix"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, emoji 👍🏽 mix; got 'hello'."}
+{"fn": "validate_device", "args": ["ab", ["Hello World", "Hello World"], "ab"], "error": "ValueError: ab supports device 'auto' or one of: Hello World, Hello World; got 'ab'."}
+{"fn": "validate_device", "args": ["line1\nline2abc", [], "ünïcödé"], "error": "ValueError: ünïcödé supports device 'auto' or one of: ; got 'line1\\nline2abc'."}
+{"fn": "validate_device", "args": ["src/a/b.ts", ["HELLO:", "﻿bom", "{name} has {count} itemsé"], ":"], "error": "ValueError: : supports device 'auto' or one of: HELLO:, ﻿bom, {name} has {count} itemsé; got 'src/a/b.ts'."}
+{"fn": "validate_device", "args": ["😀", [], "😀"], "error": "ValueError: 😀 supports device 'auto' or one of: ; got '😀'."}
+{"fn": "validate_device", "args": ["src/a/b.ts", ["key_name-1", "Hello Worldkey_name-1"], "a.b.c"], "error": "ValueError: a.b.c supports device 'auto' or one of: key_name-1, Hello Worldkey_name-1; got 'src/a/b.ts'."}
+{"fn": "validate_device", "args": ["Hello World", ["{name} has {count} itemsa😀b😀c"], "line1\nline2a:b:c"], "error": "ValueError: line1\nline2a:b:c supports device 'auto' or one of: {name} has {count} itemsa😀b😀c; got 'Hello World'."}
+{"fn": "validate_device", "args": ["line1\nline2", ["Hello World﻿bom", "a", "aba😀b😀c"], "{name} has {count} items"], "error": "ValueError: {name} has {count} items supports device 'auto' or one of: Hello World﻿bom, a, aba😀b😀c; got 'line1\\nline2'."}
+{"fn": "validate_device", "args": ["a..b", [], "a"], "error": "ValueError: a supports device 'auto' or one of: ; got 'a..b'."}
+{"fn": "validate_device", "args": ["tab\tseparatedtrailing.", ["key_name-1", "ünïcödé", "日本語のテキスト"], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: key_name-1, ünïcödé, 日本語のテキスト; got 'tab\\tseparatedtrailing.'."}
+{"fn": "validate_device", "args": ["straßeİstanbul", ["a..btab\tseparated", ":src/a/b.ts", "a:b:c"], ".leading"], "error": "ValueError: .leading supports device 'auto' or one of: a..btab\tseparated, :src/a/b.ts, a:b:c; got 'straßeİstanbul'."}
+{"fn": "validate_device", "args": ["", ["ünïcödé", "./x/**/*.json"], "{name} has {count} items"], "error": "ValueError: {name} has {count} items supports device 'auto' or one of: ünïcödé, ./x/**/*.json; got ''."}
+{"fn": "validate_device", "args": ["İstanbul", ["emoji 👍🏽 mix"], "HELLO"], "error": "ValueError: HELLO supports device 'auto' or one of: emoji 👍🏽 mix; got 'İstanbul'."}
+{"fn": "validate_device", "args": ["trailing.", ["😀", "straße"], "raili"], "error": "ValueError: raili supports device 'auto' or one of: 😀, straße; got 'trailing.'."}
+{"fn": "validate_device", "args": ["a:b:cstraße", ["a..b", "emoji 👍🏽 mix"], "﻿bom"], "error": "ValueError: ﻿bom supports device 'auto' or one of: a..b, emoji 👍🏽 mix; got 'a:b:cstraße'."}
+{"fn": "validate_device", "args": ["hello world./x/**/*.json", [], "İstanbul"], "error": "ValueError: İstanbul supports device 'auto' or one of: ; got 'hello world./x/**/*.json'."}
+{"fn": "validate_device", "args": ["a", ["﻿bom日本語のテキスト"], "A"], "error": "ValueError: A supports device 'auto' or one of: ﻿bom日本語のテキスト; got 'a'."}
+{"fn": "validate_device", "args": ["é", ["tab\tseparated", "a:b:ca:b:c"], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: tab\tseparated, a:b:ca:b:c; got 'é'."}
+{"fn": "validate_device", "args": ["﻿bomkey_name-1", ["a:b:c"], "ns:key.path"], "error": "ValueError: ns:key.path supports device 'auto' or one of: a:b:c; got '\\ufeffbomkey_name-1'."}
+{"fn": "validate_device", "args": [".leadingünïcödé", ["a", "hello world"], "ünïcödéünïcödé"], "error": "ValueError: ünïcödéünïcödé supports device 'auto' or one of: a, hello world; got '.leadingünïcödé'."}
+{"fn": "validate_device", "args": ["a😀b", ["ünïcödé", "a😀b😀ca:b:c", "emoji 👍🏽 mixns:key.path"], ":a😀b😀c"], "error": "ValueError: :a😀b😀c supports device 'auto' or one of: ünïcödé, a😀b😀ca:b:c, emoji 👍🏽 mixns:key.path; got 'a😀b'."}
+{"fn": "validate_device", "args": ["", ["a:b:c", "", "ab"], ":abc"], "ok": null}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣ", ["hello"], "key_name-1"], "error": "ValueError: key_name-1 supports device 'auto' or one of: hello; got 'ΣΊΣΥΦΟΣ'."}
+{"fn": "validate_device", "args": ["a..b", ["./x/**/*.json", "İstanbul"], "Hello World"], "error": "ValueError: Hello World supports device 'auto' or one of: ./x/**/*.json, İstanbul; got 'a..b'."}
+{"fn": "validate_device", "args": ["abca", ["abc", "./x/**/*.json"], "tab\tseparated"], "error": "ValueError: tab\tseparated supports device 'auto' or one of: abc, ./x/**/*.json; got 'abca'."}
+{"fn": "validate_device", "args": ["", ["hello world"], "abc日本語のテキスト"], "error": "ValueError: abc日本語のテキスト supports device 'auto' or one of: hello world; got ''."}
+{"fn": "validate_device", "args": ["a..b", ["😀İstanbul", "  padded  ", "key_name-1"], "straßesrc/a/b.ts"], "error": "ValueError: straßesrc/a/b.ts supports device 'auto' or one of: 😀İstanbul,   padded  , key_name-1; got 'a..b'."}
+{"fn": "validate_device", "args": ["./x/**/*.jsonab", [], "﻿bomline1\nline2"], "error": "ValueError: ﻿bomline1\nline2 supports device 'auto' or one of: ; got './x/**/*.jsonab'."}
+{"fn": "validate_device", "args": ["HELLO", ["a:b:c", "", "hello"], "line1\nline2"], "error": "ValueError: line1\nline2 supports device 'auto' or one of: a:b:c, , hello; got 'HELLO'."}
+{"fn": "validate_device", "args": ["./x/**/*.json", ["", "ns:key.patha😀b😀c", "  padded  "], "a😀b😀c"], "error": "ValueError: a😀b😀c supports device 'auto' or one of: , ns:key.patha😀b😀c,   padded  ; got './x/**/*.json'."}
+{"fn": "validate_device", "args": ["abc", ["a😀b😀c"], "key_name-1hello world"], "error": "ValueError: key_name-1hello world supports device 'auto' or one of: a😀b😀c; got 'abc'."}
+{"fn": "validate_device", "args": ["./x/**/*.json", ["  padded  ", "﻿bom", "😀"], "  padded  "], "error": "ValueError:   padded   supports device 'auto' or one of:   padded  , ﻿bom, 😀; got './x/**/*.json'."}
+{"fn": "validate_device", "args": ["emoji 👍🏽 mix日本語のテキスト", ["Hello World.leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: Hello World.leading; got 'emoji 👍🏽 mix日本語のテキスト'."}
+{"fn": "validate_device", "args": ["key_name-1", ["emoji 👍🏽 mix", "straße", "😀"], "{name} has {count} items"], "error": "ValueError: {name} has {count} items supports device 'auto' or one of: emoji 👍🏽 mix, straße, 😀; got 'key_name-1'."}
+{"fn": "validate_device", "args": ["日本語のテキスト", [], "emoji 👍🏽 mix"], "error": "ValueError: emoji 👍🏽 mix supports device 'auto' or one of: ; got '日本語のテキスト'."}
+{"fn": "validate_device", "args": ["", ["ab./x/**/*.json", "ab"], "aa😀b😀c"], "error": "ValueError: aa😀b😀c supports device 'auto' or one of: ab./x/**/*.json, ab; got ''."}
+{"fn": "validate_device", "args": ["a..b", ["ünïcödé", "./x/**/*.json"], "abcünïcödé"], "error": "ValueError: abcünïcödé supports device 'auto' or one of: ünïcödé, ./x/**/*.json; got 'a..b'."}
+{"fn": "validate_device", "args": [".leading  padded  ", ["trailing.", "src/a/b.tstab\tseparated", "a..bΣΊΣΥΦΟΣ"], ":"], "error": "ValueError: : supports device 'auto' or one of: trailing., src/a/b.tstab\tseparated, a..bΣΊΣΥΦΟΣ; got '.leading  padded  '."}
+{"fn": "validate_device", "args": ["Hello World", ["emoji 👍🏽 mix", "a:b:c"], "a😀b😀c"], "error": "ValueError: a😀b😀c supports device 'auto' or one of: emoji 👍🏽 mix, a:b:c; got 'Hello World'."}
+{"fn": "validate_device", "args": ["  padded  ", ["a﻿bom", "a.b.c"], "dded "], "error": "ValueError: dded  supports device 'auto' or one of: a﻿bom, a.b.c; got '  padded  '."}
+{"fn": "validate_device", "args": ["key_name-1", ["abc", "HELLO", "a.b.cemoji 👍🏽 mix"], "日本語のテキスト"], "error": "ValueError: 日本語のテキスト supports device 'auto' or one of: abc, HELLO, a.b.cemoji 👍🏽 mix; got 'key_name-1'."}
+{"fn": "validate_device", "args": ["﻿", ["日本語のテキスト", ".leading", "./x/**/*.json"], "﻿bom"], "error": "ValueError: ﻿bom supports device 'auto' or one of: 日本語のテキスト, .leading, ./x/**/*.json; got '\\ufeff'."}
+{"fn": "validate_device", "args": ["Hello World", ["a..b", "a😀b😀c", "hello"], "tab\tseparated"], "error": "ValueError: tab\tseparated supports device 'auto' or one of: a..b, a😀b😀c, hello; got 'Hello World'."}
+{"fn": "validate_device", "args": ["a", [], "tab\tseparatedemoji 👍🏽 mix"], "error": "ValueError: tab\tseparatedemoji 👍🏽 mix supports device 'auto' or one of: ; got 'a'."}
+{"fn": "validate_device", "args": ["İstanbul", [":"], "tab\tseparated"], "error": "ValueError: tab\tseparated supports device 'auto' or one of: :; got 'İstanbul'."}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣ", ["emoji 👍🏽 mix", "a"], "hello worldtrailing."], "error": "ValueError: hello worldtrailing. supports device 'auto' or one of: emoji 👍🏽 mix, a; got 'ΣΊΣΥΦΟΣ'."}
+{"fn": "validate_device", "args": ["é", ["a:b:c"], "é"], "error": "ValueError: é supports device 'auto' or one of: a:b:c; got 'é'."}
+{"fn": "validate_device", "args": ["  padded  ", ["  padded  "], ""], "ok": null}
+{"fn": "validate_device", "args": ["key_name-1", [], "a..b"], "error": "ValueError: a..b supports device 'auto' or one of: ; got 'key_name-1'."}
+{"fn": "validate_device", "args": ["ns:key.path", ["trailing.", "tab\tseparated", "tab\tseparated"], "emoji 👍🏽 mix"], "error": "ValueError: emoji 👍🏽 mix supports device 'auto' or one of: trailing., tab\tseparated, tab\tseparated; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["a😀b😀c", ["line1\nline2", "./x/**/*.json"], "  padded  "], "error": "ValueError:   padded   supports device 'auto' or one of: line1\nline2, ./x/**/*.json; got 'a😀b😀c'."}
+{"fn": "validate_device", "args": ["a.b.c.leading", ["", "HELLOa:b:c", "a..b"], "a..ba..b"], "error": "ValueError: a..ba..b supports device 'auto' or one of: , HELLOa:b:c, a..b; got 'a.b.c.leading'."}
+{"fn": "validate_device", "args": ["./x/**/*.json", ["a", "atrailing.", "straßesrc/a/b.ts"], "﻿bomtab\tseparated"], "error": "ValueError: ﻿bomtab\tseparated supports device 'auto' or one of: a, atrailing., straßesrc/a/b.ts; got './x/**/*.json'."}
+{"fn": "validate_device", "args": ["O", ["Hello World"], "HELLO"], "error": "ValueError: HELLO supports device 'auto' or one of: Hello World; got 'O'."}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣns:key.path", [], ""], "error": "ValueError:  supports device 'auto' or one of: ; got 'ΣΊΣΥΦΟΣns:key.path'."}
+{"fn": "validate_device", "args": ["straßens:key.path", [":"], "hello"], "error": "ValueError: hello supports device 'auto' or one of: :; got 'straßens:key.path'."}
+{"fn": "validate_device", "args": ["ünïcödéabc", ["  padded  "], "emoji 👍🏽 mix"], "error": "ValueError: emoji 👍🏽 mix supports device 'auto' or one of:   padded  ; got 'ünïcödéabc'."}
+{"fn": "validate_device", "args": ["nhe", ["./x/**/*.json"], "./x/**/*.jsonhello world"], "error": "ValueError: ./x/**/*.jsonhello world supports device 'auto' or one of: ./x/**/*.json; got 'nhe'."}
+{"fn": "validate_device", "args": ["a:b:c", ["ünïcödé"], ""], "error": "ValueError:  supports device 'auto' or one of: ünïcödé; got 'a:b:c'."}
+{"fn": "validate_device", "args": ["😀", [""], "line1\nline2"], "error": "ValueError: line1\nline2 supports device 'auto' or one of: ; got '😀'."}
+{"fn": "validate_device", "args": ["./x/**/*.json", ["a:b:c", "emoji 👍🏽 mix"], ""], "error": "ValueError:  supports device 'auto' or one of: a:b:c, emoji 👍🏽 mix; got './x/**/*.json'."}
+{"fn": "validate_device", "args": ["日本語のテキスト", ["a", "tab\tseparated", "HELLO"], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: a, tab\tseparated, HELLO; got '日本語のテキスト'."}
+{"fn": "validate_device", "args": ["ns:key.path", ["ab", "a", "😀"], "日本語のテキストab"], "error": "ValueError: 日本語のテキストab supports device 'auto' or one of: ab, a, 😀; got 'ns:key.path'."}
+{"fn": "validate_device", "args": ["ns:key.pathab", [".leading", "{name} has {count} items", "😀"], "a:b:c"], "error": "ValueError: a:b:c supports device 'auto' or one of: .leading, {name} has {count} items, 😀; got 'ns:key.pathab'."}
+{"fn": "validate_device", "args": ["Hello Worldİstanbul", ["a..b", "./x/**/*.json"], "日本語のテキストİstanbul"], "error": "ValueError: 日本語のテキストİstanbul supports device 'auto' or one of: a..b, ./x/**/*.json; got 'Hello Worldİstanbul'."}
+{"fn": "validate_device", "args": ["a😀b😀cabc", ["key_name-1", "ab", "emoji 👍🏽 mix"], "cabc"], "error": "ValueError: cabc supports device 'auto' or one of: key_name-1, ab, emoji 👍🏽 mix; got 'a😀b😀cabc'."}
+{"fn": "validate_device", "args": ["héllo wörld", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'héllo wörld'."}
+{"fn": "validate_device", "args": ["👍🏽 thumbs", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got '👍🏽 thumbs'."}
+{"fn": "validate_device", "args": ["日本語", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got '日本語'."}
+{"fn": "validate_device", "args": ["", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got ''."}
+{"fn": "validate_device", "args": ["é", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'é'."}
+{"fn": "validate_device", "args": ["İstanbul", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'İstanbul'."}
+{"fn": "validate_device", "args": ["straße", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'straße'."}
+{"fn": "validate_device", "args": ["ılık ırmak", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'ılık ırmak'."}
+{"fn": "validate_device", "args": ["👨‍👩‍👧 family", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got '👨\\u200d👩\\u200d👧 family'."}
+{"fn": "validate_device", "args": ["a b", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'a\\xa0b'."}
+{"fn": "validate_device", "args": ["ΣΊΣΥΦΟΣ", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'ΣΊΣΥΦΟΣ'."}
+{"fn": "validate_device", "args": ["a😀b", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'a😀b'."}
+{"fn": "validate_device", "args": ["﻿bom", ["﻿bom", ".leading"], "hello world"], "ok": null}
+{"fn": "validate_device", "args": ["a²b x½ y①", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'a²b x½ y①'."}
+{"fn": "validate_device", "args": ["aⅠb Ⅻ", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'aⅠb Ⅻ'."}
+{"fn": "validate_device", "args": ["a𐐀b 𝐀bc", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'a𐐀b 𝐀bc'."}
+{"fn": "validate_device", "args": ["कि ٣٤", ["﻿bom", ".leading"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ﻿bom, .leading; got 'कि ٣٤'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", [], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: ; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["b", "a", "B", "é", "10", "9", "a"], "hello world"], "error": "ValueError: hello world supports device 'auto' or one of: b, a, B, é, 10, 9, a; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "héllo wörld"], "error": "ValueError: héllo wörld supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "👍🏽 thumbs"], "error": "ValueError: 👍🏽 thumbs supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "日本語"], "error": "ValueError: 日本語 supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], ""], "error": "ValueError:  supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "é"], "error": "ValueError: é supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "İstanbul"], "error": "ValueError: İstanbul supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "straße"], "error": "ValueError: straße supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "ılık ırmak"], "error": "ValueError: ılık ırmak supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "👨‍👩‍👧 family"], "error": "ValueError: 👨‍👩‍👧 family supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "a b"], "error": "ValueError: a b supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "ΣΊΣΥΦΟΣ"], "error": "ValueError: ΣΊΣΥΦΟΣ supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "a😀b"], "error": "ValueError: a😀b supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "﻿bom"], "error": "ValueError: ﻿bom supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "a²b x½ y①"], "error": "ValueError: a²b x½ y① supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "aⅠb Ⅻ"], "error": "ValueError: aⅠb Ⅻ supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "a𐐀b 𝐀bc"], "error": "ValueError: a𐐀b 𝐀bc supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "validate_device", "args": ["ünïcödé﻿bom", ["﻿bom", ".leading"], "कि ٣٤"], "error": "ValueError: कि ٣٤ supports device 'auto' or one of: ﻿bom, .leading; got 'ünïcödé\\ufeffbom'."}
+{"fn": "safe_identifier", "args": ["req_123-abc.456"], "ok": "req_123-abc.456"}
+{"fn": "safe_identifier", "args": ["invalid id with spaces"], "ok": null}
+{"fn": "safe_identifier", "args": ["Zürich"], "ok": null}
+{"fn": "safe_identifier", "args": [""], "ok": null}
+{"fn": "next_power_of_2", "args": [0], "ok": 1}
+{"fn": "next_power_of_2", "args": [1], "ok": 1}
+{"fn": "next_power_of_2", "args": [512], "ok": 512}
+{"fn": "next_power_of_2", "args": [1000], "ok": 1024}
+{"fn": "validate_device", "args": ["auto", ["cuda", "cpu"], "SileroVAD"], "ok": null}
+{"fn": "validate_device", "args": ["cuda:0", ["cuda", "cpu"], "SileroVAD"], "ok": null}
+{"fn": "validate_device", "args": ["mps", ["cuda", "cpu"], "SileroVAD"], "error": "ValueError: SileroVAD supports device 'auto' or one of: cuda, cpu; got 'mps'."}

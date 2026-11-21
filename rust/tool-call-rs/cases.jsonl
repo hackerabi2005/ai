@@ -1,0 +1,464 @@
+{"fn": "find_json_tool_call_end", "args": ["./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a..b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":a..b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["İstanbul"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["emoji 👍🏽 mixline1\nline2"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語のテキスト"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["Hello World"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [""], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ΣΊΣΥΦΟΣ﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ab﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparatedtab\tseparated"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ünïcödé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a😀b😀c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abc"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.ts.leading"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ab"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.c﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["é"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.tsΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparated"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hello world"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["  padded  ﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["  padded  "], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hello"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abcstraße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a😀b😀c.leading"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["emoji 👍🏽 mix"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["trailing."], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["HELLO"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a:b:c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ns:key.path"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a😀b😀c{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["  padded  a"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a😀b😀ca:b:c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["😀:"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["  padded  ab"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparatedΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.c  padded  "], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["line1\nline2"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a:b:cabc"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straße日本語のテキスト"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a:b:cé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["😀straße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["Hello Worldé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1tab\tseparated"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leading"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a:b:c日本語のテキスト"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.ts"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hellosrc/a/b.ts"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["trailing.a"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a..b😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1é"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["😀key_name-1"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["HELLOé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leadingünïcödé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparatedkey_name-1"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abns:key.path"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語のテキスト.leading"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a..b日本語のテキスト"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["  padded  straße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ΣΊΣΥΦΟΣHELLO"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語のテキストstraße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straßeHELLO"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hellostraße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["éHello World"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.cünïcödé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["{name} has {count} items./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparateda..b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語のテキストΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bom{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["./x/**/*.jsonns:key.path"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1ab"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["emoji 👍🏽 mixa.b.c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.c:"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1a"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["line1\nline2a..b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["trailing.a😀b😀c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.tstrailing."], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.ts😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ünïcödé:"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["{name} has {count} itemsa.b.c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語のテキストhello world"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a:b:c  padded  "], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["aa:b:c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leading./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ΣΊΣΥΦΟΣ😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abca"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["😀tab\tseparated"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ΣΊΣΥΦΟΣhello"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bomns:key.path"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hello world﻿bom"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hello worldstraße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straßens:key.path"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["İstanbul  padded  "], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ab日本語のテキスト"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":a.b.c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["éHELLO"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abcHello World"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["emoji 👍🏽 mixstraße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["./x/**/*.jsonab"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ΣΊΣΥΦΟΣa.b.c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["::"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bom😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a..bΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straßea😀b😀c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ab{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ünïcödéline1\nline2"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bomkey_name-1"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["HELLOemoji 👍🏽 mix"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bomΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straßeΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["HELLO.leading"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.tsa.b.c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straßeemoji 👍🏽 mix"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["emoji 👍🏽 mixhello world"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["  padded  İstanbul"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["{name} has {count} itemsabc"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿boma"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leadingemoji 👍🏽 mix"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.tsabc"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.c./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["helloline1\nline2"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abcemoji 👍🏽 mix"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["aabc"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["trailing../x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":abc"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ns:key.path{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["{name} has {count} itemsa..b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["astraße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["aa..b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1hello"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leading{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿boma:b:c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hello./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["line1\nline2trailing."], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["😀a"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語のテキストline1\nline2"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ékey_name-1"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["{name} has {count} itemssrc/a/b.ts"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparatedline1\nline2"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["Hello World./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.chello world"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["  padded  a:b:c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leadingns:key.path"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["Hello Worldkey_name-1"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["trailing.😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":tab\tseparated"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abc  padded  "], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["trailing.trailing."], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["İstanbul日本語のテキスト"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1Hello World"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語のテキストünïcödé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":straße"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abcHELLO"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["aab"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["line1\nline2Hello World"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a😀b😀cünïcödé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bom./x/**/*.json"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["abcab"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["HELLO😀"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["helloa😀b😀c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["﻿bomİstanbul"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparatedemoji 👍🏽 mix"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["src/a/b.tsemoji 👍🏽 mix"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a.b.cé"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["line1\nline2{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straßea"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["straßekey_name-1"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["key_name-1a😀b😀c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["Hello Worlda😀b😀c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["aΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hello worlda.b.c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["emoji 👍🏽 mixab"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["hello worldsrc/a/b.ts"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a😀b😀c  padded  "], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a:b:chello world"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ünïcödéhello world"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":日本語のテキスト"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [":src/a/b.ts"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparateda😀b😀c"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leadinghello world"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ünïcödé{name} has {count} items"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["HELLOtrailing."], "ok": null}
+{"fn": "find_json_tool_call_end", "args": [".leadingsrc/a/b.ts"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["tab\tseparated.leading"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["héllo wörld"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["👍🏽 thumbs"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["日本語"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ılık ırmak"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["👨‍👩‍👧 family"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a😀b"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a²b x½ y①"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["aⅠb Ⅻ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a𐐀b 𝐀bc"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["कि ٣٤"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["Iı İi"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["K K k"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ſ s S"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["x‍y 👨‍👩‍👧"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["a b c　d"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["١٢٣ ٤٥"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["𝟘𝟙 ²³"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["snake_case foo-bar o'neil"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ǅungla Ǆ"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["one\r\ntwo threefour"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["café café"], "ok": null}
+{"fn": "find_json_tool_call_end", "args": ["ΣΑΣ σας ς"], "ok": null}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "a:b:c"], "ok": "ΣΊΣΥΦΟΣ.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["ab", "A"], "ok": "ab.*?A"}
+{"fn": "build_block_regex", "args": ["a:b:c", "./x/**/*.json"], "ok": "a:b:c.*?\\./x/\\*\\*/\\*\\.json"}
+{"fn": "build_block_regex", "args": ["HELLO", "😀:"], "ok": "HELLO.*?😀:"}
+{"fn": "build_block_regex", "args": ["key_name-1", "me"], "ok": "key_name\\-1.*?me"}
+{"fn": "build_block_regex", "args": ["js", "./x/**/*.json"], "ok": "js.*?\\./x/\\*\\*/\\*\\.json"}
+{"fn": "build_block_regex", "args": ["a.b.c", "ünïcödéabc"], "ok": "a\\.b\\.c.*?ünïcödéabc"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "ab.leading"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["line1\nline2", "abca..b"], "ok": "line1\\\nline2.*?abca\\.\\.b"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "日本語のテキストa.b.c"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["./x/**/*.json", "a😀b😀c"], "ok": "\\./x/\\*\\*/\\*\\.json.*?a😀b😀c"}
+{"fn": "build_block_regex", "args": ["﻿bom", ":"], "ok": "﻿bom.*?:"}
+{"fn": "build_block_regex", "args": ["abhello world", "abhello wor"], "ok": "abhello\\ world.*?abhello\\ wor"}
+{"fn": "build_block_regex", "args": ["😀", "ünïcödé"], "ok": "😀.*?ünïcödé"}
+{"fn": "build_block_regex", "args": ["trailing../x/**/*.json", "a..bhello"], "ok": "trailing\\.\\./x/\\*\\*/\\*\\.json.*?a\\.\\.bhello"}
+{"fn": "build_block_regex", "args": ["ünïcödékey_name-1", "M"], "ok": "ünïcödékey_name\\-1.*?M"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "a😀b😀c"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["😀", "😀"], "ok": "😀.*?😀"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "﻿bom"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["/", "trailing../x/**/*.json"], "ok": "/.*?trailing\\.\\./x/\\*\\*/\\*\\.json"}
+{"fn": "build_block_regex", "args": ["  padded  a", "trailing."], "ok": "\\ \\ padded\\ \\ a.*?trailing\\."}
+{"fn": "build_block_regex", "args": ["a..", "a..b"], "ok": "a\\.\\..*?a\\.\\.b"}
+{"fn": "build_block_regex", "args": ["line1\nline2", {"$undefined": true}], "ok": "line1\\\nline2.*?</code>"}
+{"fn": "build_block_regex", "args": ["hello world", "emoji 👍🏽 mix"], "ok": "hello\\ world.*?emoji\\ 👍🏽\\ mix"}
+{"fn": "build_block_regex", "args": ["emoji 👍🏽 mix", ""], "ok": "emoji\\ 👍🏽\\ mix.*?"}
+{"fn": "build_block_regex", "args": ["./x/**/*.json", ""], "ok": "\\./x/\\*\\*/\\*\\.json.*?"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "ns:key.path"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["key_nam", "key_name-1"], "ok": "key_nam.*?key_name\\-1"}
+{"fn": "build_block_regex", "args": ["hello", "  padded  "], "ok": "hello.*?\\ \\ padded\\ \\ "}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "Hello World"], "ok": "ΣΊΣΥΦΟΣ.*?Hello\\ World"}
+{"fn": "build_block_regex", "args": ["﻿boma:b:c", "abc"], "ok": "﻿boma:b:c.*?abc"}
+{"fn": "build_block_regex", "args": ["ab", "a.b.c"], "ok": "ab.*?a\\.b\\.c"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "{name} has {count} items"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["tab\tseparated", "a:b:c"], "ok": "tab\\\tseparated.*?a:b:c"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "hello"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["./x/**/*.json"], "ok": "\\./x/\\*\\*/\\*\\.json.*?</code>"}
+{"fn": "build_block_regex", "args": ["a..b", ".."], "ok": "a\\.\\.b.*?\\.\\."}
+{"fn": "build_block_regex", "args": ["emoji 👍🏽 mix", "./x/**/*.json"], "ok": "emoji\\ 👍🏽\\ mix.*?\\./x/\\*\\*/\\*\\.json"}
+{"fn": "build_block_regex", "args": ["src/a/b.ts", "ΣΊΣΥΦΟΣ"], "ok": "src/a/b\\.ts.*?ΣΊΣΥΦΟΣ"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, ""], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["İstanbul", "trailing."], "ok": "İstanbul.*?trailing\\."}
+{"fn": "build_block_regex", "args": ["a:b:c", ""], "ok": "a:b:c.*?"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "ab"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["İstanbul", {"$undefined": true}], "ok": "İstanbul.*?</code>"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "  padded  İstanbul"], "ok": "ΣΊΣΥΦΟΣ.*?\\ \\ padded\\ \\ İstanbul"}
+{"fn": "build_block_regex", "args": ["😀src/a/b.ts", "helloünïcödé"], "ok": "😀src/a/b\\.ts.*?helloünïcödé"}
+{"fn": "build_block_regex", "args": ["trailing.Hello World", "é"], "ok": "trailing\\.Hello\\ World.*?é"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "src/a/b.ts"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["HELLO", "ΣΊΣΥΦΟΣ"], "ok": "HELLO.*?ΣΊΣΥΦΟΣ"}
+{"fn": "build_block_regex", "args": ["abc"], "ok": "abc.*?</code>"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "a.b.chello world"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["./x/**/*.json", "ΣΊΣΥΦΟΣ"], "ok": "\\./x/\\*\\*/\\*\\.json.*?ΣΊΣΥΦΟΣ"}
+{"fn": "build_block_regex", "args": ["src/a/b.ts", {"$undefined": true}], "ok": "src/a/b\\.ts.*?</code>"}
+{"fn": "build_block_regex", "args": [".leading", "line1\nline2"], "ok": "\\.leading.*?line1\\\nline2"}
+{"fn": "build_block_regex", "args": ["./x/**/*.jsona:b:c"], "ok": "\\./x/\\*\\*/\\*\\.jsona:b:c.*?</code>"}
+{"fn": "build_block_regex", "args": ["hello", "ünïcödéünïcödé"], "ok": "hello.*?ünïcödéünïcödé"}
+{"fn": "build_block_regex", "args": ["src/a/b.ts"], "ok": "src/a/b\\.ts.*?</code>"}
+{"fn": "build_block_regex", "args": ["trailing.a", {"$undefined": true}], "ok": "trailing\\.a.*?</code>"}
+{"fn": "build_block_regex", "args": [":", ":"], "ok": ":.*?:"}
+{"fn": "build_block_regex", "args": ["HELLO", {"$undefined": true}], "ok": "HELLO.*?</code>"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "ünïcödéHELLO"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["ab", "key_name-1"], "ok": "ab.*?key_name\\-1"}
+{"fn": "build_block_regex", "args": ["a", "abc"], "ok": "a.*?abc"}
+{"fn": "build_block_regex", "args": ["tab\tseparated", {"$undefined": true}], "ok": "tab\\\tseparated.*?</code>"}
+{"fn": "build_block_regex", "args": [".", "a..b"], "ok": "\\..*?a\\.\\.b"}
+{"fn": "build_block_regex", "args": ["a日本語のテキスト", "HELLO"], "ok": "a日本語のテキスト.*?HELLO"}
+{"fn": "build_block_regex", "args": ["😀", {"$undefined": true}], "ok": "😀.*?</code>"}
+{"fn": "build_block_regex", "args": ["{name} has {count} items", ":a:b:c"], "ok": "\\{name\\}\\ has\\ \\{count\\}\\ items.*?:a:b:c"}
+{"fn": "build_block_regex", "args": ["a..b", "a..b"], "ok": "a\\.\\.b.*?a\\.\\.b"}
+{"fn": "build_block_regex", "args": ["ünïcödéHELLO", "abcline1\nline2"], "ok": "ünïcödéHELLO.*?abcline1\\\nline2"}
+{"fn": "build_block_regex", "args": ["key_name-1", "ab"], "ok": "key_name\\-1.*?ab"}
+{"fn": "build_block_regex", "args": ["ab", "ab"], "ok": "ab.*?ab"}
+{"fn": "build_block_regex", "args": ["./x/**/*.jsonsrc/a/b.ts", "emoji 👍🏽 mixns:key.path"], "ok": "\\./x/\\*\\*/\\*\\.jsonsrc/a/b\\.ts.*?emoji\\ 👍🏽\\ mixns:key\\.path"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "a"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "key_name-1"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["trailing.", "ab"], "ok": "trailing\\..*?ab"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "straße"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["abemoji 👍🏽 mix", {"$undefined": true}], "ok": "abemoji\\ 👍🏽\\ mix.*?</code>"}
+{"fn": "build_block_regex", "args": ["İstanbula😀b😀c", "./x/**/*.json"], "ok": "İstanbula😀b😀c.*?\\./x/\\*\\*/\\*\\.json"}
+{"fn": "build_block_regex", "args": ["Hello World"], "ok": "Hello\\ World.*?</code>"}
+{"fn": "build_block_regex", "args": ["Hello World", "src/a/b.ts"], "ok": "Hello\\ World.*?src/a/b\\.ts"}
+{"fn": "build_block_regex", "args": ["ns:key.path", "straße"], "ok": "ns:key\\.path.*?straße"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "  padded  "], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["İstanbul", "İstanb"], "ok": "İstanbul.*?İstanb"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "trailing..leading"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["😀  padded  ", {"$undefined": true}], "ok": "😀\\ \\ padded\\ \\ .*?</code>"}
+{"fn": "build_block_regex", "args": ["Hello World", "ns:key.path"], "ok": "Hello\\ World.*?ns:key\\.path"}
+{"fn": "build_block_regex", "args": ["src/a/b.", "src/a/b.ts"], "ok": "src/a/b\\..*?src/a/b\\.ts"}
+{"fn": "build_block_regex", "args": ["a😀b😀c", {"$undefined": true}], "ok": "a😀b😀c.*?</code>"}
+{"fn": "build_block_regex", "args": ["straße"], "ok": "straße.*?</code>"}
+{"fn": "build_block_regex", "args": ["{name} has {count} items", "日本語のテキスト"], "ok": "\\{name\\}\\ has\\ \\{count\\}\\ items.*?日本語のテキスト"}
+{"fn": "build_block_regex", "args": ["", "HELLO"], "ok": ".*?HELLO"}
+{"fn": "build_block_regex", "args": ["emoji 👍🏽 mix", "ünïcödé"], "ok": "emoji\\ 👍🏽\\ mix.*?ünïcödé"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "ünïcödé"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["Hello World", {"$undefined": true}], "ok": "Hello\\ World.*?</code>"}
+{"fn": "build_block_regex", "args": ["ns:key.patha", "N"], "ok": "ns:key\\.patha.*?N"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "abc"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["abtab\tseparated", "a:b:cΣΊΣΥΦΟΣ"], "ok": "abtab\\\tseparated.*?a:b:cΣΊΣΥΦΟΣ"}
+{"fn": "build_block_regex", "args": ["{name} has {count} items", "tab\tseparated"], "ok": "\\{name\\}\\ has\\ \\{count\\}\\ items.*?tab\\\tseparated"}
+{"fn": "build_block_regex", "args": ["ünïcödé", {"$undefined": true}], "ok": "ünïcödé.*?</code>"}
+{"fn": "build_block_regex", "args": ["é", "́"], "ok": "é.*?́"}
+{"fn": "build_block_regex", "args": ["é", "ünïcödé:"], "ok": "é.*?ünïcödé:"}
+{"fn": "build_block_regex", "args": ["a..b", {"$undefined": true}], "ok": "a\\.\\.b.*?</code>"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "ΣΥ"], "ok": "ΣΊΣΥΦΟΣ.*?ΣΥ"}
+{"fn": "build_block_regex", "args": ["日本語のテキストa.b.c", {"$undefined": true}], "ok": "日本語のテキストa\\.b\\.c.*?</code>"}
+{"fn": "build_block_regex", "args": ["ünïcödé", "line1\nline2"], "ok": "ünïcödé.*?line1\\\nline2"}
+{"fn": "build_block_regex", "args": ["﻿bom", "a:b:c"], "ok": "﻿bom.*?a:b:c"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "Hello World"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["  padded  İstanbul", "D  İSTA"], "ok": "\\ \\ padded\\ \\ İstanbul.*?D\\ \\ İSTA"}
+{"fn": "build_block_regex", "args": ["src/a/b.tsa.b.c", "/b.tsa.b."], "ok": "src/a/b\\.tsa\\.b\\.c.*?/b\\.tsa\\.b\\."}
+{"fn": "build_block_regex", "args": ["  padded  ", ""], "ok": "\\ \\ padded\\ \\ .*?"}
+{"fn": "build_block_regex", "args": ["NAME} HAS {COU", "{name} has {count} items.leading"], "ok": "NAME\\}\\ HAS\\ \\{COU.*?\\{name\\}\\ has\\ \\{count\\}\\ items\\.leading"}
+{"fn": "build_block_regex", "args": ["straße", "日本語のテキスト"], "ok": "straße.*?日本語のテキスト"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "a😀b😀c"], "ok": "ΣΊΣΥΦΟΣ.*?a😀b😀c"}
+{"fn": "build_block_regex", "args": ["a:b:cİstanbul", ""], "ok": "a:b:cİstanbul.*?"}
+{"fn": "build_block_regex", "args": ["emoji 👍🏽 mix"], "ok": "emoji\\ 👍🏽\\ mix.*?</code>"}
+{"fn": "build_block_regex", "args": ["ns:key.path", "a:b:ckey_name-1"], "ok": "ns:key\\.path.*?a:b:ckey_name\\-1"}
+{"fn": "build_block_regex", "args": [], "ok": "<code>.*?</code>"}
+{"fn": "build_block_regex", "args": ["src/a/b.ts", "a😀b😀c"], "ok": "src/a/b\\.ts.*?a😀b😀c"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "İstanbulline1\nline2"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["é", "emoji 👍🏽 mix"], "ok": "é.*?emoji\\ 👍🏽\\ mix"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "ΣΊΣΥΦΟΣ"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["straßeemoji 👍🏽 mix", {"$undefined": true}], "ok": "straßeemoji\\ 👍🏽\\ mix.*?</code>"}
+{"fn": "build_block_regex", "args": ["x", "emoji 👍🏽 mix"], "ok": "x.*?emoji\\ 👍🏽\\ mix"}
+{"fn": "build_block_regex", "args": ["ab", "a..b"], "ok": "ab.*?a\\.\\.b"}
+{"fn": "build_block_regex", "args": ["trailing.", "./x/**/*.json"], "ok": "trailing\\..*?\\./x/\\*\\*/\\*\\.json"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "trailing.a..b"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["", "  padded  "], "ok": ".*?\\ \\ padded\\ \\ "}
+{"fn": "build_block_regex", "args": ["abc  padded  ", "ns:key.path"], "ok": "abc\\ \\ padded\\ \\ .*?ns:key\\.path"}
+{"fn": "build_block_regex", "args": ["a😀b😀c", "HELLO"], "ok": "a😀b😀c.*?HELLO"}
+{"fn": "build_block_regex", "args": ["{name} has {count} itemsΣΊΣΥΦΟΣ", "ΟΣ"], "ok": "\\{name\\}\\ has\\ \\{count\\}\\ itemsΣΊΣΥΦΟΣ.*?ΟΣ"}
+{"fn": "build_block_regex", "args": ["hello world", "hello worldünïcödé"], "ok": "hello\\ world.*?hello\\ worldünïcödé"}
+{"fn": "build_block_regex", "args": [".leading", "aa"], "ok": "\\.leading.*?aa"}
+{"fn": "build_block_regex", "args": ["./x/**/*.jsonHello World", "HELLO"], "ok": "\\./x/\\*\\*/\\*\\.jsonHello\\ World.*?HELLO"}
+{"fn": "build_block_regex", "args": ["  padded  😀"], "ok": "\\ \\ padded\\ \\ 😀.*?</code>"}
+{"fn": "build_block_regex", "args": [".leading", "ab"], "ok": "\\.leading.*?ab"}
+{"fn": "build_block_regex", "args": ["a:b:c", "😀"], "ok": "a:b:c.*?😀"}
+{"fn": "build_block_regex", "args": ["éhello", "ab"], "ok": "éhello.*?ab"}
+{"fn": "build_block_regex", "args": ["src/a/b.ts", "./x/**/*.json﻿bom"], "ok": "src/a/b\\.ts.*?\\./x/\\*\\*/\\*\\.json﻿bom"}
+{"fn": "build_block_regex", "args": ["Hello Worldemoji 👍🏽 mix", "日本語のテキスト"], "ok": "Hello\\ Worldemoji\\ 👍🏽\\ mix.*?日本語のテキスト"}
+{"fn": "build_block_regex", "args": ["trailing.", {"$undefined": true}], "ok": "trailing\\..*?</code>"}
+{"fn": "build_block_regex", "args": ["HELLO", ".leading"], "ok": "HELLO.*?\\.leading"}
+{"fn": "build_block_regex", "args": ["a.b.c", "﻿bom"], "ok": "a\\.b\\.c.*?﻿bom"}
+{"fn": "build_block_regex", "args": ["İstanbul", "Hello World"], "ok": "İstanbul.*?Hello\\ World"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "  padded  tab\tseparated"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, ".leading"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, {"$undefined": true}], "ok": "<code>.*?</code>"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "a..bstraße"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["abc", "a"], "ok": "abc.*?a"}
+{"fn": "build_block_regex", "args": ["th", "ns:key.path"], "ok": "th.*?ns:key\\.path"}
+{"fn": "build_block_regex", "args": ["a.b.c:", "emoji 👍🏽 mix"], "ok": "a\\.b\\.c:.*?emoji\\ 👍🏽\\ mix"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "a..bns:key.path"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["trailing.", "key_name-1a:b:c"], "ok": "trailing\\..*?key_name\\-1a:b:c"}
+{"fn": "build_block_regex", "args": [":"], "ok": ":.*?</code>"}
+{"fn": "build_block_regex", "args": ["a", "key_name-1hello"], "ok": "a.*?key_name\\-1hello"}
+{"fn": "build_block_regex", "args": ["ns:key.path", {"$undefined": true}], "ok": "ns:key\\.path.*?</code>"}
+{"fn": "build_block_regex", "args": ["İstanbulΣΊΣΥΦΟΣ", "hello world"], "ok": "İstanbulΣΊΣΥΦΟΣ.*?hello\\ world"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "hellohello"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["a..b", "😀"], "ok": "a\\.\\.b.*?😀"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}], "ok": "<code>.*?</code>"}
+{"fn": "build_block_regex", "args": ["日本語のテキスト", {"$undefined": true}], "ok": "日本語のテキスト.*?</code>"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "emoji 👍🏽 mix"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "😀"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["a😀b😀c", "line1\nline2"], "ok": "a😀b😀c.*?line1\\\nline2"}
+{"fn": "build_block_regex", "args": ["straße", "İstanbul"], "ok": "straße.*?İstanbul"}
+{"fn": "build_block_regex", "args": ["L", "hello world:"], "ok": "L.*?hello\\ world:"}
+{"fn": "build_block_regex", "args": ["hello", "a😀b😀c"], "ok": "hello.*?a😀b😀c"}
+{"fn": "build_block_regex", "args": ["abc", "straße"], "ok": "abc.*?straße"}
+{"fn": "build_block_regex", "args": ["emoji 👍🏽 mix", "  padded  "], "ok": "emoji\\ 👍🏽\\ mix.*?\\ \\ padded\\ \\ "}
+{"fn": "build_block_regex", "args": ["﻿bomhello", "﻿bom"], "ok": "﻿bomhello.*?﻿bom"}
+{"fn": "build_block_regex", "args": ["emoji 👍🏽 mix", "a"], "ok": "emoji\\ 👍🏽\\ mix.*?a"}
+{"fn": "build_block_regex", "args": ["a", "a"], "ok": "a.*?a"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "trailing."], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["a.b.", "Hello Worlda.b.c"], "ok": "a\\.b\\..*?Hello\\ Worlda\\.b\\.c"}
+{"fn": "build_block_regex", "args": ["HELLO", "  padded  "], "ok": "HELLO.*?\\ \\ padded\\ \\ "}
+{"fn": "build_block_regex", "args": ["line1\nline2", "ine1\nl"], "ok": "line1\\\nline2.*?ine1\\\nl"}
+{"fn": "build_block_regex", "args": ["Hello World", "a"], "ok": "Hello\\ World.*?a"}
+{"fn": "build_block_regex", "args": [".leading", "😀"], "ok": "\\.leading.*?😀"}
+{"fn": "build_block_regex", "args": ["hell", "hello"], "ok": "hell.*?hello"}
+{"fn": "build_block_regex", "args": ["a", {"$undefined": true}], "ok": "a.*?</code>"}
+{"fn": "build_block_regex", "args": [".leadingİstanbul", {"$undefined": true}], "ok": "\\.leadingİstanbul.*?</code>"}
+{"fn": "build_block_regex", "args": ["日本語のテキスト", "trailing."], "ok": "日本語のテキスト.*?trailing\\."}
+{"fn": "build_block_regex", "args": ["İstanbul", "  padded  "], "ok": "İstanbul.*?\\ \\ padded\\ \\ "}
+{"fn": "build_block_regex", "args": ["line1\nline2", "İstanbul"], "ok": "line1\\\nline2.*?İstanbul"}
+{"fn": "build_block_regex", "args": ["trailing."], "ok": "trailing\\..*?</code>"}
+{"fn": "build_block_regex", "args": ["/a/b.", "src/a/b.ts"], "ok": "/a/b\\..*?src/a/b\\.ts"}
+{"fn": "build_block_regex", "args": ["abc", {"$undefined": true}], "ok": "abc.*?</code>"}
+{"fn": "build_block_regex", "args": ["key_name-1"], "ok": "key_name\\-1.*?</code>"}
+{"fn": "build_block_regex", "args": ["c", "abc"], "ok": "c.*?abc"}
+{"fn": "build_block_regex", "args": ["hello world", "{name} has {count} items"], "ok": "hello\\ world.*?\\{name\\}\\ has\\ \\{count\\}\\ items"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "./x/**/*.json"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["  padded  "], "ok": "\\ \\ padded\\ \\ .*?</code>"}
+{"fn": "build_block_regex", "args": ["ünïcödé", "a.b.c"], "ok": "ünïcödé.*?a\\.b\\.c"}
+{"fn": "build_block_regex", "args": ["a:b:c", {"$undefined": true}], "ok": "a:b:c.*?</code>"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", ":"], "ok": "ΣΊΣΥΦΟΣ.*?:"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ"], "ok": "ΣΊΣΥΦΟΣ.*?</code>"}
+{"fn": "build_block_regex", "args": ["hello", "ΣΊΣΥΦΟΣ"], "ok": "hello.*?ΣΊΣΥΦΟΣ"}
+{"fn": "build_block_regex", "args": ["line1\nline2", "😀"], "ok": "line1\\\nline2.*?😀"}
+{"fn": "build_block_regex", "args": ["HELLO", "hello"], "ok": "HELLO.*?hello"}
+{"fn": "build_block_regex", "args": ["ünïcödé", "日本語のテキスト"], "ok": "ünïcödé.*?日本語のテキスト"}
+{"fn": "build_block_regex", "args": [{"$undefined": true}, "a:b:c"], "error": "TypeError: decoding to str: need a bytes-like object, NoneType found"}
+{"fn": "build_block_regex", "args": ["héllo wörld", "a:b:c"], "ok": "héllo\\ wörld.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["👍🏽 thumbs", "a:b:c"], "ok": "👍🏽\\ thumbs.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["日本語", "a:b:c"], "ok": "日本語.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["", "a:b:c"], "ok": ".*?a:b:c"}
+{"fn": "build_block_regex", "args": ["é", "a:b:c"], "ok": "é.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["İstanbul", "a:b:c"], "ok": "İstanbul.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["straße", "a:b:c"], "ok": "straße.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["ılık ırmak", "a:b:c"], "ok": "ılık\\ ırmak.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["👨‍👩‍👧 family", "a:b:c"], "ok": "👨‍👩‍👧\\ family.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["a b", "a:b:c"], "ok": "a b.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["a😀b", "a:b:c"], "ok": "a😀b.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["a²b x½ y①", "a:b:c"], "ok": "a²b\\ x½\\ y①.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["aⅠb Ⅻ", "a:b:c"], "ok": "aⅠb\\ Ⅻ.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["a𐐀b 𝐀bc", "a:b:c"], "ok": "a𐐀b\\ 𝐀bc.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["कि ٣٤", "a:b:c"], "ok": "कि\\ ٣٤.*?a:b:c"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", {"$undefined": true}], "ok": "ΣΊΣΥΦΟΣ.*?</code>"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "héllo wörld"], "ok": "ΣΊΣΥΦΟΣ.*?héllo\\ wörld"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "👍🏽 thumbs"], "ok": "ΣΊΣΥΦΟΣ.*?👍🏽\\ thumbs"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "日本語"], "ok": "ΣΊΣΥΦΟΣ.*?日本語"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", ""], "ok": "ΣΊΣΥΦΟΣ.*?"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "é"], "ok": "ΣΊΣΥΦΟΣ.*?é"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "İstanbul"], "ok": "ΣΊΣΥΦΟΣ.*?İstanbul"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "straße"], "ok": "ΣΊΣΥΦΟΣ.*?straße"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "ılık ırmak"], "ok": "ΣΊΣΥΦΟΣ.*?ılık\\ ırmak"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "👨‍👩‍👧 family"], "ok": "ΣΊΣΥΦΟΣ.*?👨‍👩‍👧\\ family"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "a b"], "ok": "ΣΊΣΥΦΟΣ.*?a b"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "ΣΊΣΥΦΟΣ"], "ok": "ΣΊΣΥΦΟΣ.*?ΣΊΣΥΦΟΣ"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "a😀b"], "ok": "ΣΊΣΥΦΟΣ.*?a😀b"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "﻿bom"], "ok": "ΣΊΣΥΦΟΣ.*?﻿bom"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "a²b x½ y①"], "ok": "ΣΊΣΥΦΟΣ.*?a²b\\ x½\\ y①"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "aⅠb Ⅻ"], "ok": "ΣΊΣΥΦΟΣ.*?aⅠb\\ Ⅻ"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "a𐐀b 𝐀bc"], "ok": "ΣΊΣΥΦΟΣ.*?a𐐀b\\ 𝐀bc"}
+{"fn": "build_block_regex", "args": ["ΣΊΣΥΦΟΣ", "कि ٣٤"], "ok": "ΣΊΣΥΦΟΣ.*?कि\\ ٣٤"}
+{"fn": "find_json_tool_call_end", "args": ["<tool_call>{\"name\": \"browser_task\", \"arguments\": {\"goal\": \"open youtube\"}}</tool_call> trailing"], "ok": 86}
+{"fn": "find_json_tool_call_end", "args": ["<tool_call>{\"name\": \"x\", \"arguments\": {\"text\": \"ignore </tool_call> inside quotes and \\\"</tool_call>\\\"\"}}</tool_call>"], "ok": 117}
+{"fn": "find_json_tool_call_end", "args": ["<tool_call>{\"name\": \"Zürich ✈️\", \"arguments\": {}}</tool_call>"], "ok": 61}
+{"fn": "find_json_tool_call_end", "args": ["no closing tag here"], "ok": null}
+{"fn": "build_block_regex", "args": ["<code>", "</code>"], "ok": "<code>.*?</code>"}
+{"fn": "build_block_regex", "args": ["[TOOL]", "[/TOOL]"], "ok": "\\[TOOL\\].*?\\[/TOOL\\]"}
+{"fn": "build_block_regex", "args": ["<tool_call>", "</tool_call>"], "ok": "<tool_call>.*?</tool_call>"}

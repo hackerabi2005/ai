@@ -1,0 +1,54 @@
+schema_version: 1
+
+runtime:
+  client:
+    echo_cancellation: true
+    playback_buffer_ms: 196
+
+blocks:
+  vad:
+    kind: vad
+    backend: silero
+
+  stt:
+    kind: stt
+    backend: riva
+    settings:
+      riva_stt_server: grpc.nvcf.nvidia.com:443
+      riva_stt_use_ssl: true
+      riva_stt_function_id: 1598d209-5e27-4d3c-8079-4751568b1081
+      riva_stt_language_code: en-US
+      riva_stt_word_time_offsets: true
+      riva_stt_http_url: https://1598d209-5e27-4d3c-8079-4751568b1081.invocation.api.nvcf.nvidia.com/v1/audio/transcriptions
+      riva_stt_use_grpc: false
+
+  llm:
+    kind: llm
+    backend: chat-completions
+    settings:
+      model_name: nvidia/nemotron-3-ultra-550b-a55b
+      responses_api_base_url: https://integrate.api.nvidia.com/v1
+      responses_api_stream: true
+      responses_api_disable_thinking: false
+      responses_api_gen_temperature: 1.0
+      responses_api_gen_top_p: 0.95
+      responses_api_gen_max_tokens: 16384
+
+  tts:
+    kind: tts
+    backend: riva
+    settings:
+      riva_tts_server: grpc.nvcf.nvidia.com:443
+      riva_tts_use_ssl: true
+      riva_tts_function_id: ddacc747-1269-4fab-bfd9-8f593dead106
+      riva_tts_language_code: en-US
+      riva_tts_voice: Chatterbox-Multilingual.en-US.Male
+      riva_tts_sample_rate: 16000
+
+pipelines:
+  nvidia_nim:
+    stages:
+      vad: vad
+      stt: stt
+      llm: llm
+      tts: tts

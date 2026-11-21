@@ -1,0 +1,157 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "C:\\Users\\Abish\\Desktop\\combinned jarvis",
+  "unit": "s2s/speech-to-speech/src/speech_to_speech/utils/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "utils-rs",
+  "exports": [
+    {
+      "name": "safe_identifier",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/request_tracing.py",
+      "line": 18,
+      "params": [
+        {
+          "name": "value",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string | undefined",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "next_power_of_2",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 61,
+      "params": [
+        {
+          "name": "x",
+          "ts_type": "int",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "int",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "validate_device",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 103,
+      "params": [
+        {
+          "name": "device",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "supported",
+          "ts_type": "string[]",
+          "optional": false,
+          "rest": false
+        },
+        {
+          "name": "component",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "undefined",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "acquire_mlx_lock",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/mlx_lock.py",
+      "line": 96,
+      "reason": "acquires Python threading.RLock per Python thread ident"
+    },
+    {
+      "name": "release_mlx_lock",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/mlx_lock.py",
+      "line": 156,
+      "reason": "releases Python threading.RLock per Python thread ident"
+    },
+    {
+      "name": "MLXLockContext",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/mlx_lock.py",
+      "line": 182,
+      "reason": "class: public attribute `acquired`, public attribute `handler_name`, public attribute `miss_log_level`, public attribute `timeout`, special method `__enter__`, special method `__exit__`"
+    },
+    {
+      "name": "log_response_binding",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/request_tracing.py",
+      "line": 85,
+      "reason": "emits Python logger side-effect"
+    },
+    {
+      "name": "HttpRequestContext",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/request_tracing.py",
+      "line": 32,
+      "reason": "class: decorated with `@dataclass`, public class attribute `mode`, public class attribute `response_key`, public class attribute `session_id`, public class attribute `stage`, public class attribute `turn_id`, public class attribute `turn_revision`, special method `__post_init__`"
+    },
+    {
+      "name": "HttpRequestTrace",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/request_tracing.py",
+      "line": 60,
+      "reason": "class: decorated with `@dataclass`, public class attribute `context`, public class attribute `request_id`"
+    },
+    {
+      "name": "ThreadManager",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/thread_manager.py",
+      "line": 9,
+      "reason": "class: public attribute `handlers`, public attribute `threads`"
+    },
+    {
+      "name": "audio_to_wav_base64",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 16,
+      "reason": "takes numpy.ndarray parameter"
+    },
+    {
+      "name": "response_wants_audio",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 35,
+      "reason": "accesses attributes on Pydantic RealtimeResponseCreateParams instance"
+    },
+    {
+      "name": "is_out_of_band",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 49,
+      "reason": "accesses attributes on Pydantic RealtimeResponseCreateParams instance"
+    },
+    {
+      "name": "is_npu_available",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 65,
+      "reason": "queries local PyTorch torch_npu hardware runtime"
+    },
+    {
+      "name": "resolve_device",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 109,
+      "reason": "queries local PyTorch CUDA/NPU/XPU/MPS hardware runtime"
+    },
+    {
+      "name": "int2float",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/utils/utils.py",
+      "line": 128,
+      "reason": "takes and returns numpy.ndarray instance"
+    }
+  ]
+}

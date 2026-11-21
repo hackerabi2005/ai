@@ -1,0 +1,7 @@
+{"fn": "clean_transcript", "args": ["<spk:0> <ev:breath> Hello , world ! <sty:stt:calm_reflective> How are you ? <sty:end:calm_reflective>"]}
+{"fn": "clean_transcript", "args": ["<ev:laughter> <ev:breath> . ! ?"]}
+{"fn": "clean_transcript", "args": ["Uh-huh , I see <unknown_tag> !"]}
+{"fn": "build_prompt", "args": ["Voice assistant session.", ["Jarvis", "Nemotron", "Jarvis"], "en-US"]}
+{"fn": "build_prompt", "args": ["", [], "auto"]}
+{"fn": "build_prompt", "args": ["", ["valid", "   "], "en"]}
+{"fn": "build_prompt", "args": ["", ["Jarvis"], "xx-unknown"]}

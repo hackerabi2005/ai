@@ -1,0 +1,73 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "C:\\Users\\Abish\\Desktop\\combinned jarvis",
+  "unit": "jarvis-rs/python/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "python-rs",
+  "exports": [
+    {
+      "name": "page_summary",
+      "file": "jarvis-rs/python/jev_bridge.py",
+      "line": 23,
+      "params": [
+        {
+          "name": "page",
+          "ts_type": "Record<string, unknown>",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "Record<string, unknown>",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "classify_error",
+      "file": "jarvis-rs/python/jev_bridge.py",
+      "line": 33,
+      "params": [
+        {
+          "name": "exc",
+          "ts_type": "Exception",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "execute_tool",
+      "file": "jarvis-rs/python/jarvis_tools.py",
+      "line": 158,
+      "reason": "async HTTP wrapper returning ToolResult"
+    },
+    {
+      "name": "serve_stdio",
+      "file": "jarvis-rs/python/jev_bridge.py",
+      "line": 1418,
+      "reason": "stdio TextIO event loop"
+    },
+    {
+      "name": "main",
+      "file": "jarvis-rs/python/jev_bridge.py",
+      "line": 1444,
+      "reason": "a command-line entry point: it stays in Python, and `app front-door` takes the command line over when the whole app moves"
+    },
+    {
+      "name": "BridgeSession",
+      "file": "jarvis-rs/python/jev_bridge.py",
+      "line": 811,
+      "reason": "class: public attribute `agent`"
+    }
+  ]
+}

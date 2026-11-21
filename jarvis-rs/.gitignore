@@ -1,0 +1,6 @@
+/target/
+.env
+*.log
+artifacts/
+__pycache__/
+.pytest_cache/

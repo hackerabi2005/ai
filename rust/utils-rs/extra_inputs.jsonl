@@ -1,0 +1,11 @@
+{"fn": "safe_identifier", "args": ["req_123-abc.456"]}
+{"fn": "safe_identifier", "args": ["invalid id with spaces"]}
+{"fn": "safe_identifier", "args": ["Zürich"]}
+{"fn": "safe_identifier", "args": [""]}
+{"fn": "next_power_of_2", "args": [0]}
+{"fn": "next_power_of_2", "args": [1]}
+{"fn": "next_power_of_2", "args": [512]}
+{"fn": "next_power_of_2", "args": [1000]}
+{"fn": "validate_device", "args": ["auto", ["cuda", "cpu"], "SileroVAD"]}
+{"fn": "validate_device", "args": ["cuda:0", ["cuda", "cpu"], "SileroVAD"]}
+{"fn": "validate_device", "args": ["mps", ["cuda", "cpu"], "SileroVAD"]}

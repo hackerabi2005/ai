@@ -1,0 +1,99 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "C:\\Users\\Abish\\Desktop\\combinned jarvis",
+  "unit": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "tool-call-rs",
+  "exports": [
+    {
+      "name": "find_json_tool_call_end",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/function_call.py",
+      "line": 277,
+      "params": [
+        {
+          "name": "block",
+          "ts_type": "string",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "int | undefined",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "build_block_regex",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/tool_prompt.py",
+      "line": 100,
+      "params": [
+        {
+          "name": "enter_code",
+          "ts_type": "string",
+          "optional": true,
+          "rest": false,
+          "default": "ENTER_CODE"
+        },
+        {
+          "name": "end_code",
+          "ts_type": "string",
+          "optional": true,
+          "rest": false,
+          "default": "END_CODE"
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "parse_json_tool_call_block",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/function_call.py",
+      "line": 296,
+      "reason": "returns Pydantic FunctionToolCall instances"
+    },
+    {
+      "name": "parse_function_call",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/function_call.py",
+      "line": 330,
+      "reason": "returns Pydantic FunctionToolCall instances"
+    },
+    {
+      "name": "extract_function_calls_from_text",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/function_call.py",
+      "line": 357,
+      "reason": "returns Pydantic FunctionToolCall instances"
+    },
+    {
+      "name": "FunctionToolCall",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/function_call.py",
+      "line": 189,
+      "reason": "class: inherits from BaseModel, public class attribute `description`, public class attribute `function_name`, public class attribute `original_string`, public class attribute `parameters`"
+    },
+    {
+      "name": "FunctionTool",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/function_tool.py",
+      "line": 8,
+      "reason": "class: inherits from RealtimeFunctionTool"
+    },
+    {
+      "name": "signature_from_schema",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/signature_from_schema.py",
+      "line": 79,
+      "reason": "returns Python inspect.Signature instance"
+    },
+    {
+      "name": "build_tool_system_prompt",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/tool_prompt.py",
+      "line": 76,
+      "reason": "takes custom FunctionTool instances and calls to_code_prompt"
+    }
+  ]
+}

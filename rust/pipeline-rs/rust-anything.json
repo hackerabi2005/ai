@@ -1,0 +1,415 @@
+{
+  "schema": "rust-anything/bridge@1",
+  "root": "C:\\Users\\Abish\\Desktop\\combinned jarvis",
+  "unit": "s2s/speech-to-speech/src/speech_to_speech/pipeline/",
+  "language": "python",
+  "kind": "pyo3",
+  "crate_name": "pipeline-rs",
+  "exports": [
+    {
+      "name": "set_log_transcripts",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/transcript_logging.py",
+      "line": 35,
+      "params": [
+        {
+          "name": "enabled",
+          "ts_type": "boolean",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "undefined",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    },
+    {
+      "name": "transcript_for_log",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/transcript_logging.py",
+      "line": 47,
+      "params": [
+        {
+          "name": "text",
+          "ts_type": "unknown",
+          "optional": false,
+          "rest": false
+        }
+      ],
+      "returns": "string",
+      "is_async": false,
+      "is_generator": false,
+      "type_params": [],
+      "uses_instanceof": false
+    }
+  ],
+  "classes": [],
+  "js_only": [
+    {
+      "name": "CancelScope",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/cancel_scope.py",
+      "line": 1,
+      "reason": "class: `@property` method `discarding`, `@property` method `generation`"
+    },
+    {
+      "name": "conversation_output",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/console.py",
+      "line": 18,
+      "reason": "decorated with `@contextmanager`"
+    },
+    {
+      "name": "model_startup_output",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/console.py",
+      "line": 55,
+      "reason": "decorated with `@contextmanager`"
+    },
+    {
+      "name": "is_control_message",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/control.py",
+      "line": 25,
+      "reason": "checks isinstance against Python PipelineControlMessage dataclass"
+    },
+    {
+      "name": "ControlKind",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/control.py",
+      "line": 7,
+      "reason": "class: inherits from str, Enum, public class attribute `SESSION_END`"
+    },
+    {
+      "name": "PipelineControlMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/control.py",
+      "line": 14,
+      "reason": "class: decorated with `@dataclass`, public class attribute `kind`, public class attribute `session_id`"
+    },
+    {
+      "name": "PipelineEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 27,
+      "reason": "class: inherits from BaseModel, public class attribute `type`"
+    },
+    {
+      "name": "SpeechStartedEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 40,
+      "reason": "class: inherits from PipelineEvent, public class attribute `audio_start_ms`, public class attribute `confirm_interrupt`, public class attribute `interrupt_response`, public class attribute `reopened`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "SpeechStoppedEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 50,
+      "reason": "class: inherits from PipelineEvent, public class attribute `audio_end_ms`, public class attribute `duration_s`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "PartialTranscriptionEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 61,
+      "reason": "class: inherits from PipelineEvent, public class attribute `delta`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "TranscriptionCompletedEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 74,
+      "reason": "class: inherits from PipelineEvent, public class attribute `language_code`, public class attribute `speaker_attribution`, public class attribute `speech_stopped_at_s`, public class attribute `transcript`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "TranscriptionFailedEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 84,
+      "reason": "class: inherits from PipelineEvent, public class attribute `message`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "AudioInputCompletedEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 94,
+      "reason": "class: inherits from PipelineEvent, public class attribute `audio_duration_s`, public class attribute `audio_sample_rate`, public class attribute `audio`, public class attribute `model_config`, public class attribute `speech_stopped_at_s`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "AssistantOutputEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 111,
+      "reason": "class: inherits from PipelineEvent, public class attribute `cancel_generation`, public class attribute `history`, public class attribute `model_config`, public class attribute `output_sequence`, public class attribute `parts`, public class attribute `response_key`, public class attribute `text`, public class attribute `tools`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "AssistantToolCallReadyEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 146,
+      "reason": "class: inherits from PipelineEvent, public class attribute `cancel_generation`, public class attribute `history`, public class attribute `model_config`, public class attribute `output_sequence`, public class attribute `part`, public class attribute `reasoning`, public class attribute `response_key`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "TokenUsageEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 168,
+      "reason": "class: inherits from PipelineEvent, public class attribute `cancel_generation`, public class attribute `input_tokens`, public class attribute `output_tokens`, public class attribute `response_key`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "AssistantResponseDoneEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 178,
+      "reason": "class: inherits from PipelineEvent, public class attribute `cancel_generation`, public class attribute `history`, public class attribute `input_tool_call_ids`, public class attribute `model_config`, public class attribute `reason`, public class attribute `reasoning`, public class attribute `response_key`, public class attribute `status`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "ResponseGenerationDoneEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 195,
+      "reason": "class: inherits from PipelineEvent, public class attribute `call_ids`, public class attribute `cancel_generation`, public class attribute `history`, public class attribute `model_config`, public class attribute `response_key`, public class attribute `succeeded`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "ResponseFailedEvent",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/events.py",
+      "line": 216,
+      "reason": "class: inherits from PipelineEvent, public class attribute `cancel_generation`, public class attribute `history`, public class attribute `message`, public class attribute `model_config`, public class attribute `response_key`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `type`"
+    },
+    {
+      "name": "ResponseHistory",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/history.py",
+      "line": 15,
+      "reason": "class: `@classmethod` method `capture`, decorated with `@dataclass`, public class attribute `after_item_id`, public class attribute `audio_history_turns`, public class attribute `chat`, public class attribute `compactor`, public class attribute `complete`, public class attribute `consumed_audio_items`, public class attribute `consumed_image_ids`, public class attribute `input_item_id`, public class attribute `item_order`, public class attribute `items`"
+    },
+    {
+      "name": "build_language_detector",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/language_detection.py",
+      "line": 65,
+      "reason": "returns lingua.LanguageDetector instance"
+    },
+    {
+      "name": "warm_language_detector",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/language_detection.py",
+      "line": 86,
+      "reason": "returns lingua.LanguageDetector instance"
+    },
+    {
+      "name": "detect_language_from_text",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/language_detection.py",
+      "line": 95,
+      "reason": "calls methods on lingua.LanguageDetector instance"
+    },
+    {
+      "name": "PipelineLogFilter",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/log_context.py",
+      "line": 19,
+      "reason": "class: inherits from logging.Filter"
+    },
+    {
+      "name": "PipelineMessage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 34,
+      "reason": "class: inherits from BaseModel, public class attribute `model_config`, public class attribute `tag`"
+    },
+    {
+      "name": "VADAudio",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 49,
+      "reason": "class: inherits from PipelineMessage, public class attribute `audio`, public class attribute `created_at_s`, public class attribute `mode`, public class attribute `processing_delay_s`, public class attribute `runtime_config`, public class attribute `speaker_attribution`, public class attribute `speaker_pending`, public class attribute `speech_end_at_s`, public class attribute `tag`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "PartialTranscription",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 69,
+      "reason": "class: inherits from PipelineMessage, public class attribute `tag`, public class attribute `text`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "Transcription",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 78,
+      "reason": "class: inherits from PipelineMessage, public class attribute `language_code`, public class attribute `speaker_attribution`, public class attribute `speech_stopped_at_s`, public class attribute `tag`, public class attribute `text`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "TranscriptionFailure",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 90,
+      "reason": "class: inherits from PipelineMessage, public class attribute `message`, public class attribute `speech_stopped_at_s`, public class attribute `tag`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "AssistantTextPart",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 103,
+      "reason": "class: inherits from BaseModel, public class attribute `text`, public class attribute `type`"
+    },
+    {
+      "name": "AssistantToolCallPart",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 110,
+      "reason": "class: inherits from BaseModel, public class attribute `tool`, public class attribute `type`"
+    },
+    {
+      "name": "AssistantReasoningPart",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 117,
+      "reason": "class: inherits from BaseModel, public class attribute `kind`, public class attribute `text`, public class attribute `type`"
+    },
+    {
+      "name": "LLMResponseChunk",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 154,
+      "reason": "class: inherits from PipelineMessage, public class attribute `cancel_generation`, public class attribute `history`, public class attribute `language_code`, public class attribute `parts`, public class attribute `prefetch_transaction`, public class attribute `response_key`, public class attribute `response`, public class attribute `runtime_config`, public class attribute `selected_language`, public class attribute `speech_stopped_at_s`, public class attribute `tag`, public class attribute `text`, public class attribute `tools`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "TokenUsage",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 187,
+      "reason": "class: inherits from PipelineMessage, public class attribute `cancel_generation`, public class attribute `input_tokens`, public class attribute `output_tokens`, public class attribute `response_key`, public class attribute `tag`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "EndOfResponse",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 202,
+      "reason": "class: inherits from PipelineMessage, public class attribute `cancel_generation`, public class attribute `cleanup_only`, public class attribute `error`, public class attribute `history`, public class attribute `input_tool_call_ids`, public class attribute `reason`, public class attribute `reasoning`, public class attribute `response_key`, public class attribute `status`, public class attribute `tag`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "TTSInput",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 231,
+      "reason": "class: `@model_validator` method `snapshot_language`, inherits from PipelineMessage, public class attribute `cancel_generation`, public class attribute `language_code`, public class attribute `prefetch_transaction`, public class attribute `response_assistant_language_code`, public class attribute `response_key`, public class attribute `response`, public class attribute `runtime_config`, public class attribute `selected_language`, public class attribute `speech_stopped_at_s`, public class attribute `tag`, public class attribute `text`, public class attribute `tts_language_code`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "AudioOutput",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 267,
+      "reason": "class: inherits from PipelineMessage, public class attribute `audio`, public class attribute `cancel_generation`, public class attribute `cleanup_only`, public class attribute `response_key`, public class attribute `tag`, public class attribute `visemes`"
+    },
+    {
+      "name": "ResponsePrefetchTransaction",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 281,
+      "reason": "class: `@property` method `claimed`, `@property` method `discarded`"
+    },
+    {
+      "name": "GenerateResponseRequest",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/messages.py",
+      "line": 385,
+      "reason": "class: `@model_validator` method `snapshot_selected_language`, inherits from PipelineMessage, public class attribute `audio_sample_rate`, public class attribute `audio`, public class attribute `input_item_id`, public class attribute `language_code`, public class attribute `prefetch_transaction`, public class attribute `response_key`, public class attribute `response`, public class attribute `runtime_config`, public class attribute `selected_language`, public class attribute `speech_stopped_at_s`, public class attribute `tag`, public class attribute `turn_id`, public class attribute `turn_revision`"
+    },
+    {
+      "name": "SpeakerInterval",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speaker_metadata.py",
+      "line": 12,
+      "reason": "class: inherits from BaseModel, public class attribute `end`, public class attribute `speaker`, public class attribute `start`"
+    },
+    {
+      "name": "SpeakerAttribution",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speaker_metadata.py",
+      "line": 18,
+      "reason": "class: inherits from BaseModel, public class attribute `available`, public class attribute `complete`, public class attribute `intervals`"
+    },
+    {
+      "name": "SpeakerSession",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speaker_metadata.py",
+      "line": 47,
+      "reason": "class: public attribute `invalid`"
+    },
+    {
+      "name": "SpeakerAttributionFuture",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speaker_metadata.py",
+      "line": 54,
+      "reason": "class: inherits from Future[SpeakerAttribution], public attribute `partial`"
+    },
+    {
+      "name": "PendingSpeakerAttribution",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speaker_metadata.py",
+      "line": 62,
+      "reason": "class: method `with_prefix` returns an instance, public attribute `parts`"
+    },
+    {
+      "name": "TurnPhase",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speculative_turns.py",
+      "line": 13,
+      "reason": "class: inherits from str, Enum, public class attribute `ANSWERING`, public class attribute `CLOSED`, public class attribute `LISTENING`, public class attribute `SOFT_ENDED`"
+    },
+    {
+      "name": "TurnGateAction",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speculative_turns.py",
+      "line": 20,
+      "reason": "class: inherits from str, Enum, public class attribute `ACCEPT`, public class attribute `DROP`, public class attribute `HOLD`"
+    },
+    {
+      "name": "TurnGate",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speculative_turns.py",
+      "line": 27,
+      "reason": "class: decorated with `@dataclass`, public class attribute `action`, public class attribute `deadline`"
+    },
+    {
+      "name": "TurnOutputHeld",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speculative_turns.py",
+      "line": 34,
+      "reason": "class: inherits from Exception"
+    },
+    {
+      "name": "SpeculativeTurnTracker",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/speculative_turns.py",
+      "line": 65,
+      "reason": "class: `@property` method `phase`, public attribute `wait_observer`"
+    },
+    {
+      "name": "warn_if_log_transcripts_enabled",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/transcript_logging.py",
+      "line": 41,
+      "reason": "emits Python logger warning side-effect"
+    },
+    {
+      "name": "log_exception",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/transcript_logging.py",
+      "line": 62,
+      "reason": "calls target.log on Python logging.Logger instance"
+    },
+    {
+      "name": "active_turn_latency_tracker",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 22,
+      "reason": "reads Python contextvars.ContextVar"
+    },
+    {
+      "name": "bind_active_turn_latency_tracker",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 27,
+      "reason": "decorated with `@contextmanager`"
+    },
+    {
+      "name": "record_response_tts_ttfa",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 485,
+      "reason": "mutates Python TurnLatencyStore instance"
+    },
+    {
+      "name": "record_response_e2e",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 496,
+      "reason": "mutates Python TurnLatencyStore instance"
+    },
+    {
+      "name": "MLXLockStat",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 36,
+      "reason": "class: decorated with `@dataclass`, public class attribute `count`, public class attribute `total_s`"
+    },
+    {
+      "name": "SpeechLatencyAnchor",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 51,
+      "reason": "class: `@property` method `available`, public attribute `requested`"
+    },
+    {
+      "name": "TurnLatencyTracker",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 78,
+      "reason": "class: `@property` method `llm_total_s`, decorated with `@dataclass`, public class attribute `e2e_s`, public class attribute `llm_first_tts_s`, public class attribute `llm_rounds`, public class attribute `llm_s`, public class attribute `llm_ttft_s`, public class attribute `mlx_lock_hold_s`, public class attribute `mlx_lock_holds`, public class attribute `mlx_lock_wait_s`, public class attribute `mlx_lock_waits`, public class attribute `smart_turn_analysis_s`, public class attribute `smart_turn_grace_s`, public class attribute `smart_turn_processing_delay_s`, public class attribute `smart_turn_status`, public class attribute `smart_turn_wait_s`, public class attribute `source`, public class attribute `speech_anchor`, public class attribute `status`, public class attribute `stt_s`, public class attribute `tts_ttfa_s`, public class attribute `turn_id`, public class attribute `turn_revision`, public class attribute `vad_decision_s`, public class attribute `vad_settle_s`"
+    },
+    {
+      "name": "TurnLatencyStore",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 304,
+      "reason": "class: returns custom Python TurnLatencyTracker and ResponseLatencyTracker instances"
+    },
+    {
+      "name": "TTSResponseTimer",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/turn_latency.py",
+      "line": 506,
+      "reason": "class: `@property` method `has_tracker`, public attribute `started_at_s`"
+    },
+    {
+      "name": "Viseme",
+      "file": "s2s/speech-to-speech/src/speech_to_speech/pipeline/visemes.py",
+      "line": 6,
+      "reason": "class: `@model_validator` method `ordered_interval`, inherits from BaseModel, public class attribute `end_s`, public class attribute `start_s`, public class attribute `viseme`"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{"fn": "number_to_words", "args": [9223372036854775807], "error": "IndexError: list index out of range"}
+{"fn": "number_to_words", "args": [255], "ok": "دویست و پنجاه و پنج"}
+{"fn": "number_to_words", "args": [100], "ok": "صد"}
+{"fn": "number_to_words", "args": [2], "ok": "دو"}
+{"fn": "number_to_words", "args": [1], "ok": "یک"}
+{"fn": "number_to_words", "args": [7], "ok": "هفت"}
+{"fn": "number_to_words", "args": [2147483647], "ok": "دو میلیارد و صد و چهل و هفت میلیون و چهارصد و هشتاد و سه هزار و ششصد و چهل و هفت"}
+{"fn": "number_to_words", "args": [-100], "ok": ""}
+{"fn": "number_to_words", "args": [-2147483648], "ok": ""}
+{"fn": "number_to_words", "args": [0], "ok": "صفر"}
+{"fn": "number_to_words", "args": [-1], "ok": ""}
+{"fn": "number_to_words", "args": [42], "ok": "چهل و دو"}
+{"fn": "number_to_words", "args": [-7], "ok": ""}
+{"fn": "number_to_words", "args": [2147483648], "ok": "دو میلیارد و صد و چهل و هفت میلیون و چهارصد و هشتاد و سه هزار و ششصد و چهل و هشت"}
+{"fn": "number_to_words", "args": [-2147483649], "ok": ""}
+{"fn": "number_to_words", "args": [9007199254740993], "error": "IndexError: list index out of range"}
+{"fn": "number_to_words", "args": [-9223372036854775808], "ok": ""}
+{"fn": "numbers_to_words", "args": ["a.b.c日本語のテキスト"], "ok": "a.b.c日本語のテキスト"}
+{"fn": "numbers_to_words", "args": ["a.b.cΣΊΣΥΦΟΣ"], "ok": "a.b.cΣΊΣΥΦΟΣ"}
+{"fn": "numbers_to_words", "args": ["HELLO"], "ok": "HELLO"}
+{"fn": "numbers_to_words", "args": [".leading"], "ok": ".leading"}
+{"fn": "numbers_to_words", "args": [":"], "ok": ":"}
+{"fn": "numbers_to_words", "args": ["a.b.chello"], "ok": "a.b.chello"}
+{"fn": "numbers_to_words", "args": ["日本語のテキスト"], "ok": "日本語のテキスト"}
+{"fn": "numbers_to_words", "args": ["  padded  "], "ok": "  padded  "}
+{"fn": "numbers_to_words", "args": ["ünïcödé./x/**/*.json"], "ok": "ünïcödé./x/**/*.json"}
+{"fn": "numbers_to_words", "args": ["é"], "ok": "é"}
+{"fn": "numbers_to_words", "args": ["日本語のテキストstraße"], "ok": "日本語のテキストstraße"}
+{"fn": "numbers_to_words", "args": ["😀"], "ok": "😀"}
+{"fn": "numbers_to_words", "args": ["hello"], "ok": "hello"}
+{"fn": "numbers_to_words", "args": ["﻿bom"], "ok": "﻿bom"}
+{"fn": "numbers_to_words", "args": ["a..b"], "ok": "a..b"}
+{"fn": "numbers_to_words", "args": ["aba"], "ok": "aba"}
+{"fn": "numbers_to_words", "args": ["a😀b😀c"], "ok": "a😀b😀c"}
+{"fn": "numbers_to_words", "args": ["emoji 👍🏽 mix"], "ok": "emoji 👍🏽 mix"}
+{"fn": "numbers_to_words", "args": ["ünïcödé"], "ok": "ünïcödé"}
+{"fn": "numbers_to_words", "args": ["abİstanbul"], "ok": "abİstanbul"}
+{"fn": "numbers_to_words", "args": ["hello world"], "ok": "hello world"}
+{"fn": "numbers_to_words", "args": ["abc"], "ok": "abc"}
+{"fn": "numbers_to_words", "args": [""], "ok": ""}
+{"fn": "numbers_to_words", "args": ["key_name-1"], "ok": "key_name- یک "}
+{"fn": "numbers_to_words", "args": ["ab:"], "ok": "ab:"}
+{"fn": "numbers_to_words", "args": ["tab\tseparated"], "ok": "tab\tseparated"}
+{"fn": "numbers_to_words", "args": ["İstanbulns:key.path"], "ok": "İstanbulns:key.path"}
+{"fn": "numbers_to_words", "args": ["İstanbul"], "ok": "İstanbul"}
+{"fn": "numbers_to_words", "args": ["ab"], "ok": "ab"}
+{"fn": "numbers_to_words", "args": ["src/a/b.ts"], "ok": "src/a/b.ts"}
+{"fn": "numbers_to_words", "args": ["a:b:c"], "ok": "a:b:c"}
+{"fn": "numbers_to_words", "args": ["Hello World"], "ok": "Hello World"}
+{"fn": "numbers_to_words", "args": ["ns:key.path"], "ok": "ns:key.path"}
+{"fn": "numbers_to_words", "args": ["line1\nline2"], "ok": "line یک \nline دو "}
+{"fn": "numbers_to_words", "args": ["日本語のテキストtrailing."], "ok": "日本語のテキストtrailing."}
+{"fn": "numbers_to_words", "args": ["key_name-1key_name-1"], "ok": "key_name- یک key_name- یک "}
+{"fn": "numbers_to_words", "args": ["a"], "ok": "a"}
+{"fn": "numbers_to_words", "args": ["HELLOkey_name-1"], "ok": "HELLOkey_name- یک "}
+{"fn": "numbers_to_words", "args": ["trailing."], "ok": "trailing."}
+{"fn": "numbers_to_words", "args": ["  padded  straße"], "ok": "  padded  straße"}
+{"fn": "numbers_to_words", "args": ["{name} has {count} items"], "ok": "{name} has {count} items"}
+{"fn": "numbers_to_words", "args": ["straße"], "ok": "straße"}
+{"fn": "numbers_to_words", "args": ["ΣΊΣΥΦΟΣ"], "ok": "ΣΊΣΥΦΟΣ"}
+{"fn": "numbers_to_words", "args": ["ns:key.patha:b:c"], "ok": "ns:key.patha:b:c"}
+{"fn": "numbers_to_words", "args": ["straßesrc/a/b.ts"], "ok": "straßesrc/a/b.ts"}
+{"fn": "numbers_to_words", "args": ["HELLOtrailing."], "ok": "HELLOtrailing."}
+{"fn": "numbers_to_words", "args": [".leadingabc"], "ok": ".leadingabc"}
+{"fn": "numbers_to_words", "args": [".leading:"], "ok": ".leading:"}
+{"fn": "numbers_to_words", "args": ["hello worlda.b.c"], "ok": "hello worlda.b.c"}
+{"fn": "numbers_to_words", "args": ["abca.b.c"], "ok": "abca.b.c"}
+{"fn": "numbers_to_words", "args": ["héllo wörld"], "ok": "héllo wörld"}
+{"fn": "numbers_to_words", "args": ["👍🏽 thumbs"], "ok": "👍🏽 thumbs"}
+{"fn": "numbers_to_words", "args": ["日本語"], "ok": "日本語"}
+{"fn": "numbers_to_words", "args": ["ılık ırmak"], "ok": "ılık ırmak"}
+{"fn": "numbers_to_words", "args": ["👨‍👩‍👧 family"], "ok": "👨‍👩‍👧 family"}
+{"fn": "numbers_to_words", "args": ["a b"], "ok": "a b"}
+{"fn": "numbers_to_words", "args": ["a😀b"], "ok": "a😀b"}
+{"fn": "numbers_to_words", "args": ["a²b x½ y①"], "ok": "a²b x½ y①"}
+{"fn": "numbers_to_words", "args": ["aⅠb Ⅻ"], "ok": "aⅠb Ⅻ"}
+{"fn": "numbers_to_words", "args": ["a𐐀b 𝐀bc"], "ok": "a𐐀b 𝐀bc"}
+{"fn": "numbers_to_words", "args": ["कि ٣٤"], "ok": "कि  سی و چهار "}
+{"fn": "numbers_to_words", "args": ["Iı İi"], "ok": "Iı İi"}
+{"fn": "numbers_to_words", "args": ["K K k"], "ok": "K K k"}
+{"fn": "numbers_to_words", "args": ["ſ s S"], "ok": "ſ s S"}
+{"fn": "numbers_to_words", "args": ["x‍y 👨‍👩‍👧"], "ok": "x‍y 👨‍👩‍👧"}
+{"fn": "numbers_to_words", "args": ["a b c　d"], "ok": "a b c　d"}
+{"fn": "numbers_to_words", "args": ["١٢٣ ٤٥"], "ok": " صد و بیست و سه   چهل و پنج "}
+{"fn": "numbers_to_words", "args": ["𝟘𝟙 ²³"], "ok": " یک  ²³"}
+{"fn": "numbers_to_words", "args": ["snake_case foo-bar o'neil"], "ok": "snake_case foo-bar o'neil"}
+{"fn": "numbers_to_words", "args": ["ǅungla Ǆ"], "ok": "ǅungla Ǆ"}
+{"fn": "numbers_to_words", "args": ["one\r\ntwo threefour"], "ok": "one\r\ntwo threefour"}
+{"fn": "numbers_to_words", "args": ["café café"], "ok": "café café"}
+{"fn": "numbers_to_words", "args": ["ΣΑΣ σας ς"], "ok": "ΣΑΣ σας ς"}
+{"fn": "normalize", "args": ["straßeab"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["ünïcödé"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["ΣΊΣΥΦΟΣ"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["Hello Worldabc"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["  padded  "], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["key_name-1.leading"], "kwargs": {}, "ok": "یک."}
+{"fn": "normalize", "args": ["trailing."], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["ab"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["a😀b😀c"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["Hello World"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["key_name-1ünïcödé"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["key_name-1"], "kwargs": {}, "ok": "یک"}
+{"fn": "normalize", "args": [".leading"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["  padded  "], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["straße"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["Hello World"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["a"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["emoji 👍🏽 mix日本語のテキスト"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["{name} has {count} items"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["hello worldHELLO"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["a:b:c"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["é"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["straße"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["{name} has {count} items:"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["a:b:c"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["tab\tseparated"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["ns:key.path"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["abcabc"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["src/a/b.ts"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["İstanbul"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["line1\nline2"], "kwargs": {}, "ok": "یک دو"}
+{"fn": "normalize", "args": ["İstanbul"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["hello world"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["aé"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["😀a:b:c"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["a.b.c"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["日本語のテキスト"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["key_name-1src/a/b.ts"], "kwargs": {"spell_numbers": true}, "ok": "یک."}
+{"fn": "normalize", "args": ["😀"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["😀"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["straße"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["ab"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["a😀b😀ca😀b😀c"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["ünïcödé"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["emoji 👍🏽 mix"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["{name} has {count} items"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["src/a/b.ts"], "kwargs": {}, "ok": ""}
+{"fn": "normalize", "args": ["./x/**/*.json"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["{name} has {count} itemsa"], "kwargs": {"spell_numbers": false}, "ok": ""}
+{"fn": "normalize", "args": ["HELLO"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["héllo wörld"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["👍🏽 thumbs"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["日本語"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": [""], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["é"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["ılık ırmak"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["👨‍👩‍👧 family"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["a b"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["a😀b"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["﻿bom"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["a²b x½ y①"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["aⅠb Ⅻ"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["a𐐀b 𝐀bc"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["कि ٣٤"], "kwargs": {"spell_numbers": true}, "ok": "سی و چهار"}
+{"fn": "normalize", "args": ["Iı İi"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["K K k"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["ſ s S"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["x‍y 👨‍👩‍👧"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["a b c　d"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["١٢٣ ٤٥"], "kwargs": {"spell_numbers": true}, "ok": "صد و بیست و سه چهل و پنج"}
+{"fn": "normalize", "args": ["𝟘𝟙 ²³"], "kwargs": {"spell_numbers": true}, "ok": "یک"}
+{"fn": "normalize", "args": ["snake_case foo-bar o'neil"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["ǅungla Ǆ"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["one\r\ntwo threefour"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["café café"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["ΣΑΣ σας ς"], "kwargs": {"spell_numbers": true}, "ok": ""}
+{"fn": "normalize", "args": ["straßeab"], "kwargs": {}, "ok": ""}
+{"fn": "number_to_words", "args": [0], "ok": "صفر"}
+{"fn": "number_to_words", "args": [1402], "ok": "هزار و چهارصد و دو"}
+{"fn": "number_to_words", "args": [1000000], "ok": "یک میلیون"}
+{"fn": "numbers_to_words", "args": ["سال 1402 و -3.5 و 09123456789 و 1,250,000"], "ok": "سال  هزار و چهارصد و دو  و  منفی سه ممیز پنج دهم  و  صفر نه یک دو سه چهار پنج شش هفت هشت نه  و  یک میلیون و دویست و پنجاه هزار "}
+{"fn": "normalize", "args": ["سلام! سال ۱۴۰۲ است، قیمت ۱٬۲۵۰٬۰۰۰ تومان (۵۰٪ تخفیف)؟"], "ok": "سلام! سال هزار و چهارصد و دو است، قیمت یک میلیون و دویست و پنجاه هزار تومان پنجاه درصد تخفیف؟"}
+{"fn": "normalize", "args": ["می‌خواهم ۱۲۳ را بخوانم", false], "kwargs": {"spell_numbers": false}, "error": "TypeError: normalize() takes 1 positional argument but 2 positional arguments (and 1 keyword-only argument) were given"}

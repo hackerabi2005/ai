@@ -1,0 +1,216 @@
+{"fn": "page_summary", "args": [{"ünï": true, "title": {}, "a": true}], "ok": {"url": "", "title": {}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": ["a", 1], "home": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": {}, "a": true, "nav": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": {"a": {"b": "c"}}, "ünï": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": null, "a": {}, "😀": {}}], "ok": {"url": "", "title": null, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": 0}], "ok": {"url": "", "title": 0, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": null, "2": "x"}], "ok": {"url": "", "title": null, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": {"a": "b"}, "home": "x", "a.b": "x"}], "ok": {"url": "", "title": {"a": "b"}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": {"a": "b"}, "😀": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}, "2": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [null], "error": "AttributeError: 'NoneType' object has no attribute 'get'"}
+{"fn": "page_summary", "args": [{"nav": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [true], "error": "AttributeError: 'bool' object has no attribute 'get'"}
+{"fn": "page_summary", "args": [{"a": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {"b": "c"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": {"a": "b"}, "home": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": "b"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [["a", 1]], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "page_summary", "args": [{"ünï": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": true, "10": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": 0, "😀": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [0], "error": "AttributeError: 'int' object has no attribute 'get'"}
+{"fn": "page_summary", "args": [{"10": {"a": {"b": "c"}}, "home": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": null}], "ok": {"url": "", "title": null, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": {"a": "b"}, "a": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": 0, "😀": {}, "home": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": ["a", 1], "nav": {}}], "ok": {"url": "", "title": ["a", 1], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {"a": {"b": "c"}}, "title": {}}], "ok": {"url": "", "title": {}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": 0, "😀": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": {"a": "b"}, "nav": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": "x", "a": 0}], "ok": {"url": "", "title": "x", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": true, "ünï": "x", "b": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": {"a": {"b": "c"}}, "a.b": null, "b": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": true, "😀": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": null, "a.b": ["a", 1], "home": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": {"a": {"b": "c"}}, "home": {"a": "b"}, "a": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": ["a", 1], "10": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": "x", "a.b": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": {}, "ünï": {"a": "b"}, "b": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": null, "title": []}], "ok": {"url": "", "title": [], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": [], "home": 0, "2": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": 0, "home": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": {"a": {"b": "c"}}, "ünï": 0, "10": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": 0, "2": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": "x"}], "ok": {"url": "", "title": "x", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": {"a": "b"}}], "ok": {"url": "", "title": {"a": "b"}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": "x", "2": "x", "title": 0}], "ok": {"url": "", "title": 0, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": 0, "a.b": true}], "ok": {"url": "", "title": 0, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": [], "home": "x", "b": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}, "home": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": null, "10": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": null, "nav": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": null, "10": {"a": {"b": "c"}}}], "ok": {"url": "", "title": null, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [[]], "error": "AttributeError: 'list' object has no attribute 'get'"}
+{"fn": "page_summary", "args": [{"home": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": null, "a": "x", "😀": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": ["a", 1], "nav": true}], "ok": {"url": "", "title": ["a", 1], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": "x", "a": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": true, "b": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": {"a": {"b": "c"}}, "10": {"a": "b"}, "ünï": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": true, "nav": null, "ünï": {}}], "ok": {"url": "", "title": true, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": true, "nav": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": ["a", 1], "b": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": true}], "ok": {"url": "", "title": true, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}, "😀": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": {"a": {"b": "c"}}}], "ok": {"url": "", "title": {"a": {"b": "c"}}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": 0, "😀": {"a": {"b": "c"}}, "title": "x"}], "ok": {"url": "", "title": "x", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": null, "a.b": ["a", 1], "home": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": {}}], "ok": {"url": "", "title": {}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": {"a": "b"}, "2": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": {}, "nav": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": {"a": "b"}, "ünï": {"a": {"b": "c"}}, "2": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": [], "2": [], "home": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": {"a": {"b": "c"}}, "a.b": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": ["a", 1], "title": []}], "ok": {"url": "", "title": [], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": {"a": {"b": "c"}}, "home": {"a": {"b": "c"}}, "10": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": null, "nav": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": "x", "home": 0, "10": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "x", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": {"a": {"b": "c"}}, "10": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": {"a": "b"}, "home": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": "x", "title": {"a": {"b": "c"}}}], "ok": {"url": "", "title": {"a": {"b": "c"}}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": [], "home": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": "x", "2": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": null, "a": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": null, "home": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": true, "b": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": ["a", 1], "a.b": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": [], "ünï": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": true, "10": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": null, "a.b": 0, "2": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": null, "10": [], "nav": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": ["a", 1]}], "ok": {"url": "", "title": ["a", 1], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": ["x"], "error": "AttributeError: 'str' object has no attribute 'get'"}
+{"fn": "page_summary", "args": [{"2": {"a": "b"}, "home": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": {}, "a": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": {}, "nav": {"a": "b"}, "title": null}], "ok": {"url": "", "title": null, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": ["a", 1], "nav": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": null, "10": [], "2": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": [], "a.b": {}, "b": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": true, "10": {}, "😀": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": {}, "a": 0, "a.b": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}, "a.b": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": null, "ünï": {}, "a": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": {}, "a.b": "x", "nav": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}, "title": {"a": "b"}}], "ok": {"url": "", "title": {"a": "b"}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": {"a": "b"}, "😀": {"a": "b"}, "2": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": [], "b": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}, "ünï": true, "home": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": ["a", 1], "home": true, "a": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": ["a", 1], "home": "x", "10": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": 0, "ünï": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": {}, "a": [], "home": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": [], "2": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": 0, "10": {"a": {"b": "c"}}, "😀": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": "x", "a.b": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {"a": {"b": "c"}}, "title": 0, "home": true}], "ok": {"url": "", "title": 0, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": true, "ünï": {}}], "ok": {"url": "", "title": true, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": "x", "2": "x"}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": {"a": "b"}, "10": 0, "home": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": null, "a": "x", "ünï": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": {"a": "b"}, "nav": {"a": "b"}}], "ok": {"url": "", "title": {"a": "b"}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": {}, "10": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": 0, "b": {"a": {"b": "c"}}, "10": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": true, "ünï": {"a": {"b": "c"}}, "a.b": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": ["a", 1], "nav": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": {"a": {"b": "c"}}, "title": ["a", 1]}], "ok": {"url": "", "title": ["a", 1], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": "x", "nav": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": "x", "2": ["a", 1], "10": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": {}, "2": 0, "10": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": {"a": "b"}, "a": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": {"a": {"b": "c"}}, "2": {}, "10": 0}], "ok": {"url": "", "title": {"a": {"b": "c"}}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": null, "ünï": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": [], "b": 0, "nav": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": [], "title": {"a": "b"}, "a.b": []}], "ok": {"url": "", "title": {"a": "b"}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": ["a", 1], "a": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a": [], "nav": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": ["a", 1], "2": {}}], "ok": {"url": "", "title": ["a", 1], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": true, "10": ["a", 1], "nav": "x"}], "ok": {"url": "", "title": true, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": {}, "a.b": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": [], "home": "x", "b": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": {}, "b": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": "x", "10": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": 0, "home": {"a": "b"}}], "ok": {"url": "", "title": 0, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": 0, "a": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": {"a": "b"}, "a.b": ["a", 1]}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"2": [], "a.b": {"a": "b"}, "😀": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": ["a", 1], "a.b": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": 0, "😀": {"a": "b"}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"nav": true, "a": true}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"😀": [], "a.b": true, "b": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": {"a": {"b": "c"}}, "nav": null, "home": null}], "ok": {"url": "", "title": {"a": {"b": "c"}}, "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": "x", "2": []}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"a.b": {"a": "b"}, "ünï": null}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"home": true, "a.b": {}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"10": null, "a.b": "x", "😀": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"ünï": 0, "a.b": {"a": {"b": "c"}}, "😀": {"a": {"b": "c"}}}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": [], "home": true}], "ok": {"url": "", "title": [], "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"b": null, "ünï": 0}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "page_summary", "args": [{"title": null, "a": {"a": {"b": "c"}}}], "ok": {"url": "", "title": null, "text": "", "fingerprint": ""}}
+{"fn": "classify_error", "args": [{"a": {"b": "c"}}], "ok": "browser_error"}
+{"fn": "classify_error", "args": [{}], "ok": "browser_error"}
+{"fn": "classify_error", "args": [0], "ok": "browser_error"}
+{"fn": "classify_error", "args": [["a", 1]], "ok": "browser_error"}
+{"fn": "classify_error", "args": [null], "ok": "browser_error"}
+{"fn": "classify_error", "args": ["x"], "ok": "browser_error"}
+{"fn": "classify_error", "args": [true], "ok": "browser_error"}
+{"fn": "classify_error", "args": [[]], "ok": "browser_error"}
+{"fn": "classify_error", "args": [{"a": "b"}], "ok": "browser_error"}
+{"fn": "page_summary", "args": [{"url": "https://www.youtube.com/watch?v=123", "title": "YouTube", "text": "Hello world", "fingerprint": "abc123"}], "ok": {"url": "https://www.youtube.com/watch?v=123", "title": "YouTube", "text": "Hello world", "fingerprint": "abc123"}}
+{"fn": "page_summary", "args": [{"url": "https://example.com", "title": "Test", "text": null, "fingerprint": "def456"}], "ok": {"url": "https://example.com", "title": "Test", "text": "", "fingerprint": "def456"}}
+{"fn": "page_summary", "args": [{}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
+{"fn": "classify_error", "args": ["Missing EXPERIENTIAL_API_KEY; no action executed."], "ok": "missing_key"}
+{"fn": "classify_error", "args": ["Step budget exceeded after 15 steps"], "ok": "budget_exceeded"}
+{"fn": "classify_error", "args": ["Chrome DevTools session closed"], "ok": "chrome_not_ready"}
+{"fn": "classify_error", "args": ["Unexpected timeout waiting for element"], "ok": "browser_error"}

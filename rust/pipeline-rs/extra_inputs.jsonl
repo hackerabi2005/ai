@@ -1,0 +1,7 @@
+{"fn": "set_log_transcripts", "args": [false]}
+{"fn": "transcript_for_log", "args": ["Open YouTube and search for Rust"]}
+{"fn": "transcript_for_log", "args": ["Zürich ✈️"]}
+{"fn": "transcript_for_log", "args": [null]}
+{"fn": "set_log_transcripts", "args": [true]}
+{"fn": "transcript_for_log", "args": ["Open YouTube and search for Rust"]}
+{"fn": "set_log_transcripts", "args": [false]}

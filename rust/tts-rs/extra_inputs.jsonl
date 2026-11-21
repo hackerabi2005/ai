@@ -1,0 +1,6 @@
+{"fn": "number_to_words", "args": [0]}
+{"fn": "number_to_words", "args": [1402]}
+{"fn": "number_to_words", "args": [1000000]}
+{"fn": "numbers_to_words", "args": ["سال 1402 و -3.5 و 09123456789 و 1,250,000"]}
+{"fn": "normalize", "args": ["سلام! سال ۱۴۰۲ است، قیمت ۱٬۲۵۰٬۰۰۰ تومان (۵۰٪ تخفیف)؟"]}
+{"fn": "normalize", "args": ["می‌خواهم ۱۲۳ را بخوانم", false], "kwargs": {"spell_numbers": false}}

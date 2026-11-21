@@ -1,0 +1,477 @@
+{"fn": "clean_transcript", "args": ["ünïcödé"], "ok": "ünïcödé"}
+{"fn": "clean_transcript", "args": ["😀"], "ok": ""}
+{"fn": "clean_transcript", "args": ["a"], "ok": "a"}
+{"fn": "clean_transcript", "args": ["./x/**/*.json"], "ok": "./x/**/*.json"}
+{"fn": "clean_transcript", "args": ["  padded  "], "ok": "padded"}
+{"fn": "clean_transcript", "args": ["HELLO"], "ok": "HELLO"}
+{"fn": "clean_transcript", "args": ["{name} has {count} itemshello"], "ok": "{name} has {count} itemshello"}
+{"fn": "clean_transcript", "args": [".leading"], "ok": ".leading"}
+{"fn": "clean_transcript", "args": ["ns:key.patha😀b😀c"], "ok": "ns:key.patha😀b😀c"}
+{"fn": "clean_transcript", "args": ["straße"], "ok": "straße"}
+{"fn": "clean_transcript", "args": ["日本語のテキスト{name} has {count} items"], "ok": "日本語のテキスト{name} has {count} items"}
+{"fn": "clean_transcript", "args": ["trailing.😀"], "ok": "trailing.😀"}
+{"fn": "clean_transcript", "args": ["HELLOa.b.c"], "ok": "HELLOa.b.c"}
+{"fn": "clean_transcript", "args": ["hello"], "ok": "hello"}
+{"fn": "clean_transcript", "args": ["trailing."], "ok": "trailing."}
+{"fn": "clean_transcript", "args": ["é"], "ok": "é"}
+{"fn": "clean_transcript", "args": [":"], "ok": ""}
+{"fn": "clean_transcript", "args": ["İstanbul"], "ok": "İstanbul"}
+{"fn": "clean_transcript", "args": ["tab\tseparated😀"], "ok": "tab separated😀"}
+{"fn": "clean_transcript", "args": ["{name} has {count} items"], "ok": "{name} has {count} items"}
+{"fn": "clean_transcript", "args": ["abc"], "ok": "abc"}
+{"fn": "clean_transcript", "args": ["a:b:c"], "ok": "a:b:c"}
+{"fn": "clean_transcript", "args": ["a:b:ctab\tseparated"], "ok": "a:b:ctab separated"}
+{"fn": "clean_transcript", "args": ["a😀b😀c"], "ok": "a😀b😀c"}
+{"fn": "clean_transcript", "args": ["key_name-1"], "ok": "key_name-1"}
+{"fn": "clean_transcript", "args": ["tab\tseparated"], "ok": "tab separated"}
+{"fn": "clean_transcript", "args": ["a..bemoji 👍🏽 mix"], "ok": "a..bemoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["./x/**/*.jsonline1\nline2"], "ok": "./x/**/*.jsonline1 line2"}
+{"fn": "clean_transcript", "args": ["Hello World"], "ok": "Hello World"}
+{"fn": "clean_transcript", "args": ["ns:key.patha:b:c"], "ok": "ns:key.patha:b:c"}
+{"fn": "clean_transcript", "args": ["line1\nline2"], "ok": "line1 line2"}
+{"fn": "clean_transcript", "args": ["a.b.c"], "ok": "a.b.c"}
+{"fn": "clean_transcript", "args": ["hello world"], "ok": "hello world"}
+{"fn": "clean_transcript", "args": ["emoji 👍🏽 mix"], "ok": "emoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["ab"], "ok": "ab"}
+{"fn": "clean_transcript", "args": ["a..b"], "ok": "a..b"}
+{"fn": "clean_transcript", "args": ["a.b.cHELLO"], "ok": "a.b.cHELLO"}
+{"fn": "clean_transcript", "args": ["src/a/b.ts"], "ok": "src/a/b.ts"}
+{"fn": "clean_transcript", "args": [""], "ok": ""}
+{"fn": "clean_transcript", "args": ["﻿bom"], "ok": "﻿bom"}
+{"fn": "clean_transcript", "args": ["straßeΣΊΣΥΦΟΣ"], "ok": "straßeΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": [".leading./x/**/*.json"], "ok": ".leading./x/**/*.json"}
+{"fn": "clean_transcript", "args": ["ΣΊΣΥΦΟΣ"], "ok": "ΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": ["ns:key.pathİstanbul"], "ok": "ns:key.pathİstanbul"}
+{"fn": "clean_transcript", "args": ["ns:key.path"], "ok": "ns:key.path"}
+{"fn": "clean_transcript", "args": ["a.b.cabc"], "ok": "a.b.cabc"}
+{"fn": "clean_transcript", "args": ["İstanbulkey_name-1"], "ok": "İstanbulkey_name-1"}
+{"fn": "clean_transcript", "args": ["a.b.ckey_name-1"], "ok": "a.b.ckey_name-1"}
+{"fn": "clean_transcript", "args": ["a.b.ca..b"], "ok": "a.b.ca..b"}
+{"fn": "clean_transcript", "args": ["tab\tseparatedtab\tseparated"], "ok": "tab separatedtab separated"}
+{"fn": "clean_transcript", "args": ["ns:key.pathemoji 👍🏽 mix"], "ok": "ns:key.pathemoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["straßehello world"], "ok": "straßehello world"}
+{"fn": "clean_transcript", "args": ["a:b:ctrailing."], "ok": "a:b:ctrailing."}
+{"fn": "clean_transcript", "args": ["helloa:b:c"], "ok": "helloa:b:c"}
+{"fn": "clean_transcript", "args": ["ΣΊΣΥΦΟΣΣΊΣΥΦΟΣ"], "ok": "ΣΊΣΥΦΟΣΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": ["İstanbula:b:c"], "ok": "İstanbula:b:c"}
+{"fn": "clean_transcript", "args": ["./x/**/*.jsoné"], "ok": "./x/**/*.jsoné"}
+{"fn": "clean_transcript", "args": ["😀.leading"], "ok": "😀.leading"}
+{"fn": "clean_transcript", "args": ["emoji 👍🏽 mix./x/**/*.json"], "ok": "emoji 👍🏽 mix./x/**/*.json"}
+{"fn": "clean_transcript", "args": ["trailing.ab"], "ok": "trailing.ab"}
+{"fn": "clean_transcript", "args": ["aba"], "ok": "aba"}
+{"fn": "clean_transcript", "args": ["hello worlda:b:c"], "ok": "hello worlda:b:c"}
+{"fn": "clean_transcript", "args": ["{name} has {count} itemsa😀b😀c"], "ok": "{name} has {count} itemsa😀b😀c"}
+{"fn": "clean_transcript", "args": ["日本語のテキストtrailing."], "ok": "日本語のテキストtrailing."}
+{"fn": "clean_transcript", "args": ["  padded  ﻿bom"], "ok": "padded ﻿bom"}
+{"fn": "clean_transcript", "args": ["key_name-1tab\tseparated"], "ok": "key_name-1tab separated"}
+{"fn": "clean_transcript", "args": ["abcline1\nline2"], "ok": "abcline1 line2"}
+{"fn": "clean_transcript", "args": ["  padded  a😀b😀c"], "ok": "padded a😀b😀c"}
+{"fn": "clean_transcript", "args": ["abc﻿bom"], "ok": "abc﻿bom"}
+{"fn": "clean_transcript", "args": ["emoji 👍🏽 mix😀"], "ok": "emoji 👍🏽 mix😀"}
+{"fn": "clean_transcript", "args": [":straße"], "ok": ":straße"}
+{"fn": "clean_transcript", "args": ["日本語のテキスト"], "ok": "日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["İstanbulabc"], "ok": "İstanbulabc"}
+{"fn": "clean_transcript", "args": ["﻿bomİstanbul"], "ok": "﻿bomİstanbul"}
+{"fn": "clean_transcript", "args": ["a..btab\tseparated"], "ok": "a..btab separated"}
+{"fn": "clean_transcript", "args": ["emoji 👍🏽 mixkey_name-1"], "ok": "emoji 👍🏽 mixkey_name-1"}
+{"fn": "clean_transcript", "args": ["  padded  日本語のテキスト"], "ok": "padded 日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["ΣΊΣΥΦΟΣhello world"], "ok": "ΣΊΣΥΦΟΣhello world"}
+{"fn": "clean_transcript", "args": ["Hello Worlda.b.c"], "ok": "Hello Worlda.b.c"}
+{"fn": "clean_transcript", "args": ["a.b.ca.b.c"], "ok": "a.b.ca.b.c"}
+{"fn": "clean_transcript", "args": ["src/a/b.tssrc/a/b.ts"], "ok": "src/a/b.tssrc/a/b.ts"}
+{"fn": "clean_transcript", "args": ["ns:key.path﻿bom"], "ok": "ns:key.path﻿bom"}
+{"fn": "clean_transcript", "args": ["tab\tseparatedünïcödé"], "ok": "tab separatedünïcödé"}
+{"fn": "clean_transcript", "args": ["./x/**/*.jsonünïcödé"], "ok": "./x/**/*.jsonünïcödé"}
+{"fn": "clean_transcript", "args": ["src/a/b.tsa😀b😀c"], "ok": "src/a/b.tsa😀b😀c"}
+{"fn": "clean_transcript", "args": ["a:b:ca.b.c"], "ok": "a:b:ca.b.c"}
+{"fn": "clean_transcript", "args": ["abc./x/**/*.json"], "ok": "abc./x/**/*.json"}
+{"fn": "clean_transcript", "args": ["İstanbulé"], "ok": "İstanbulé"}
+{"fn": "clean_transcript", "args": ["ns:key.pathünïcödé"], "ok": "ns:key.pathünïcödé"}
+{"fn": "clean_transcript", "args": ["key_name-1a:b:c"], "ok": "key_name-1a:b:c"}
+{"fn": "clean_transcript", "args": ["hello worlda..b"], "ok": "hello worlda..b"}
+{"fn": "clean_transcript", "args": ["{name} has {count} items.leading"], "ok": "{name} has {count} items.leading"}
+{"fn": "clean_transcript", "args": ["😀hello world"], "ok": "😀hello world"}
+{"fn": "clean_transcript", "args": ["a..b{name} has {count} items"], "ok": "a..b{name} has {count} items"}
+{"fn": "clean_transcript", "args": ["src/a/b.tskey_name-1"], "ok": "src/a/b.tskey_name-1"}
+{"fn": "clean_transcript", "args": ["{name} has {count} items日本語のテキスト"], "ok": "{name} has {count} items日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["İstanbula😀b😀c"], "ok": "İstanbula😀b😀c"}
+{"fn": "clean_transcript", "args": ["😀abc"], "ok": "😀abc"}
+{"fn": "clean_transcript", "args": ["line1\nline2  padded  "], "ok": "line1 line2 padded"}
+{"fn": "clean_transcript", "args": ["éΣΊΣΥΦΟΣ"], "ok": "éΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": [":abc"], "ok": ":abc"}
+{"fn": "clean_transcript", "args": ["HELLOhello world"], "ok": "HELLOhello world"}
+{"fn": "clean_transcript", "args": ["straßea..b"], "ok": "straßea..b"}
+{"fn": "clean_transcript", "args": ["a😀b😀c:"], "ok": "a😀b😀c:"}
+{"fn": "clean_transcript", "args": ["key_name-1a"], "ok": "key_name-1a"}
+{"fn": "clean_transcript", "args": ["hello world.leading"], "ok": "hello world.leading"}
+{"fn": "clean_transcript", "args": ["hello worldabc"], "ok": "hello worldabc"}
+{"fn": "clean_transcript", "args": ["﻿bomsrc/a/b.ts"], "ok": "﻿bomsrc/a/b.ts"}
+{"fn": "clean_transcript", "args": ["trailing.emoji 👍🏽 mix"], "ok": "trailing.emoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["Hello Worldİstanbul"], "ok": "Hello Worldİstanbul"}
+{"fn": "clean_transcript", "args": ["src/a/b.tsstraße"], "ok": "src/a/b.tsstraße"}
+{"fn": "clean_transcript", "args": [".leading:"], "ok": ".leading:"}
+{"fn": "clean_transcript", "args": ["  padded  ünïcödé"], "ok": "padded ünïcödé"}
+{"fn": "clean_transcript", "args": ["straßeİstanbul"], "ok": "straßeİstanbul"}
+{"fn": "clean_transcript", "args": ["aé"], "ok": "aé"}
+{"fn": "clean_transcript", "args": ["a.b.cΣΊΣΥΦΟΣ"], "ok": "a.b.cΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": ["HELLOé"], "ok": "HELLOé"}
+{"fn": "clean_transcript", "args": ["  padded  😀"], "ok": "padded 😀"}
+{"fn": "clean_transcript", "args": ["hellotrailing."], "ok": "hellotrailing."}
+{"fn": "clean_transcript", "args": ["trailing.src/a/b.ts"], "ok": "trailing.src/a/b.ts"}
+{"fn": "clean_transcript", "args": ["{name} has {count} itemsΣΊΣΥΦΟΣ"], "ok": "{name} has {count} itemsΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": ["line1\nline2﻿bom"], "ok": "line1 line2﻿bom"}
+{"fn": "clean_transcript", "args": ["😀tab\tseparated"], "ok": "😀tab separated"}
+{"fn": "clean_transcript", "args": ["{name} has {count} items./x/**/*.json"], "ok": "{name} has {count} items./x/**/*.json"}
+{"fn": "clean_transcript", "args": ["Hello World日本語のテキスト"], "ok": "Hello World日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["a:b:ca..b"], "ok": "a:b:ca..b"}
+{"fn": "clean_transcript", "args": ["日本語のテキストa"], "ok": "日本語のテキストa"}
+{"fn": "clean_transcript", "args": ["日本語のテキストa:b:c"], "ok": "日本語のテキストa:b:c"}
+{"fn": "clean_transcript", "args": ["﻿boma:b:c"], "ok": "﻿boma:b:c"}
+{"fn": "clean_transcript", "args": ["éHELLO"], "ok": "éHELLO"}
+{"fn": "clean_transcript", "args": ["tab\tseparatedhello world"], "ok": "tab separatedhello world"}
+{"fn": "clean_transcript", "args": ["a:b:cé"], "ok": "a:b:cé"}
+{"fn": "clean_transcript", "args": ["a:b:c.leading"], "ok": "a:b:c.leading"}
+{"fn": "clean_transcript", "args": ["tab\tseparated:"], "ok": "tab separated:"}
+{"fn": "clean_transcript", "args": ["emoji 👍🏽 mix:"], "ok": "emoji 👍🏽 mix:"}
+{"fn": "clean_transcript", "args": ["key_name-1HELLO"], "ok": "key_name-1HELLO"}
+{"fn": "clean_transcript", "args": ["  padded  emoji 👍🏽 mix"], "ok": "padded emoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["😀emoji 👍🏽 mix"], "ok": "😀emoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["abline1\nline2"], "ok": "abline1 line2"}
+{"fn": "clean_transcript", "args": ["HELLOkey_name-1"], "ok": "HELLOkey_name-1"}
+{"fn": "clean_transcript", "args": ["line1\nline2./x/**/*.json"], "ok": "line1 line2./x/**/*.json"}
+{"fn": "clean_transcript", "args": [".leadingİstanbul"], "ok": ".leadingİstanbul"}
+{"fn": "clean_transcript", "args": [".leadingHELLO"], "ok": ".leadingHELLO"}
+{"fn": "clean_transcript", "args": ["src/a/b.tsHello World"], "ok": "src/a/b.tsHello World"}
+{"fn": "clean_transcript", "args": ["astraße"], "ok": "astraße"}
+{"fn": "clean_transcript", "args": [".leadingns:key.path"], "ok": ".leadingns:key.path"}
+{"fn": "clean_transcript", "args": ["{name} has {count} itemsemoji 👍🏽 mix"], "ok": "{name} has {count} itemsemoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["Hello WorldHello World"], "ok": "Hello WorldHello World"}
+{"fn": "clean_transcript", "args": ["a:b:c日本語のテキスト"], "ok": "a:b:c日本語のテキスト"}
+{"fn": "clean_transcript", "args": [".leading😀"], "ok": ".leading😀"}
+{"fn": "clean_transcript", "args": ["ünïcödéünïcödé"], "ok": "ünïcödéünïcödé"}
+{"fn": "clean_transcript", "args": [".leading{name} has {count} items"], "ok": ".leading{name} has {count} items"}
+{"fn": "clean_transcript", "args": ["emoji 👍🏽 mix  padded  "], "ok": "emoji 👍🏽 mix padded"}
+{"fn": "clean_transcript", "args": ["src/a/b.tsemoji 👍🏽 mix"], "ok": "src/a/b.tsemoji 👍🏽 mix"}
+{"fn": "clean_transcript", "args": ["ΣΊΣΥΦΟΣİstanbul"], "ok": "ΣΊΣΥΦΟΣİstanbul"}
+{"fn": "clean_transcript", "args": ["😀a..b"], "ok": "😀a..b"}
+{"fn": "clean_transcript", "args": ["./x/**/*.jsonΣΊΣΥΦΟΣ"], "ok": "./x/**/*.jsonΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": ["ΣΊΣΥΦΟΣ日本語のテキスト"], "ok": "ΣΊΣΥΦΟΣ日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["a.b.ca😀b😀c"], "ok": "a.b.ca😀b😀c"}
+{"fn": "clean_transcript", "args": ["./x/**/*.jsonİstanbul"], "ok": "./x/**/*.jsonİstanbul"}
+{"fn": "clean_transcript", "args": ["a..b日本語のテキスト"], "ok": "a..b日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["éstraße"], "ok": "éstraße"}
+{"fn": "clean_transcript", "args": ["a.b.c  padded  "], "ok": "a.b.c padded"}
+{"fn": "clean_transcript", "args": ["src/a/b.ts.leading"], "ok": "src/a/b.ts.leading"}
+{"fn": "clean_transcript", "args": ["abca..b"], "ok": "abca..b"}
+{"fn": "clean_transcript", "args": ["a:b:ckey_name-1"], "ok": "a:b:ckey_name-1"}
+{"fn": "clean_transcript", "args": ["key_name-1a😀b😀c"], "ok": "key_name-1a😀b😀c"}
+{"fn": "clean_transcript", "args": ["a{name} has {count} items"], "ok": "a{name} has {count} items"}
+{"fn": "clean_transcript", "args": ["key_name-1./x/**/*.json"], "ok": "key_name-1./x/**/*.json"}
+{"fn": "clean_transcript", "args": ["helloa..b"], "ok": "helloa..b"}
+{"fn": "clean_transcript", "args": ["{name} has {count} items{name} has {count} items"], "ok": "{name} has {count} items{name} has {count} items"}
+{"fn": "clean_transcript", "args": ["😀ab"], "ok": "😀ab"}
+{"fn": "clean_transcript", "args": ["Hello Worlda"], "ok": "Hello Worlda"}
+{"fn": "clean_transcript", "args": ["trailing.a.b.c"], "ok": "trailing.a.b.c"}
+{"fn": "clean_transcript", "args": ["a.b.c😀"], "ok": "a.b.c😀"}
+{"fn": "clean_transcript", "args": ["﻿bomtrailing."], "ok": "﻿bomtrailing."}
+{"fn": "clean_transcript", "args": ["a..bhello world"], "ok": "a..bhello world"}
+{"fn": "clean_transcript", "args": [".leading﻿bom"], "ok": ".leading﻿bom"}
+{"fn": "clean_transcript", "args": ["Hello Worldstraße"], "ok": "Hello Worldstraße"}
+{"fn": "clean_transcript", "args": ["ΣΊΣΥΦΟΣ{name} has {count} items"], "ok": "ΣΊΣΥΦΟΣ{name} has {count} items"}
+{"fn": "clean_transcript", "args": [":a..b"], "ok": ":a..b"}
+{"fn": "clean_transcript", "args": ["hello  padded  "], "ok": "hello padded"}
+{"fn": "clean_transcript", "args": ["  padded  ΣΊΣΥΦΟΣ"], "ok": "padded ΣΊΣΥΦΟΣ"}
+{"fn": "clean_transcript", "args": ["HELLO😀"], "ok": "HELLO😀"}
+{"fn": "clean_transcript", "args": ["a😀b😀c{name} has {count} items"], "ok": "a😀b😀c{name} has {count} items"}
+{"fn": "clean_transcript", "args": ["ünïcödéa:b:c"], "ok": "ünïcödéa:b:c"}
+{"fn": "clean_transcript", "args": ["hellons:key.path"], "ok": "hellons:key.path"}
+{"fn": "clean_transcript", "args": ["ns:key.pathabc"], "ok": "ns:key.pathabc"}
+{"fn": "clean_transcript", "args": ["key_name-1abc"], "ok": "key_name-1abc"}
+{"fn": "clean_transcript", "args": ["straßea:b:c"], "ok": "straßea:b:c"}
+{"fn": "clean_transcript", "args": ["ünïcödé.leading"], "ok": "ünïcödé.leading"}
+{"fn": "clean_transcript", "args": ["a😀b😀cHELLO"], "ok": "a😀b😀cHELLO"}
+{"fn": "clean_transcript", "args": ["  padded  hello world"], "ok": "padded hello world"}
+{"fn": "clean_transcript", "args": ["a.b.cünïcödé"], "ok": "a.b.cünïcödé"}
+{"fn": "clean_transcript", "args": ["helloa"], "ok": "helloa"}
+{"fn": "clean_transcript", "args": ["emoji 👍🏽 mix日本語のテキスト"], "ok": "emoji 👍🏽 mix日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["aa😀b😀c"], "ok": "aa😀b😀c"}
+{"fn": "clean_transcript", "args": ["hellohello"], "ok": "hellohello"}
+{"fn": "clean_transcript", "args": ["ünïcödé日本語のテキスト"], "ok": "ünïcödé日本語のテキスト"}
+{"fn": "clean_transcript", "args": ["a:b:c:"], "ok": "a:b:c:"}
+{"fn": "clean_transcript", "args": ["héllo wörld"], "ok": "héllo wörld"}
+{"fn": "clean_transcript", "args": ["👍🏽 thumbs"], "ok": "👍🏽 thumbs"}
+{"fn": "clean_transcript", "args": ["日本語"], "ok": "日本語"}
+{"fn": "clean_transcript", "args": ["ılık ırmak"], "ok": "ılık ırmak"}
+{"fn": "clean_transcript", "args": ["👨‍👩‍👧 family"], "ok": "👨‍👩‍👧 family"}
+{"fn": "clean_transcript", "args": ["a b"], "ok": "a b"}
+{"fn": "clean_transcript", "args": ["a😀b"], "ok": "a😀b"}
+{"fn": "clean_transcript", "args": ["a²b x½ y①"], "ok": "a²b x½ y①"}
+{"fn": "clean_transcript", "args": ["aⅠb Ⅻ"], "ok": "aⅠb Ⅻ"}
+{"fn": "clean_transcript", "args": ["a𐐀b 𝐀bc"], "ok": "a𐐀b 𝐀bc"}
+{"fn": "clean_transcript", "args": ["कि ٣٤"], "ok": "कि ٣٤"}
+{"fn": "clean_transcript", "args": ["Iı İi"], "ok": "Iı İi"}
+{"fn": "clean_transcript", "args": ["K K k"], "ok": "K K k"}
+{"fn": "clean_transcript", "args": ["ſ s S"], "ok": "ſ s S"}
+{"fn": "clean_transcript", "args": ["x‍y 👨‍👩‍👧"], "ok": "x‍y 👨‍👩‍👧"}
+{"fn": "clean_transcript", "args": ["a b c　d"], "ok": "a b c d"}
+{"fn": "clean_transcript", "args": ["١٢٣ ٤٥"], "ok": "١٢٣ ٤٥"}
+{"fn": "clean_transcript", "args": ["𝟘𝟙 ²³"], "ok": "𝟘𝟙 ²³"}
+{"fn": "clean_transcript", "args": ["snake_case foo-bar o'neil"], "ok": "snake_case foo-bar o'neil"}
+{"fn": "clean_transcript", "args": ["ǅungla Ǆ"], "ok": "ǅungla Ǆ"}
+{"fn": "clean_transcript", "args": ["one\r\ntwo threefour"], "ok": "one two three four"}
+{"fn": "clean_transcript", "args": ["café café"], "ok": "café café"}
+{"fn": "clean_transcript", "args": ["ΣΑΣ σας ς"], "ok": "ΣΑΣ σας ς"}
+{"fn": "build_prompt", "args": ["hello world", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["Hello Worldünïcödé", null, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["line1\nline2", [], "./x/**/*.json"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["日本語のテキスト", ["a", 1]], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ΣΊΣΥΦΟΣstraße", null, "a😀b😀cab"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["HELLO", "x", "日本語のテキスト"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mix", 0, "moji 👍🏽 m"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["b\tsepara", 0, "tab\tseparated"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["hello world", 0, "{name} has {count} items"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["日本語のテキスト", ["a", 1], "本語のテキ"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": [".leading", 0, "a"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["ns:key.path", null, "a.b.c"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["ns:key.path", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["straße", {}, "line1\nline2a.b.c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["key_name-1", ["a", 1], "emoji 👍🏽 mixabc"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["hello", true, "l"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["a.b.cemoji 👍🏽 mix", 0, "﻿bom"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["ünïcödé", {"a": {"b": "c"}}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["﻿bom日本語のテキスト", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["İstanbul", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["hello", ["a", 1], "hello"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": [".leading", {"a": "b"}, "straße"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mixa.b.c", {"a": {"b": "c"}}, "İstanbulab"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["😀ab", []], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ns:key.path", {"a": "b"}, "a"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a😀b😀c", [], "﻿bom"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["key_name-1", {"a": {"b": "c"}}, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["a:b:c", []], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["src/a/b.ts", [], "tab\tseparated"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": [":", null, "tab\tseparated"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["a:b:ca😀b😀c", 0, "a.b.ca.b.c"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["a.b.c", ["a", 1]], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": [".leading", {}, "src/a/b.ts"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["", {"a": "b"}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["s", ["a", 1], "straße"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["./x/**/*.jsonünïcödé", 0, "ö"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["😀", {"a": {"b": "c"}}, "😀"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a..b", "b", "a😀b😀c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["./x/**/*.json", 0, "İstanbul"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["a.b.c", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["./x/**/*.json", "x", "./x/**/*.json"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": [".path ", true, "ns:key.path  padded  "], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["hel", 0, "hello"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": [".P", {"a": {"b": "c"}}, "ns:key.path"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["Hello World", {"a": "b"}, "ld"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["tab\tseparated", [], "a..b"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", null, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["😀", [], "😀"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["キスト", ["a", 1], "日本語のテキスト"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": [":😀", null], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["hello worldsrc/a/b.ts", {"a": {"b": "c"}}, "ΣΊΣΥΦΟΣ"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": [":", {"a": {"b": "c"}}, "😀"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["日本語のテキスト", true, "  padded  abc"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["{name} has {count} items", {"a": {"b": "c"}}, "tab\tseparated"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["HELLOab", 0, "﻿bomstraße"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["line1\nline2", {}, "hello﻿bom"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["src/a/b.ts", true, ".leading"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["", null, "ab"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["hello world", ["a", 1], "Hello World"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["HELLO", {"a": "b"}, "LO"], "ok": "Transcribe this audio with punctuation and capitalization. Include all spoken words and verbal fillers. Write numbers in their standard written form. Use <ev:*> and <sty:*> special tokens to recognize all non-speech verbatims and speaking style. HELLO Context terms: a. Use these spellings only when supported by the audio. Language: Lao. Do not translate."}
+{"fn": "build_prompt", "args": ["aab", {"a": "b"}, "é"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello worldΣΊΣΥΦΟΣ", true, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["İstanbul", {}, "a.b.c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["trailing.", null, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["Hello World", ["a", 1], "llo Wor"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": [".leading", [], "src/a/b.ts"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["line1\nline2straße", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["hello world", 0, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ab", true, "A"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["😀", 0, "ns:key.path"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": [":", true, "a.b.c{name} has {count} items"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["﻿bom", ["a", 1]], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["́", true, "é"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["﻿bom", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["HELLO", null, "{name} has {count} items"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["src/a/b.tsstraße", {}, "straße"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a:b:c", 0, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["key_name-1", ["a", 1], "a:b:c日本語のテキスト"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["﻿bom", {}, ":{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a:b:c", {"a": {"b": "c"}}, "a.b.c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ünïcödé", {}, "tab\tseparated"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a..b", null, "İstanbul"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["日本語のテキスト", ["a", 1], "helloa"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["trailing.", ["a", 1], "é😀"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["日本語のテキスト", true, "hello"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["ab", {"a": {"b": "c"}}, "emoji 👍🏽 mix"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["trailing.", [], "emoji 👍🏽 mix"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["HELLO", {"a": {"b": "c"}}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["key_name-1", null, "ünïcödé"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["hello world", true, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mix", null, "😀😀"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["straßeΣΊΣΥΦΟΣ", true, "hello"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["key_name-1", {}, "é"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a😀b😀c", 0], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["./x/**/*.json", 0], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mix", {"a": "b"}, "straßea"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a😀b😀c", true], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["😀", {}, "a😀b😀c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ΣΊΣΥΦΟΣa..b", [], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ab", "x", "ünïcödéab"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a:b:c", [], ".leading"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": [".leading", [], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["helloünïcödé", true, "ELLOÜNÏCÖDÉ"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["日本語のテキスト", [], "日本語のテキスト"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["", true, ":"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["hello world", ["a", 1]], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ns:key.path", 0, "a..b"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["line1\nline2", "x", "trailing."], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["straße", "x", "raße"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["./x/**/*.json", ["a", 1], "  padded  "], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["ab", {"a": {"b": "c"}}, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["a..b", null, "日本語のテキストa"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["trailing.straße", null, "ing.s"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": [":", 0, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["hello world日本語のテキスト", null, "line1\nline2"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["a:b:c", [], "b"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["astraße", "x", "日本語のテキスト"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a", "x", "ab"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["src/a/b.ts", {"a": {"b": "c"}}, "a.b.c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["日本語のテキスト", 0, "İstanbul"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mixstraße", true, "{name} has {count} items"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["a:b:c", {}, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["R", {"a": "b"}, "straße"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["straße", {}, "hello world"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["trailing.", "x", {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["./x/**/*.jsonİstanbul", "x", ":line1\nline2"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hellohello world", [], "key_name-1ΣΊΣΥΦΟΣ"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["line1\nline2", 0, "abc"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["  padded  ", 0], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["a.b.ctab\tseparated", 0, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["é", 0, "HELLO"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["ns:key.path", ["a", 1]], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ΣΊΣΥΦΟΣ", "x", "./x/**/*.json"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["abcstraße", null, "a..b"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["{name} has {count} items", null, "hello"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["hellokey_name-1", true, "tab\tseparated"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": [":", {"a": "b"}, "HELLO"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["B.", {}, "a.b.c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello", "x", "line1\nline2"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["😀tab\tseparated", null], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["tab\tseparated", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["", {"a": "b"}, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["a..b", 0, "ns:key.path"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["tab\tseparated", {"a": {"b": "c"}}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["﻿bom", ["a", 1], "o"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["ab", {"a": "b"}, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["hello", [], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["İstanbul", true, "a..b"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["ΣΊΣΥΦΟΣ", [], "  padded  "], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["HELLOΣΊΣΥΦΟΣ", {"a": "b"}, "ünïcödé"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["", {}, "abc"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mix", 0], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["İstanbul", ["a", 1]], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["straße", [], "ns:key.path"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a:b:cns:key.path", null, "abc"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["", true, "abc"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["./x/**/*.json", null, "/x/"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["  padded  abc", {"a": {"b": "c"}}, "emoji 👍🏽 mixtrailing."], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a", null, ""], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["x", "x"], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["a:b:c", ["a", 1], "C"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["tab\tseparatedstraße", {"a": {"b": "c"}}, ".leading日本語のテキスト"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ünïcödéHello World", 0, "a:b:c"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["bo", ["a", 1], "﻿bom"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["src/a/b.ts", {"a": "b"}, "a..b"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["trailing.", 0, "{name} has {count} items"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["src/a/b.ts", {"a": {"b": "c"}}, "ns:key.path"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a.b.ca😀b😀c", {"a": {"b": "c"}}, "{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ab", {"a": {"b": "c"}}, "a..b"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a😀b😀c", {"a": "b"}, "trailing."], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["straße", {"a": "b"}, "HELLO"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["İstanbul", 0, "  padded  "], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["abc", null, "tab\tseparated"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["  padded  ", ["a", 1], "a..b"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["﻿bom", {"a": "b"}, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["a", [], "trailing."], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a..bsrc/a/b.ts", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["abemoji 👍🏽 mix", 0], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["aünïcödé", {"a": "b"}, "ns:key.path"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["﻿bom", true, "a😀b😀c"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["abc", [], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ünïcödé", [], "é😀"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mix  padded  ", {"a": "b"}, {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["é", "x", "emoji 👍🏽 mixhello"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["aba..b", ["a", 1], "ns:key.path"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["{name} has {count} itemsΣΊΣΥΦΟΣ", ["a", 1], {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["😀", "x", "﻿bom"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["b", [], "a:b:c"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ünïcödé", [], "abc"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["tab\tseparated{name} has {count} items", {"a": {"b": "c"}}, "{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["trailing.", ["a", 1], "ΣΊΣΥΦΟΣ"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["hello", null, "key_name-1"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["./x/**/*.json", null, "é"], "error": "TypeError: 'NoneType' object is not iterable"}
+{"fn": "build_prompt", "args": ["  padded  ", null], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["ns:key.path", {"a": "b"}, "abc"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["emoji 👍🏽 mix", {"a": "b"}, "JI"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["./x/**/*.json", true, "a😀b😀c"], "error": "TypeError: 'bool' object is not iterable"}
+{"fn": "build_prompt", "args": ["a﻿bom", {"a": "b"}, "m"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a..b", 0, "key_name-1"], "error": "TypeError: 'int' object is not iterable"}
+{"fn": "build_prompt", "args": ["﻿bom", "x", "{name} has {count} items﻿bom"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["héllo wörld", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["👍🏽 thumbs", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["日本語", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["é", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["İstanbul", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["straße", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ılık ırmak", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["👨‍👩‍👧 family", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a b", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ΣΊΣΥΦΟΣ", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a😀b", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["﻿bom", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a²b x½ y①", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["aⅠb Ⅻ", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a𐐀b 𝐀bc", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["कि ٣٤", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["Iı İi", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["K K k", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ſ s S", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["x‍y 👨‍👩‍👧", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["a b c　d", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["١٢٣ ٤٥", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["𝟘𝟙 ²³", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["snake_case foo-bar o'neil", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ǅungla Ǆ", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["one\r\ntwo threefour", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["café café", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["ΣΑΣ σας ς", "x", "Hello World{name} has {count} items"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", {"$undefined": true}], "error": "TypeError: build_prompt() missing 1 required positional argument: 'language'"}
+{"fn": "build_prompt", "args": ["hello world", "x", "héllo wörld"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "👍🏽 thumbs"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "日本語"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", ""], "ok": "Transcribe this audio with punctuation and capitalization. Include all spoken words and verbal fillers. Write numbers in their standard written form. Use <ev:*> and <sty:*> special tokens to recognize all non-speech verbatims and speaking style. hello world Context terms: x. Use these spellings only when supported by the audio."}
+{"fn": "build_prompt", "args": ["hello world", "x", "é"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "İstanbul"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "straße"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "ılık ırmak"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "👨‍👩‍👧 family"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "a b"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "ΣΊΣΥΦΟΣ"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "a😀b"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "﻿bom"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "a²b x½ y①"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "aⅠb Ⅻ"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "a𐐀b 𝐀bc"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "build_prompt", "args": ["hello world", "x", "कि ٣٤"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
+{"fn": "clean_transcript", "args": ["<spk:0> <ev:breath> Hello , world ! <sty:stt:calm_reflective> How are you ? <sty:end:calm_reflective>"], "ok": "Hello, world! How are you?"}
+{"fn": "clean_transcript", "args": ["<ev:laughter> <ev:breath> . ! ?"], "ok": ""}
+{"fn": "clean_transcript", "args": ["Uh-huh , I see <unknown_tag> !"], "ok": "Uh-huh, I see <unknown_tag>!"}
+{"fn": "build_prompt", "args": ["Voice assistant session.", ["Jarvis", "Nemotron", "Jarvis"], "en-US"], "ok": "Transcribe this audio with punctuation and capitalization. Include all spoken words and verbal fillers. Write numbers in their standard written form. Use <ev:*> and <sty:*> special tokens to recognize all non-speech verbatims and speaking style. Voice assistant session. Context terms: Jarvis, Nemotron. Use these spellings only when supported by the audio. Language: English. Do not translate."}
+{"fn": "build_prompt", "args": ["", [], "auto"], "ok": "Transcribe this audio with punctuation and capitalization. Include all spoken words and verbal fillers. Write numbers in their standard written form. Use <ev:*> and <sty:*> special tokens to recognize all non-speech verbatims and speaking style."}
+{"fn": "build_prompt", "args": ["", ["valid", "   "], "en"], "error": "ValueError: STT context_terms must contain nonempty strings"}
+{"fn": "build_prompt", "args": ["", ["Jarvis"], "xx-unknown"], "error": "ValueError: Nemotron STT language must be a recognized ISO language code"}
