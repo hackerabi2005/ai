@@ -25,6 +25,24 @@ const S2S_ADDR: &str = "127.0.0.1:8765";
 
 fn build_pythonpath(tools_dir: &Path) -> OsString {
     let mut paths = vec![tools_dir.to_path_buf()];
+    if let Some(repo_root) = tools_dir.parent().and_then(|p| p.parent()) {
+        for crate_name in [
+            "jev-ultrafast-rs",
+            "python-rs",
+            "tool-call-rs",
+            "utils-rs",
+            "stt-rs",
+            "llm-rs",
+            "tts-rs",
+            "pipeline-rs",
+            "speech-languages-rs",
+        ] {
+            let py_dir = repo_root.join("rust").join(crate_name).join("python");
+            if py_dir.is_dir() {
+                paths.push(py_dir);
+            }
+        }
+    }
     if let Some(existing) = env::var_os("PYTHONPATH") {
         paths.extend(env::split_paths(&existing));
     }

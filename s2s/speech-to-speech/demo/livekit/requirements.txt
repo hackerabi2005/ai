@@ -1,2 +1,0 @@
-certifi>=2026.10.19
-livekit-agents[openai]==1.8.5

@@ -201,6 +201,23 @@ impl StdioBridge {
 
     fn spawn(&self) -> Result<ChildConn, BridgeError> {
         let mut cmd = Command::new(&self.python);
+        if let Some(repo_root) = self.script.parent().and_then(|p| p.parent()).and_then(|p| p.parent()) {
+            let mut py_paths = Vec::new();
+            for crate_name in ["jev-ultrafast-rs", "python-rs"] {
+                let d = repo_root.join("rust").join(crate_name).join("python");
+                if d.is_dir() {
+                    py_paths.push(d);
+                }
+            }
+            if let Some(existing) = std::env::var_os("PYTHONPATH") {
+                py_paths.extend(std::env::split_paths(&existing));
+            }
+            if !py_paths.is_empty() {
+                if let Ok(joined) = std::env::join_paths(py_paths) {
+                    cmd.env("PYTHONPATH", joined);
+                }
+            }
+        }
         cmd.arg("-u")
             .arg(&self.script)
             .current_dir(&self.work_dir)
