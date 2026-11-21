@@ -1,7 +1,7 @@
 # Mark vendored Python subprojects and generated bindings/shadows as vendored/generated
 # so GitHub Linguist reports the Rust workspace (jarvis-rs/ + rust/) accurately.
 s2s/** linguist-vendored
-borwse harness/** linguist-vendored
+"borwse harness/**" linguist-vendored
 presentation/** linguist-vendored
 jarvis-rs/python/** linguist-vendored
 rust/**/shadow/** linguist-generated
