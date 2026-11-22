@@ -451,3 +451,36 @@ def test_act_treats_concurrent_control_invalidation_as_stale_retry():
     assert act_res["executed"] is False
     assert act_res["status"] == "ready"
 
+
+def test_match_clickable_action_resolves_appearance_radio_buttons_and_act_recovers_from_nav_timeout():
+    from jev_bridge import _match_clickable_action
+
+    wiki_actions = [
+        {"id": "e1", "kind": "click", "role": "radio", "label": "Small", "node": 1},
+        {"id": "e2", "kind": "click", "role": "radio", "label": "Large", "node": 2},
+        {"id": "e3", "kind": "click", "role": "radio", "label": "Dark", "node": 3},
+        {"id": "e4", "kind": "click", "role": "radio", "label": "Wide", "node": 4},
+    ]
+    assert _match_clickable_action(wiki_actions, "text large")[0]["id"] == "e2"
+    assert _match_clickable_action(wiki_actions, "set color dark")[0]["id"] == "e3"
+    assert _match_clickable_action(wiki_actions, "width wide")[0]["id"] == "e4"
+
+    class NavTimeoutAfterClickAgent(FakeAgent):
+        def command(self, name: str, body=None):
+            if name == "act":
+                self.state["decision"] = None
+                self.state["history"].append({"step": 1, "action": "YouTube", "kind": "click"})
+                raise RuntimeError("Runtime.evaluate timed out after 5s waiting for the daemon")
+            return super().command(name, body)
+
+    session = BridgeSession(agent_cls=NavTimeoutAfterClickAgent, default_background=False)
+    session.handle({"cmd": "open", "goal": "Select YouTube", "url": "https://www.google.com"})
+    session.handle({"cmd": "predict"})
+    session.agent.browser.evaluate.return_value = ["https://www.youtube.com/", "YouTube"]
+    act_res, _ = session.handle({"cmd": "act", "fingerprint": "fp2"})
+    assert act_res["ok"] is True
+    assert act_res["executed"] is True
+    assert act_res["stale"] is False
+    assert session.agent is not None
+
+

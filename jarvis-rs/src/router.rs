@@ -605,7 +605,7 @@ static GO_TO_UI_SECTION_RE: LazyLock<Regex> = LazyLock::new(|| {
 });
 static APPEARANCE_OPTION_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(
-        r"^(?:(?:text|font)\s+(?:size\s+)?(?:small|standard|large)|(?:color|colour|theme)\s+(?:light|dark|automatic|auto)|width\s+(?:standard|wide)|(?:dark|light)\s+(?:mode|theme))$",
+        r"^(?:(?:set|change|make|select|click|choose|pick)\s+)?(?:(?:text|font)\s+(?:size\s+)?(?:small|standard|large)|(?:color|colour|theme)\s+(?:light|dark|automatic|auto)|width\s+(?:standard|wide)|(?:dark|light)\s+(?:mode|theme))$",
     )
     .unwrap()
 });
@@ -674,13 +674,13 @@ static UNMUTE_VIDEO_RE: LazyLock<Regex> = LazyLock::new(|| {
 });
 static VOLUME_UP_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(
-        r"^(?:volume\s+up|louder|(?:increase|raise)\s+(?:(?:the|this)\s+)?(?:volume|value|sound|audio)(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?|(?:turn|bring)\s+(?:up\s+(?:(?:the|this)\s+)?(?:volume|value|sound)|(?:(?:the|this)\s+)?(?:volume|value|sound)\s+(?:up|loop))(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?)$",
+        r"^(?:(?:volume|vol)\s+up|louder|(?:increase|raise)\s+(?:(?:the|this)\s+)?(?:volume|value|sound|audio)(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?|(?:turn|bring)\s+(?:up\s+(?:(?:the|this)\s+)?(?:volume|value|sound)|(?:(?:the|this)\s+)?(?:volume|value|sound)\s+(?:up|loop))(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?)$",
     )
     .unwrap()
 });
 static VOLUME_DOWN_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(
-        r"^(?:volume\s+down|quieter|(?:reduce|lower|decrease)\s+(?:(?:the|this)\s+)?(?:volume|value|sound|audio)(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?|(?:turn|bring)\s+(?:down\s+(?:(?:the|this)\s+)?(?:volume|value|sound)|(?:(?:the|this)\s+)?(?:volume|value|sound)\s+(?:down|low))(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?)$",
+        r"^(?:(?:volume|vol)\s+down|quieter|(?:reduce|lower|decrease)\s+(?:(?:the|this)\s+)?(?:volume|value|sound|audio)(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?|(?:turn|bring)\s+(?:down\s+(?:(?:the|this)\s+)?(?:volume|value|sound)|(?:(?:the|this)\s+)?(?:volume|value|sound)\s+(?:down|low))(?:\s+(?:for|on)\s+(?:(?:the|this|that)\s+)?(?:video|music|audio))?)$",
     )
     .unwrap()
 });
@@ -697,7 +697,7 @@ static PREV_TRACK_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(r"^(?:previous|prev)\s+(?:video|song|track|episode)$").unwrap()
 });
 static SKIP_AD_RE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"^skip\s+(?:(?:the|this|that)\s+)?(?:ads?|adds?|air|at|hat|intro|recap)|^skip\s+this$")
+    Regex::new(r"^skip\s+(?:(?:the|this|that)\s+)?(?:ads?|adds?|air|at|hat|intro|recap)|^skip\s+(?:this|it)$|^skip(?:\s+skip)*$")
         .unwrap()
 });
 static OPEN_SETTINGS_RE: LazyLock<Regex> = LazyLock::new(|| {
@@ -705,7 +705,7 @@ static OPEN_SETTINGS_RE: LazyLock<Regex> = LazyLock::new(|| {
         .unwrap()
 });
 static CAPTIONS_RE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"^(?:(?:turn|switch)\s+(?:on|off)\s+(?:the\s+)?(?:captions|subtitles|cc)|toggle\s+(?:captions|subtitles|cc)|captions|subtitles)$")
+    Regex::new(r"^(?:(?:turn|switch)\s+(?:on|off)\s+(?:the\s+)?(?:captions|subtitles|cc)|toggle\s+(?:captions|subtitles|cc)|captions|subtitles|cc)$|\b(?:cc|captions|subtitles)\s+option$")
         .unwrap()
 });
 static SEEK_FWD_RE: LazyLock<Regex> = LazyLock::new(|| {
@@ -1923,6 +1923,19 @@ fn classify_inner(raw: &str, in_confirmation: bool, task_running: bool) -> Route
         };
     }
 
+    for sep in [" in ", " on "] {
+        if let Some((q, site_part)) = base_cmd.rsplit_once(sep) {
+            let query = q.trim();
+            if !query.is_empty() && query.split_whitespace().count() <= 5 {
+                if let Some(site) = match_site(site_part.trim()) {
+                    if site.search_url.is_some() {
+                        return route_site_search(site, query, new_tab);
+                    }
+                }
+            }
+        }
+    }
+
     RouteAction::Chat
 }
 
@@ -2752,6 +2765,7 @@ mod tests {
             ("text small", "text small"),
             ("text standard", "text standard"),
             ("color dark", "color dark"),
+            ("set color dark", "set color dark"),
             ("color light", "color light"),
             ("color automatic", "color automatic"),
             ("width wide", "width wide"),
@@ -2762,6 +2776,18 @@ mod tests {
                 RouteAction::ClickTarget { target, .. } => assert_eq!(target, expected_target, "{phrase}"),
                 other => panic!("expected ClickTarget for {phrase:?}, got {other:?}"),
             }
+        }
+        assert_eq!(classify("skip skip skip", false, false), RouteAction::Control("skip_ad".into()));
+        assert_eq!(classify("vol up", false, false), RouteAction::Control("volume_up".into()));
+        assert_eq!(
+            classify("take the cursor and go to the cc option", false, false),
+            RouteAction::Control("toggle_captions".into())
+        );
+        match classify("mr beast in youtube", false, false) {
+            RouteAction::OpenUrl { url, .. } => {
+                assert_eq!(url, "https://www.youtube.com/results?search_query=mr+beast");
+            }
+            other => panic!("expected YouTube search for 'mr beast in youtube', got {other:?}"),
         }
         assert_eq!(
             contextualize_generic_search(

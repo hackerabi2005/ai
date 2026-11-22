@@ -256,10 +256,11 @@ def _run_file_command(command: Command, command_args: list[str]) -> None:
         from speech_to_speech.configured_runtime import run_configured_command
 
         run_configured_command(command, config)
-    except ConfigurationError:
-        parser.exit(2, "Configuration error: check the configured runtime and client settings.\n")
-    except Exception:
-        parser.exit(1, "Configured startup failed; check the selected backends and runtime resources.\n")
+    except ConfigurationError as exc:
+        parser.exit(2, f"Configuration error: {exc}\n")
+    except Exception as exc:
+        cause = exc.__cause__ or exc
+        parser.exit(1, f"Configured startup failed ({type(cause).__name__}: {cause}); check the selected backends and runtime resources.\n")
 
 
 def main() -> None:

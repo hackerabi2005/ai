@@ -338,22 +338,30 @@ class ChatCompletionsApiModelHandler(BaseOpenAICompatibleHandler):
     """
 
     def warmup(self) -> None:
-        logger.info(f"Warming up {self.__class__.__name__}")
-        start = time.time()
-        self._send_warmup(
-            lambda client: client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant"},
-                    {"role": "user", "content": "Hello"},
-                ],
-                max_tokens=16,
-                extra_body=self._extra_body,
-                timeout=self.request_timeout,
-            )
-        )
-        end = time.time()
-        logger.info(f"{self.__class__.__name__}:  warmed up! time: {(end - start):.3f} s")
+        from threading import Thread
+
+        def _bg_warm() -> None:
+            logger.info(f"Warming up {self.__class__.__name__} in background")
+            start = time.time()
+            try:
+                self._send_warmup(
+                    lambda client: client.chat.completions.create(
+                        model=self.model_name,
+                        messages=[
+                            {"role": "system", "content": "You are a helpful assistant"},
+                            {"role": "user", "content": "Hello"},
+                        ],
+                        max_tokens=16,
+                        extra_body=self._extra_body,
+                        timeout=self.request_timeout,
+                    )
+                )
+                end = time.time()
+                logger.info(f"{self.__class__.__name__}:  warmed up! time: {(end - start):.3f} s")
+            except Exception as exc:
+                logger.warning(f"{self.__class__.__name__}: warmup skipped ({type(exc).__name__}: {exc})")
+
+        Thread(target=_bg_warm, name="llm-warmup", daemon=True).start()
 
     def _build_compaction_generate_fn(self) -> CompactGenerateFn:
         """Return a generate fn that calls Chat Completions for compaction."""

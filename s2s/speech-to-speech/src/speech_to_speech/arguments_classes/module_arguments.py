@@ -11,6 +11,10 @@ _PROXY_LLM_BACKENDS = ", ".join(name for name, spec in LLM_BACKENDS.items() if s
 
 @dataclass
 class ModuleArguments:
+    enable_visemes: bool = field(
+        default=False,
+        metadata={"help": "Enable Wav2Vec2 viseme generation after TTS."},
+    )
     stt_supported_languages: Optional[list[str]] = field(
         default=None,
         metadata={"help": "Declare the active STT model's language coverage when the backend cannot advertise it."},

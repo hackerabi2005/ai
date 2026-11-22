@@ -492,39 +492,42 @@ class Browser:
             action, self.after_input = self.after_input, None
             # Wait briefly for post-input DOM settles or autocomplete options without capturing video_op.
             if not action.get("video_op") and "node" in action:
-                ref = getattr(self, "_frame_refs", {}).get(action.get("node"))
-                frame_tag, local_node = _parse_node_ref(action["node"])
-                local_action = {**action, "node": local_node} if frame_tag else action
-                try:
-                    self._eval_in_frame(
-                        ref,
-                        """(action => new Promise(resolve => {
-                          const field=window.__jevFast?.nodes.get(action.node);
-                          const autocomplete=action.kind==='fill' && field?.getAttribute('role')==='combobox';
-                          let frames=0, stopped=false;
-                          const finish=()=>{stopped=true;resolve()};
-                          setTimeout(finish,autocomplete ? 200 : 25);
-                          const ready=()=>{
-                            if (stopped) return;
-                            const ids=(field?.getAttribute('aria-controls')||field?.getAttribute('aria-owns')||'')
-                              .split(/\\s+/).filter(Boolean);
-                            const doc = document;
-                            const roots=ids.length ? ids.map(id=>doc.getElementById(id)).filter(Boolean) : [doc];
-                            const options=roots.flatMap(root=>[...root.querySelectorAll('[role="option"]')]);
-                            const minFrames = autocomplete ? 2 : 1;
-                            if (++frames>=minFrames && (!autocomplete || options.some(e=>{
-                              const r=e.getBoundingClientRect();
-                              return r.width && r.height && r.bottom>0 && r.top<innerHeight &&
-                                e.checkVisibility({checkOpacity:true,checkVisibilityCSS:true});
-                            }))) finish();
-                            else requestAnimationFrame(ready);
-                          };
-                          requestAnimationFrame(ready);
-                        }))(""" + json.dumps(local_action) + ")",
-                        await_promise=True,
-                    )
-                except (RuntimeError, StalePage):
-                    pass
+                if action.get("kind") == "fill" and action.get("role") == "combobox":
+                    ref = getattr(self, "_frame_refs", {}).get(action.get("node"))
+                    frame_tag, local_node = _parse_node_ref(action["node"])
+                    local_action = {**action, "node": local_node} if frame_tag else action
+                    try:
+                        self._eval_in_frame(
+                            ref,
+                            """(action => new Promise(resolve => {
+                              const field=window.__jevFast?.nodes.get(action.node);
+                              const autocomplete=action.kind==='fill' && field?.getAttribute('role')==='combobox';
+                              let frames=0, stopped=false;
+                              const finish=()=>{stopped=true;resolve()};
+                              setTimeout(finish,autocomplete ? 200 : 25);
+                              const ready=()=>{
+                                if (stopped) return;
+                                const ids=(field?.getAttribute('aria-controls')||field?.getAttribute('aria-owns')||'')
+                                  .split(/\\s+/).filter(Boolean);
+                                const doc = document;
+                                const roots=ids.length ? ids.map(id=>doc.getElementById(id)).filter(Boolean) : [doc];
+                                const options=roots.flatMap(root=>[...root.querySelectorAll('[role="option"]')]);
+                                const minFrames = autocomplete ? 2 : 1;
+                                if (++frames>=minFrames && (!autocomplete || options.some(e=>{
+                                  const r=e.getBoundingClientRect();
+                                  return r.width && r.height && r.bottom>0 && r.top<innerHeight &&
+                                    e.checkVisibility({checkOpacity:true,checkVisibilityCSS:true});
+                                }))) finish();
+                                else requestAnimationFrame(ready);
+                              };
+                              requestAnimationFrame(ready);
+                            }))(""" + json.dumps(local_action) + ")",
+                            await_promise=True,
+                        )
+                    except (RuntimeError, StalePage):
+                        pass
+                else:
+                    time.sleep(0.025)
         if getattr(self, "_last_page_has_media", True):
             self._wake_player_controls()
         for attempt in range(10):
@@ -547,6 +550,12 @@ class Browser:
                 if attempt == 9:
                     raise
                 time.sleep(0.02)
+            except RuntimeError as exc:
+                msg = str(exc).lower()
+                if attempt < 3 and any(k in msg for k in ("timed out", "navigat", "context")):
+                    time.sleep(0.05)
+                    continue
+                raise
         raise StalePage("Page did not settle")
 
     def fresh(self, page, action=None):

@@ -77,7 +77,16 @@ def _is_transient_nav_error(exc: Exception) -> bool:
     if isinstance(exc, StalePage):
         return True
     msg = str(exc).lower()
-    return any(k in msg for k in ("navigated", "execution context", "cannot find context"))
+    return any(
+        k in msg
+        for k in (
+            "navigated",
+            "execution context",
+            "cannot find context",
+            "runtime.evaluate timed out",
+            "page.navigate timed out",
+        )
+    )
 
 
 def _wait_for_ready_state(
@@ -686,9 +695,24 @@ def _list_page_targets(*, prefer_real: bool = True) -> list[dict[str, Any]]:
         t
         for t in raw
         if t.get("type") == "page"
-        and not str(t.get("url") or "").startswith(("devtools://", "chrome-extension://", "chrome-untrusted://"))
+        and not str(t.get("url") or "").startswith(
+            (
+                "devtools://",
+                "chrome-extension://",
+                "chrome-untrusted://",
+                "chrome://omnibox",
+                "chrome://side-panel",
+                "chrome://tab-search",
+                "chrome://read-anything",
+                "chrome://history-clusters",
+                "chrome://new-tab-page",
+            )
+        )
     ]
     if prefer_real:
+        http_tabs = [t for t in pages if str(t.get("url") or "").startswith(("http://", "https://"))]
+        if http_tabs:
+            return http_tabs
         real = [t for t in pages if str(t.get("url") or "") not in {"", "about:blank"}]
         if real:
             return real
@@ -713,6 +737,9 @@ _CLICK_NOISE_RE = re.compile(r"[^a-z0-9]+")
 _CLICK_UI_SUFFIX_RE = re.compile(
     r"\s+(?:button|btn|link|tab|icon|menu|option|checkbox|radio|toggle|switch|box|field|card|item|video|result)$"
 )
+_APPEARANCE_SHORT_RE = re.compile(
+    r"^(?:(?:set|change|make|select|click|choose|pick)\s+)?(?:(?:text|font)(?:\s+size)?|color|colour|theme|width)\s+(small|large|light|dark|automatic|auto|wide)$"
+)
 
 
 def _norm_click_text(s: str) -> str:
@@ -725,7 +752,15 @@ def _match_clickable_action(actions: list[dict[str, Any]], target: str) -> tuple
     if not raw_q:
         return None
     stripped_q = _CLICK_UI_SUFFIX_RE.sub("", raw_q).strip() or raw_q
-    queries = (raw_q, stripped_q) if stripped_q != raw_q else (raw_q,)
+    q_list = [raw_q]
+    if stripped_q != raw_q:
+        q_list.append(stripped_q)
+    m_app = _APPEARANCE_SHORT_RE.match(stripped_q)
+    if m_app:
+        opt = "automatic" if m_app.group(1) == "auto" else m_app.group(1)
+        if opt not in q_list:
+            q_list.append(opt)
+    queries = tuple(q_list)
 
     scored: list[tuple[float, int, str, dict[str, Any]]] = []
     for act in actions:
@@ -1056,6 +1091,28 @@ class BridgeSession:
         try:
             snap = agent.command("act", {"fingerprint": fingerprint})
             executed = len(snap["history"]) > prev_history_len
+            last_act = snap["history"][-1] if snap["history"] else None
+            if (
+                executed
+                and isinstance(last_act, dict)
+                and last_act.get("kind") == "fill"
+                and "search" in str(last_act.get("action") or "").lower()
+                and str(agent.state.get("goal") or "").strip().lower().startswith(("type ", "enter ", "fill "))
+            ):
+                try:
+                    for ev_type in ("rawKeyDown", "keyUp"):
+                        agent.browser.call(
+                            "Input.dispatchKeyEvent",
+                            type=ev_type,
+                            key="Enter",
+                            code="Enter",
+                            windowsVirtualKeyCode=13,
+                            nativeVirtualKeyCode=13,
+                        )
+                    snap["status"] = "done"
+                    agent.state["status"] = "done"
+                except Exception:
+                    pass
             return {
                 "ok": True,
                 "stale": False,
@@ -1064,7 +1121,7 @@ class BridgeSession:
                 "history_len": len(snap["history"]),
                 "decision_count": len(snap["decisions"]),
                 "page": page_summary(snap["page"]),
-                "last_action": snap["history"][-1] if snap["history"] else None,
+                "last_action": last_act,
             }
         except StalePage:
             executed = len(agent.state["history"]) > prev_history_len
@@ -1109,6 +1166,31 @@ class BridgeSession:
                     "decision_count": len(agent.state["decisions"]),
                     "page": page_summary(agent.state["page"]),
                     "last_action": None,
+                }
+            raise
+        except Exception as exc:
+            if _is_transient_nav_error(exc):
+                executed = len(agent.state["history"]) > prev_history_len
+                agent.state["decision"] = None
+                agent.state["status"] = "ready"
+                fallback = (agent.state.get("page") or {}).get("url", "")
+                href, title = _read_lightweight_meta(agent.browser, fallback)
+                page = dict(agent.state.get("page") or {})
+                page["url"] = href
+                page["title"] = title
+                if not executed:
+                    page["fingerprint"] = ""
+                    page["marker"] = None
+                agent.state["page"] = page
+                return {
+                    "ok": True,
+                    "stale": not executed,
+                    "executed": executed,
+                    "status": "ready",
+                    "history_len": len(agent.state["history"]),
+                    "decision_count": len(agent.state["decisions"]),
+                    "page": page_summary(page),
+                    "last_action": agent.state["history"][-1] if executed else None,
                 }
             raise
 

@@ -24,7 +24,7 @@ from speech_to_speech.STT.base_stt_handler import BaseSTTHandler
 logger = logging.getLogger(__name__)
 
 PIPELINE_SAMPLE_RATE = 16000
-DEFAULT_HTTP_URL = "https://1598d209-5e27-4d3c-8079-4751568b1081.invocation.api.nvcf.nvidia.com/v1/audio/transcriptions"
+DEFAULT_HTTP_URL = ""
 
 
 def _join_transcripts(prefix: str, text: str) -> str:
@@ -280,7 +280,7 @@ class RivaSTTHandler(BaseSTTHandler):
             sample_rate_hertz=PIPELINE_SAMPLE_RATE,
             language_code=language_code,
             max_alternatives=1,
-            enable_automatic_punctuation=bool(self.streaming),
+            enable_automatic_punctuation=True,
             enable_word_time_offsets=self.word_time_offsets,
             audio_channel_count=1,
         )
@@ -416,11 +416,16 @@ class RivaSTTHandler(BaseSTTHandler):
         return True, stream.final_text, elapsed
 
     def warmup(self) -> None:
-        """Send 1 second of silence so the remote NVCF worker is ready before serving."""
+        """Warm the NVCF gRPC worker synchronously during startup with dithered PCM so the first utterance is fast."""
         logger.info("Warming up %s (%s)", self.__class__.__name__, "gRPC" if self.use_grpc else "HTTP")
         started_at_s = perf_counter()
-        self._transcribe(np.zeros(PIPELINE_SAMPLE_RATE, dtype=np.float32), self.language_code)
-        logger.info("%s warmed up in %.3fs", self.__class__.__name__, perf_counter() - started_at_s)
+        try:
+            dither = np.frombuffer(b"\x01\x00\xff\xff" * 2000, dtype="<i2")
+            self._transcribe(dither, self.language_code)
+            logger.info("%s warmed up in %.3fs", self.__class__.__name__, perf_counter() - started_at_s)
+        except Exception as exc:
+            self._grpc_backoff_until_s = 0.0
+            logger.warning("%s warmup skipped (%s)", self.__class__.__name__, exc)
 
     def _resolve_request_language(self, selected: str | None) -> str:
         if not selected or selected == "auto":
@@ -494,17 +499,22 @@ class RivaSTTHandler(BaseSTTHandler):
 
             request = rasr.RecognizeRequest(config=config, audio=pcm_bytes)
             try:
-                response = stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 2.5))
+                response = stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 6.0))
             except Exception as exc:
+                self._reset_grpc()
                 if self.http_url and not self.stop_event.is_set():
                     self._grpc_backoff_until_s = perf_counter() + 60.0
                     logger.warning(
                         "Riva unary gRPC failed (%s); switching to HTTP fallback for 60s and resetting channel",
                         exc,
                     )
-                    self._reset_grpc()
                     return self._transcribe_http(pcm_bytes, language_code)
-                raise
+                stub = getattr(self._asr_service, "stub", None)
+                get_meta = getattr(self._auth, "get_auth_metadata", None)
+                if stub is not None and callable(get_meta):
+                    response = stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 6.0))
+                else:
+                    raise
         else:
             response = self._asr_service.offline_recognize(pcm_bytes, config)
         return " ".join(

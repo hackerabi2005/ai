@@ -309,66 +309,12 @@ impl Broker {
             }
         }
 
-        let matched = match bridge.match_click(target).await {
-            Ok(m) => m,
+        let matched = match bridge.match_click(target.clone()).await {
+            Ok(m) => Some(m),
             Err(err) => {
-                *self.phase.lock().await = BrokerPhase::Idle;
-                self.emit(AgentEvent::Error {
-                    code: err.code.clone(),
-                    message: err.message.clone(),
-                });
-                return Err(err);
-            }
-        };
-
-        if matched.matched {
-            if is_risky_action(&matched.kind, &matched.action_label) {
-                *self.phase.lock().await =
-                    BrokerPhase::NeedsConfirmation(Box::new(PendingConfirmation {
-                        fingerprint: matched.fingerprint,
-                        action_label: matched.action_label.clone(),
-                        kind: matched.kind,
-                        steps: 0,
-                        decisions: 1,
-                        history_tail: Vec::new(),
-                        page: matched.page.clone(),
-                        narrate: true,
-                        single_step: true,
-                    }));
-                self.emit(AgentEvent::NeedsConfirmation {
-                    action: matched.action_label.clone(),
-                });
-                return Ok(TaskOutcome {
-                    status: TaskStatus::NeedsConfirmation,
-                    reason: Some(format!(
-                        "Needs user confirmation before {}.",
-                        matched.action_label
-                    )),
-                    pending_action: Some(matched.action_label),
-                    steps: 0,
-                    page: Some(matched.page),
-                    history_tail: Vec::new(),
-                });
-            }
-
-            match bridge.act(matched.fingerprint).await {
-                Ok(act) if !act.stale => {
-                    *self.phase.lock().await = BrokerPhase::Idle;
-                    self.emit(AgentEvent::Say {
-                        text: format!("Clicked {}.", short_click_label(&matched.action_label)),
-                        interrupt: false,
-                    });
-                    return Ok(TaskOutcome {
-                        status: TaskStatus::Done,
-                        reason: None,
-                        pending_action: None,
-                        steps: 1,
-                        page: Some(act.page),
-                        history_tail: vec![matched.action_label],
-                    });
-                }
-                Ok(_) => {}
-                Err(err) => {
+                if err.code == "invalid_request" {
+                    None
+                } else {
                     *self.phase.lock().await = BrokerPhase::Idle;
                     self.emit(AgentEvent::Error {
                         code: err.code.clone(),
@@ -377,6 +323,110 @@ impl Broker {
                     return Err(err);
                 }
             }
+        };
+
+        if let Some(matched) = matched {
+            if matched.matched {
+                if is_risky_action(&matched.kind, &matched.action_label) {
+                    *self.phase.lock().await =
+                        BrokerPhase::NeedsConfirmation(Box::new(PendingConfirmation {
+                            fingerprint: matched.fingerprint,
+                            action_label: matched.action_label.clone(),
+                            kind: matched.kind,
+                            steps: 0,
+                            decisions: 1,
+                            history_tail: Vec::new(),
+                            page: matched.page.clone(),
+                            narrate: true,
+                            single_step: true,
+                        }));
+                    self.emit(AgentEvent::NeedsConfirmation {
+                        action: matched.action_label.clone(),
+                    });
+                    return Ok(TaskOutcome {
+                        status: TaskStatus::NeedsConfirmation,
+                        reason: Some(format!(
+                            "Needs user confirmation before {}.",
+                            matched.action_label
+                        )),
+                        pending_action: Some(matched.action_label),
+                        steps: 0,
+                        page: Some(matched.page),
+                        history_tail: Vec::new(),
+                    });
+                }
+
+                match bridge.act(matched.fingerprint).await {
+                    Ok(act) if !act.stale => {
+                        *self.phase.lock().await = BrokerPhase::Idle;
+                        self.record_page_url(&act.page.url).await;
+                        self.emit(AgentEvent::Say {
+                            text: format!("Clicked {}.", short_click_label(&matched.action_label)),
+                            interrupt: false,
+                        });
+                        return Ok(TaskOutcome {
+                            status: TaskStatus::Done,
+                            reason: None,
+                            pending_action: None,
+                            steps: 1,
+                            page: Some(act.page),
+                            history_tail: vec![matched.action_label],
+                        });
+                    }
+                    Ok(_) => {}
+                    Err(err) => {
+                        *self.phase.lock().await = BrokerPhase::Idle;
+                        self.emit(AgentEvent::Error {
+                            code: err.code.clone(),
+                            message: err.message.clone(),
+                        });
+                        return Err(err);
+                    }
+                }
+            }
+        }
+
+        // If "select/click <site>" missed on screen (or no real tab was open yet) and target is a known site,
+        // open the site directly in ~150ms instead of running a multi-step Jev LLM loop.
+        if let crate::router::RouteAction::OpenUrl {
+            goal: open_goal,
+            url,
+            site_name,
+            ..
+        } = crate::router::classify(&format!("open {target}"), false, false)
+        {
+            let requested_url = url.clone();
+            let res = bridge.open_fast(open_goal, url, self.background, false).await;
+            *self.phase.lock().await = BrokerPhase::Idle;
+            return match res {
+                Ok(page) => {
+                    let recorded = if page.url.is_empty() || page.url == "https://example.test" {
+                        &requested_url
+                    } else {
+                        &page.url
+                    };
+                    self.record_page_url(recorded).await;
+                    self.emit(AgentEvent::Say {
+                        text: format!("Opened {site_name}."),
+                        interrupt: false,
+                    });
+                    Ok(TaskOutcome {
+                        status: TaskStatus::Done,
+                        reason: None,
+                        pending_action: None,
+                        steps: 1,
+                        page: Some(page),
+                        history_tail: vec![format!("Opened {site_name}")],
+                    })
+                }
+                Err(err) => {
+                    self.emit(AgentEvent::Error {
+                        code: err.code.clone(),
+                        message: err.message.clone(),
+                    });
+                    Err(err)
+                }
+            };
         }
 
         // Not directly matched on screen (or went stale): fall back seamlessly to autonomous Jev task
