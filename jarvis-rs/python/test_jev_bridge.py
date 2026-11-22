@@ -484,3 +484,36 @@ def test_match_clickable_action_resolves_appearance_radio_buttons_and_act_recove
     assert session.agent is not None
 
 
+def test_press_enter_dispatches_char_cr_and_warm_browser_returns_attached_url(monkeypatch):
+    import jev_bridge
+
+    cdp_calls = []
+
+    class FakeBrowser:
+        def call(self, method, **params):
+            cdp_calls.append((method, params))
+            return {}
+
+        def evaluate(self, _js):
+            return ["https://www.youtube.com/", "YouTube"]
+
+        def close(self):
+            pass
+
+    browser = FakeBrowser()
+    # _dispatch_key for press_enter sends rawKeyDown, char("\r"), keyUp.
+    jev_bridge._dispatch_key(browser, "press_enter")
+    assert ("Input.dispatchKeyEvent", {"type": "char", "text": "\r", "unmodifiedText": "\r"}) in cdp_calls
+
+    # warm_browser returns existing active tab URL when a tab is attached.
+    monkeypatch.setattr(jev_bridge, "ensure_daemon", lambda: None)
+    session = BridgeSession(agent_cls=FakeAgent, default_background=False)
+    attached = FakeAgent("https://www.youtube.com/", "warm", background=False)
+    attached.browser = browser
+    attached.state["page"] = {"url": "https://www.youtube.com/", "title": "YouTube"}
+    monkeypatch.setattr(session, "_try_attach_existing_tab", lambda: setattr(session, "agent", attached))
+    resp, should_exit = session.handle({"cmd": "warm_browser"})
+    assert not should_exit
+    assert resp == {"ok": True, "url": "https://www.youtube.com/"}
+
+

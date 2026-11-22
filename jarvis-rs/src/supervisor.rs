@@ -23,7 +23,7 @@ use uuid::Uuid;
 const MAX_S2S_RESTARTS: usize = 3;
 const S2S_ADDR: &str = "127.0.0.1:8765";
 
-fn build_pythonpath(tools_dir: &Path) -> OsString {
+pub fn build_pythonpath(tools_dir: &Path) -> OsString {
     let mut paths = vec![tools_dir.to_path_buf()];
     if let Some(repo_root) = tools_dir.parent().and_then(|p| p.parent()) {
         for crate_name in [
@@ -116,7 +116,7 @@ async fn announce_when_ready(
     events_tx: mpsc::UnboundedSender<AgentEvent>,
     mut quit_rx: watch::Receiver<bool>,
 ) {
-    for _ in 0..240 {
+    for _ in 0..600 {
         if *quit_rx.borrow() {
             return;
         }
@@ -149,6 +149,15 @@ async fn wait_for_quit(quit_rx: &mut watch::Receiver<bool>) {
 
 pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), String> {
     preflight_check(&paths)?;
+
+    if matches!(
+        tokio::time::timeout(Duration::from_millis(300), TcpStream::connect(S2S_ADDR)).await,
+        Ok(Ok(_))
+    ) {
+        return Err(format!(
+            "Port {S2S_ADDR} is already in use; stop any running s2s or jarvis instance first."
+        ));
+    }
 
     let token = Arc::new(Uuid::new_v4().to_string());
     let (listener, addr) = bind_loopback(0).await?;
@@ -187,17 +196,11 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
         events_rx,
         Arc::new(HttpSaySink::new(S2S_ADDR, token.as_str())),
     ));
-    let ready_handle = tokio::spawn(announce_when_ready(
-        S2S_ADDR.to_string(),
-        events_tx.clone(),
-        quit_rx.clone(),
-    ));
 
     info!("Jarvis loopback tool API listening on {api_url}");
 
     // Ping the browser bridge eagerly so a missing jev dependency fails early.
     if let Err(err) = bridge.ping().await {
-        ready_handle.abort();
         drop(events_tx);
         let _ = narrator_handle.await;
         let _ = shutdown_tx.send(());
@@ -208,12 +211,21 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
     // Pre-connect browser-harness daemon in the background so voice starts immediately
     // without blocking on Chrome's "Allow remote debugging?" prompt.
     let warm_bridge = bridge.clone();
+    let warm_broker = broker.clone();
     tokio::spawn(async move {
         info!("Checking Chrome remote debugging connection...");
-        if let Err(err) = warm_bridge.warm_browser().await {
-            warn!("Chrome is not connected yet ({err}); voice chat still works, open Chrome before browsing.");
-        } else {
-            info!("Chrome remote debugging connected.");
+        match warm_bridge.warm_browser().await {
+            Ok(url) => {
+                if let Some(ref u) = url {
+                    warm_broker.record_initial_url(u).await;
+                    info!("Chrome remote debugging connected (active tab: {u}).");
+                } else {
+                    info!("Chrome remote debugging connected.");
+                }
+            }
+            Err(err) => {
+                warn!("Chrome is not connected yet ({err}); voice chat still works, open Chrome before browsing.");
+            }
         }
     });
 
@@ -241,6 +253,12 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
             .spawn()
             .map_err(|e| format!("Failed to spawn speech-to-speech: {e}"))?;
 
+        let ready_handle = tokio::spawn(announce_when_ready(
+            S2S_ADDR.to_string(),
+            events_tx.clone(),
+            quit_rx.clone(),
+        ));
+
         enum StopTrigger {
             ChildExited(std::io::Result<std::process::ExitStatus>),
             CtrlC,
@@ -252,6 +270,7 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
             _ = tokio::signal::ctrl_c() => StopTrigger::CtrlC,
             _ = wait_for_quit(&mut quit_rx) => StopTrigger::VoiceQuit,
         };
+        ready_handle.abort();
 
         match trigger {
             StopTrigger::CtrlC => {
@@ -275,7 +294,6 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
             StopTrigger::ChildExited(Ok(status)) => {
                 let code = status.code().unwrap_or(-1);
                 if code == 2 {
-                    ready_handle.abort();
                     let _ = bridge.close().await;
                     let _ = shutdown_tx.send(());
                     let _ = server_handle.await;
@@ -290,7 +308,6 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
                 }
                 restarts += 1;
                 if restarts > MAX_S2S_RESTARTS {
-                    ready_handle.abort();
                     let _ = bridge.close().await;
                     let _ = shutdown_tx.send(());
                     let _ = server_handle.await;
@@ -310,7 +327,6 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
         }
     }
 
-    ready_handle.abort();
     let _ = bridge.close().await;
     let _ = shutdown_tx.send(());
     let _ = server_handle.await;

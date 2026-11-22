@@ -90,8 +90,20 @@ pub struct Broker {
     phase: Mutex<BrokerPhase>,
     active_url: Mutex<Option<String>>,
     stop_requested: Arc<AtomicBool>,
+    pipeline_running: Arc<AtomicBool>,
     background: bool,
     events: Option<mpsc::UnboundedSender<AgentEvent>>,
+}
+
+/// RAII guard keeping `Broker::is_running` true across multi-step pipelines.
+pub struct PipelineGuard {
+    flag: Arc<AtomicBool>,
+}
+
+impl Drop for PipelineGuard {
+    fn drop(&mut self) {
+        self.flag.store(false, Ordering::SeqCst);
+    }
 }
 
 impl Broker {
@@ -100,6 +112,7 @@ impl Broker {
             phase: Mutex::new(BrokerPhase::Idle),
             active_url: Mutex::new(None),
             stop_requested: Arc::new(AtomicBool::new(false)),
+            pipeline_running: Arc::new(AtomicBool::new(false)),
             background,
             events: None,
         }
@@ -110,6 +123,7 @@ impl Broker {
             phase: Mutex::new(BrokerPhase::Idle),
             active_url: Mutex::new(None),
             stop_requested: Arc::new(AtomicBool::new(false)),
+            pipeline_running: Arc::new(AtomicBool::new(false)),
             background,
             events: Some(events),
         }
@@ -118,6 +132,32 @@ impl Broker {
     async fn record_page_url(&self, url: &str) {
         if !url.is_empty() && url != "about:blank" {
             *self.active_url.lock().await = Some(url.to_string());
+        }
+    }
+
+    /// Seed initial URL discovered during browser warmup if no URL is recorded yet.
+    pub async fn record_initial_url(&self, url: &str) {
+        if url.is_empty() || url == "about:blank" {
+            return;
+        }
+        let mut active = self.active_url.lock().await;
+        if active.is_none() {
+            *active = Some(url.to_string());
+        }
+    }
+
+    /// Claim exclusive execution for a multi-step voice pipeline until the returned guard drops.
+    pub fn try_start_pipeline(&self) -> Option<PipelineGuard> {
+        if self
+            .pipeline_running
+            .compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst)
+            .is_ok()
+        {
+            Some(PipelineGuard {
+                flag: self.pipeline_running.clone(),
+            })
+        } else {
+            None
         }
     }
 
@@ -138,7 +178,8 @@ impl Broker {
     }
 
     pub async fn is_running(&self) -> bool {
-        matches!(*self.phase.lock().await, BrokerPhase::Running { .. })
+        self.pipeline_running.load(Ordering::SeqCst)
+            || matches!(*self.phase.lock().await, BrokerPhase::Running { .. })
     }
 
     pub async fn is_tool_task_running(&self) -> bool {
@@ -252,6 +293,13 @@ impl Broker {
                 *phase = BrokerPhase::Idle;
             }
         }
+        if self.is_stop_requested() {
+            if let Ok(page) = &res {
+                self.record_page_url(&page.url).await;
+            }
+            self.emit(AgentEvent::Stopped);
+            return Err(BridgeError::new("stopped", "Stopped by user."));
+        }
         match res {
             Ok(page) => {
                 let recorded = if page.url.is_empty() || page.url == "https://example.test" {
@@ -326,6 +374,18 @@ impl Broker {
         };
 
         if let Some(matched) = matched {
+            if self.is_stop_requested() {
+                *self.phase.lock().await = BrokerPhase::Idle;
+                self.emit(AgentEvent::Stopped);
+                return Ok(TaskOutcome {
+                    status: TaskStatus::Stopped,
+                    reason: Some("Stopped by user.".to_string()),
+                    pending_action: None,
+                    steps: 0,
+                    page: None,
+                    history_tail: Vec::new(),
+                });
+            }
             if matched.matched {
                 if is_risky_action(&matched.kind, &matched.action_label) {
                     *self.phase.lock().await =
@@ -357,6 +417,19 @@ impl Broker {
                 }
 
                 match bridge.act(matched.fingerprint).await {
+                    Ok(act) if self.is_stop_requested() => {
+                        *self.phase.lock().await = BrokerPhase::Idle;
+                        self.record_page_url(&act.page.url).await;
+                        self.emit(AgentEvent::Stopped);
+                        return Ok(TaskOutcome {
+                            status: TaskStatus::Stopped,
+                            reason: Some("Stopped by user.".to_string()),
+                            pending_action: None,
+                            steps: 1,
+                            page: Some(act.page),
+                            history_tail: vec![matched.action_label],
+                        });
+                    }
                     Ok(act) if !act.stale => {
                         *self.phase.lock().await = BrokerPhase::Idle;
                         self.record_page_url(&act.page.url).await;
@@ -398,6 +471,20 @@ impl Broker {
             let requested_url = url.clone();
             let res = bridge.open_fast(open_goal, url, self.background, false).await;
             *self.phase.lock().await = BrokerPhase::Idle;
+            if self.is_stop_requested() {
+                if let Ok(page) = &res {
+                    self.record_page_url(&page.url).await;
+                }
+                self.emit(AgentEvent::Stopped);
+                return Ok(TaskOutcome {
+                    status: TaskStatus::Stopped,
+                    reason: Some("Stopped by user.".to_string()),
+                    pending_action: None,
+                    steps: 1,
+                    page: res.ok(),
+                    history_tail: Vec::new(),
+                });
+            }
             return match res {
                 Ok(page) => {
                     let recorded = if page.url.is_empty() || page.url == "https://example.test" {

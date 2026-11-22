@@ -340,28 +340,37 @@ class ChatCompletionsApiModelHandler(BaseOpenAICompatibleHandler):
     def warmup(self) -> None:
         from threading import Thread
 
+        from speech_to_speech.LLM.base_openai_compatible_language_model import WARMUP_MAX_RETRIES
+
         def _bg_warm() -> None:
+            sync_client = getattr(self, "client", None)
+            if self._closed.is_set() or sync_client is None:
+                return
             logger.info(f"Warming up {self.__class__.__name__} in background")
             start = time.time()
             try:
-                self._send_warmup(
-                    lambda client: client.chat.completions.create(
-                        model=self.model_name,
-                        messages=[
-                            {"role": "system", "content": "You are a helpful assistant"},
-                            {"role": "user", "content": "Hello"},
-                        ],
-                        max_tokens=16,
-                        extra_body=self._extra_body,
-                        timeout=self.request_timeout,
-                    )
+                sync_client.with_options(max_retries=WARMUP_MAX_RETRIES).chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": "You are a helpful assistant"},
+                        {"role": "user", "content": "Hello"},
+                    ],
+                    max_tokens=16,
+                    extra_body=self._extra_body,
+                    timeout=min(self.request_timeout_s, 10.0),
                 )
+                if self._closed.is_set():
+                    return
                 end = time.time()
                 logger.info(f"{self.__class__.__name__}:  warmed up! time: {(end - start):.3f} s")
             except Exception as exc:
+                if self._closed.is_set():
+                    return
                 logger.warning(f"{self.__class__.__name__}: warmup skipped ({type(exc).__name__}: {exc})")
 
-        Thread(target=_bg_warm, name="llm-warmup", daemon=True).start()
+        thread = Thread(target=_bg_warm, name="llm-warmup", daemon=True)
+        self._warmup_thread = thread
+        thread.start()
 
     def _build_compaction_generate_fn(self) -> CompactGenerateFn:
         """Return a generate fn that calls Chat Completions for compaction."""

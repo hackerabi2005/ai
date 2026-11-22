@@ -116,6 +116,52 @@ async fn run_doctor(paths: &AppPaths) -> ExitCode {
         }
     }
 
+    if paths.s2s_python.is_file() {
+        let pythonpath = jarvis::supervisor::build_pythonpath(&paths.python_tools_dir);
+        let cfg_status = Command::new(&paths.s2s_python)
+            .env("PYTHONPATH", &pythonpath)
+            .args([
+                "-c",
+                "import sys; from pathlib import Path; \
+                 from speech_to_speech.config import load_config, resolve_config; \
+                 from speech_to_speech.VAD.vad_iterator import find_silero_onnx_path; \
+                 resolve_config(load_config(Path(sys.argv[1]))); \
+                 import llm_rs, tool_call_rs, stt_rs, tts_rs; \
+                 onnx = find_silero_onnx_path(); \
+                 print('ONNX=' + str(onnx or 'missing'))",
+                &paths.s2s_config_yaml.to_string_lossy(),
+            ])
+            .output();
+        match cfg_status {
+            Ok(out) if out.status.success() => {
+                let stdout = String::from_utf8_lossy(&out.stdout);
+                println!("s2s config + PyO3 crates: ok ({})", stdout.trim());
+            }
+            Ok(out) => {
+                println!(
+                    "s2s config/PyO3 check FAILED: {}",
+                    String::from_utf8_lossy(&out.stderr).trim()
+                );
+                ok = false;
+            }
+            Err(e) => {
+                println!("s2s config/PyO3 check failed to execute: {e}");
+                ok = false;
+            }
+        }
+    }
+
+    match std::net::TcpListener::bind("127.0.0.1:8765") {
+        Ok(listener) => {
+            drop(listener);
+            println!("port 127.0.0.1:8765: available");
+        }
+        Err(e) => {
+            println!("port 127.0.0.1:8765: IN USE ({e})");
+            ok = false;
+        }
+    }
+
     if paths.jev_python.is_file() {
         let bh = Command::new(&paths.jev_python)
             .args(["-m", "browser_harness.run", "--doctor"])
@@ -132,7 +178,22 @@ async fn run_doctor(paths: &AppPaths) -> ExitCode {
                     println!("{}", stderr.trim());
                 }
                 if !out.status.success() {
-                    ok = false;
+                    let only_expected_offline = stdout
+                        .lines()
+                        .filter(|line| line.contains("[FAIL]"))
+                        .all(|line| {
+                            line.contains("chrome running")
+                                || line.contains("daemon alive")
+                                || line.contains("active browser connections")
+                                || line.contains("Browser Use cloud auth")
+                        });
+                    if only_expected_offline && stdout.contains("[FAIL]") {
+                        println!(
+                            "[INFO] Chrome/daemon offline right now (jarvis run auto-launches when needed)"
+                        );
+                    } else {
+                        ok = false;
+                    }
                 }
             }
             Err(e) => {

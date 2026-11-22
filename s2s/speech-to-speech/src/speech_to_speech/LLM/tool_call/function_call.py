@@ -22,6 +22,11 @@ from speech_to_speech.LLM.tool_call.function_tool import FunctionTool
 from speech_to_speech.LLM.tool_call.signature_from_schema import signature_from_schema
 from speech_to_speech.utils.utils import _generate_id
 
+try:
+    import tool_call_rs as _tool_call_rs
+except ImportError:
+    _tool_call_rs = None  # type: ignore[assignment]
+
 logger = logging.getLogger(__name__)
 
 _POSITIONAL_RE = re.compile(r"^__arg_\d+__$")
@@ -276,6 +281,8 @@ JSON_TOOL_CALL_END = "</tool_call>"
 
 def find_json_tool_call_end(block: str) -> int | None:
     """Return the closing tag's end offset, ignoring tags inside JSON strings."""
+    if _tool_call_rs is not None:
+        return _tool_call_rs.find_json_tool_call_end(block)
     in_string = False
     escaped = False
     for index, char in enumerate(block):

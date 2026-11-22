@@ -31,6 +31,11 @@ DEALINGS IN THE SOFTWARE.
 import re
 import unicodedata
 
+try:
+    import tts_rs as _tts_rs
+except ImportError:
+    _tts_rs = None  # type: ignore[assignment]
+
 ZWNJ = "‌"
 
 # The 32 letters of the Persian alphabet, in the spelling the aligner expects.
@@ -212,6 +217,8 @@ def normalize(text: str, *, spell_numbers: bool = True) -> str:
     in KEPT_PUNCT — anything else is dropped, so check `reject_reason` on the
     original if a dropped character means the row should not be trained on.
     """
+    if _tts_rs is not None:
+        return _tts_rs.normalize(text, spell_numbers=spell_numbers)
     text = unicodedata.normalize("NFC", text)
     text = INVISIBLES.sub("", text)
     text = DIACRITICS.sub("", text)

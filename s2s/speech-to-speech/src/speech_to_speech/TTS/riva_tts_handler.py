@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 import os
 import re
-from threading import Event, Lock
+from threading import Event, Lock, Thread
 from time import perf_counter
 from typing import Any, Iterator, Optional, cast
 
@@ -123,6 +123,8 @@ class RivaTTSHandler(BaseTTSHandler):
         self.detect_llm_output_language = detect_llm_output_language
         self.gen_kwargs = gen_kwargs or {}
         self._operation_lock = Lock()
+        self._closed = Event()
+        self._warmup_thread: Thread | None = None
         self._failed_responses: set[tuple[int | None, str | None, str | None, int | None]] = set()
         self._auth: Any = None
         self.service: Any = None
@@ -162,20 +164,36 @@ class RivaTTSHandler(BaseTTSHandler):
         self._init_grpc()
 
     def warmup(self) -> None:
-        """Validate the Riva gRPC TTS connection and warm up the synthesis worker."""
-        logger.info("Warming up %s", self.__class__.__name__)
-        started_at_s = perf_counter()
-        responses = self.service.synthesize_online(
-            "Warmup.",
-            voice_name=self.voice,
-            language_code=self.language_code,
-            sample_rate_hz=self.sample_rate,
-            encoding=self._audio_encoding_pcm,
-        )
-        received = any(getattr(resp, "audio", b"") for resp in responses)
-        if not received:
-            raise RuntimeError("Riva TTS warmup returned no audio")
-        logger.info("%s warmed up in %.3fs", self.__class__.__name__, perf_counter() - started_at_s)
+        """Warm up the Riva gRPC TTS worker in the background without blocking startup."""
+
+        def _bg_warm() -> None:
+            if self.stop_event.is_set() or self._closed.is_set():
+                return
+            logger.info("Warming up %s in background", self.__class__.__name__)
+            started_at_s = perf_counter()
+            try:
+                responses = self.service.synthesize_online(
+                    "Warmup.",
+                    voice_name=self.voice,
+                    language_code=self.language_code,
+                    sample_rate_hz=self.sample_rate,
+                    encoding=self._audio_encoding_pcm,
+                )
+                received = any(getattr(resp, "audio", b"") for resp in responses)
+                if self.stop_event.is_set() or self._closed.is_set():
+                    return
+                if not received:
+                    logger.warning("%s warmup returned no audio", self.__class__.__name__)
+                else:
+                    logger.info("%s warmed up in %.3fs", self.__class__.__name__, perf_counter() - started_at_s)
+            except Exception as exc:
+                if self.stop_event.is_set() or self._closed.is_set():
+                    return
+                logger.warning("%s warmup skipped (%s)", self.__class__.__name__, exc)
+
+        thread = Thread(target=_bg_warm, name="riva-tts-warmup", daemon=True)
+        self._warmup_thread = thread
+        thread.start()
 
     def process(self, tts_input: TTSIn) -> Iterator[TTSOut]:
         if isinstance(tts_input, EndOfResponse):
@@ -393,6 +411,7 @@ class RivaTTSHandler(BaseTTSHandler):
                 failed.clear()
 
     def cleanup(self) -> None:
+        self._closed.set()
         auth = getattr(self, "_auth", None)
         channel = getattr(auth, "channel", None)
         if channel is not None and hasattr(channel, "close"):
@@ -402,3 +421,6 @@ class RivaTTSHandler(BaseTTSHandler):
                 pass
         self._auth = None
         self.service = None
+        warmup_thread = getattr(self, "_warmup_thread", None)
+        if warmup_thread is not None and warmup_thread.is_alive():
+            warmup_thread.join(timeout=1.0)

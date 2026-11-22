@@ -9,6 +9,11 @@ from PIL import Image
 
 from speech_to_speech.language_codes import LANGUAGE_NAMES as WHISPER_LANGUAGE_TO_LLM_LANGUAGE
 
+try:
+    import llm_rs as _llm_rs
+except ImportError:
+    _llm_rs = None  # type: ignore[assignment]
+
 SMART_PUNCT_TRANSLATION = str.maketrans(
     {
         "\u2018": "'",
@@ -121,6 +126,8 @@ def remove_markdown(text: str) -> str:
     Must run on complete text, not per-token deltas: a delimiter run can arrive
     split across two streaming chunks.
     """
+    if _llm_rs is not None:
+        return _llm_rs.remove_markdown(text)
     text, protected_code = _protect_markdown_code(text, keep_delimiters=False)
     text = MARKDOWN_HEADING_PATTERN.sub("", text)
     text = MARKDOWN_BULLET_PATTERN.sub("", text)
@@ -136,6 +143,8 @@ def remove_unspeechable(text: str) -> str:
     included here -- unlike character filtering, it needs complete text (see
     remove_markdown), so callers apply it separately once a full sentence exists.
     """
+    if _llm_rs is not None:
+        return _llm_rs.remove_unspeechable(text)
     text = text.translate(SMART_PUNCT_TRANSLATION)
     return SPEECHABLE_PATTERN.sub("", text)
 

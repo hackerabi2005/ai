@@ -338,9 +338,15 @@ impl StdioBridge {
         Ok(val.get("pid").and_then(Value::as_u64).unwrap_or(0))
     }
 
-    pub async fn warm_browser(&self) -> Result<(), BridgeError> {
-        let _ = self.call_raw(json!({"cmd": "warm_browser"})).await?;
-        Ok(())
+    pub async fn warm_browser(&self) -> Result<Option<String>, BridgeError> {
+        let val = self.call_raw(json!({"cmd": "warm_browser"})).await?;
+        let url = val
+            .get("url")
+            .and_then(Value::as_str)
+            .map(str::trim)
+            .filter(|s| !s.is_empty() && *s != "about:blank")
+            .map(ToOwned::to_owned);
+        Ok(url)
     }
 }
 

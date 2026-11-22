@@ -3,17 +3,15 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Sequence
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
-from speech_to_speech.api.openai_realtime.audio_client import (
-    RealtimeAudioClientConfig,
-    load_realtime_tool_module,
-    run_realtime_audio_client,
-)
 from speech_to_speech.pipeline.transcript_logging import (
     set_log_transcripts,
     warn_if_log_transcripts_enabled,
 )
+
+if TYPE_CHECKING:
+    from speech_to_speech.api.openai_realtime.audio_client import RealtimeAudioClientConfig
 
 Command = Literal["serve", "talk", "local"]
 
@@ -97,6 +95,10 @@ def parse_command(argv: Sequence[str] | None = None) -> tuple[Command, list[str]
 
 def parse_talk_arguments(argv: Sequence[str]) -> RealtimeAudioClientConfig:
     """Parse the lightweight audio client command."""
+    from speech_to_speech.api.openai_realtime.audio_client import (
+        RealtimeAudioClientConfig,
+        load_realtime_tool_module,
+    )
 
     defaults = RealtimeAudioClientConfig()
     parser = argparse.ArgumentParser(
@@ -273,6 +275,8 @@ def main() -> None:
     if any(argument == "--name" or argument.startswith("--name=") for argument in command_args):
         _command_parser().error("--name requires a configuration file.")
     if command == "talk":
+        from speech_to_speech.api.openai_realtime.audio_client import run_realtime_audio_client
+
         config = parse_talk_arguments(command_args)
         set_log_transcripts(config.log_transcripts)
         warn_if_log_transcripts_enabled()

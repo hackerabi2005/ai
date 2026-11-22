@@ -2,14 +2,13 @@ from __future__ import annotations
 
 import logging
 import time
-from collections.abc import Iterator
+from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
 from queue import Queue
 from threading import Event
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
-import torch
 
 from speech_to_speech.api.openai_realtime.runtime_config import RuntimeConfig
 from speech_to_speech.baseHandler import BaseHandler
@@ -20,15 +19,21 @@ from speech_to_speech.pipeline.queue_types import TextEventItem
 from speech_to_speech.pipeline.speaker_metadata import PendingSpeakerAttribution
 from speech_to_speech.pipeline.speculative_turns import SpeculativeTurnTracker
 from speech_to_speech.utils.utils import int2float
-from speech_to_speech.VAD.vad_iterator import VADIterator
+from speech_to_speech.VAD.vad_iterator import SileroOnnxModel, VADIterator, find_silero_onnx_path
 
 if TYPE_CHECKING:
     from speech_to_speech.VAD.firered_vad_iterator import FireRedVadIterator
 
 logger = logging.getLogger(__name__)
 
-if TYPE_CHECKING:
-    from speech_to_speech.diarization.worker import DiarizationWorker
+
+def _concat_audio_chunks(chunks: Sequence[Any]) -> np.ndarray:
+    first = chunks[0]
+    if isinstance(first, np.ndarray):
+        return np.concatenate(chunks)
+    import torch
+
+    return torch.cat(list(chunks)).cpu().numpy()
 
 
 @dataclass
@@ -148,12 +153,23 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
                 speech_pad_ms=speech_pad_ms,
             )
         elif vad == "silero":
-            self.model, _ = torch.hub.load(
-                "snakers4/silero-vad:master",
-                "silero_vad",
-                trust_repo=True,
-                skip_validation=True,
-            )
+            onnx_path = find_silero_onnx_path()
+            loaded_onnx = False
+            if onnx_path is not None:
+                try:
+                    self.model = SileroOnnxModel(onnx_path)
+                    loaded_onnx = True
+                except Exception as exc:
+                    logger.debug("Silero ONNX load failed (%s); falling back to torch.hub", exc)
+            if not loaded_onnx:
+                import torch
+
+                self.model, _ = torch.hub.load(
+                    "snakers4/silero-vad:master",
+                    "silero_vad",
+                    trust_repo=True,
+                    skip_validation=True,
+                )
             self.iterator = VADIterator(
                 self.model,
                 threshold=thresh,
@@ -198,7 +214,7 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
         self._pending_short_segment: _PendingShortSegment | None = None
         self.streaming_stt_sink: Any | None = None
         self._streaming_pre_speech = bytearray()
-        self.diarization_worker: DiarizationWorker | None = None
+        self.diarization_worker: Any | None = None
         self._diarization_streaming = False
         self._speculative_speaker_prefix: PendingSpeakerAttribution | None = None
         self.response_playing: Event | None = None
@@ -356,7 +372,7 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
             return current_segment
         return np.concatenate((self._speculative_audio_prefix, current_segment))
 
-    def _stream_diarization(self, audio: np.ndarray, vad_output: list[torch.Tensor] | None, *, active: bool) -> None:
+    def _stream_diarization(self, audio: np.ndarray, vad_output: list[Any] | None, *, active: bool) -> None:
         worker = getattr(self, "diarization_worker", None)
         if worker is None or not active:
             return
@@ -365,7 +381,7 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
             # pre-roll. Subsequent chunks are deltas, never progressive repeats.
             onset = vad_output if vad_output else self.iterator.speech_buffer()
             if onset:
-                audio = torch.cat(onset).cpu().numpy()
+                audio = _concat_audio_chunks(onset)
             self._diarization_streaming = True
         worker.append_audio(audio, self._total_samples - len(audio))
 
@@ -594,10 +610,14 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
         was_triggered = self.iterator.triggered
         received_at_s = time.perf_counter()
         playback_active = self._is_playback_active()
-        vad_input = torch.from_numpy(audio_float32)
+        vad_input: Any = audio_float32
         if playback_active and not was_triggered:
             if audio_float32.size and float(np.dot(audio_float32, audio_float32)) < 0.000625 * audio_float32.size:
-                vad_input = torch.zeros_like(vad_input)
+                vad_input = np.zeros_like(audio_float32)
+        if self.vad == "firered":
+            import torch
+
+            vad_input = torch.from_numpy(vad_input)
         vad_output = self.iterator(vad_input)
         decision_at_s = time.perf_counter()
         is_triggered_now = self.iterator.triggered
@@ -692,7 +712,7 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
 
     def _process_realtime(
         self,
-        vad_output: list[torch.Tensor] | None,
+        vad_output: list[Any] | None,
         runtime_config: RuntimeConfig | None = None,
         received_at_s: float | None = None,
         decision_at_s: float | None = None,
@@ -726,7 +746,7 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
             if window_due or (
                 self.enable_realtime_transcription and (current_time - self.last_process_time) >= progressive_pause
             ):
-                array = torch.cat(self.iterator.speech_buffer()).cpu().numpy()
+                array = _concat_audio_chunks(self.iterator.speech_buffer())
                 duration_ms = len(array) / self.sample_rate * 1000
                 active_speech_duration_ms = self._current_active_speech_duration_ms()
                 start_ms = max(0, self._audio_ms - int(duration_ms))
@@ -775,7 +795,7 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
                 self._discard_expired_pending_short_segment()
                 return
 
-            array = torch.cat(vad_output).cpu().numpy()
+            array = _concat_audio_chunks(vad_output)
             end_ms = self._audio_ms
             raw_active_ms = self._last_utterance_active_speech_duration_ms()
             active_speech_duration_ms = raw_active_ms
@@ -936,6 +956,7 @@ class VADHandler(BaseHandler[VADIn, VADOut]):
 
     def _apply_audio_enhancement(self, array: np.ndarray) -> np.ndarray:
         """Apply audio enhancement if enabled."""
+        import torch
         import torchaudio
 
         if self.sample_rate != self.df_state.sr():

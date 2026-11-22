@@ -688,6 +688,18 @@ def _prewarm_jev_http_async() -> None:
     threading.Thread(target=_warm, name="jev-http-prewarm", daemon=True).start()
 
 
+def _ensure_daemon_bounded(wait_s: float = 8.0) -> None:
+    """Call ensure_daemon with a bounded wait when supported so an unapproved popup cannot deadlock StdioBridge."""
+    try:
+        params = inspect.signature(ensure_daemon).parameters
+    except (TypeError, ValueError):
+        params = {}
+    if "wait" in params:
+        ensure_daemon(wait=wait_s)
+    else:
+        ensure_daemon()
+
+
 def _ensure_chrome_running() -> None:
     """Launch Chrome when closed before ensure_daemon() (works around browser_harness.admin pending_died skip)."""
     if getattr(ensure_daemon, "__module__", "") != "browser_harness.admin":
@@ -902,7 +914,7 @@ class BridgeSession:
             return None
         try:
             _ensure_chrome_running()
-            ensure_daemon()
+            _ensure_daemon_bounded(8.0)
             tabs = _list_page_targets(prefer_real=True)
             if not tabs:
                 return None
@@ -931,10 +943,16 @@ class BridgeSession:
             if cmd == "ping":
                 return {"ok": True, "pid": os.getpid()}, False
             if cmd == "warm_browser":
-                _ensure_chrome_running()
-                ensure_daemon()
                 _prewarm_jev_http_async()
-                return {"ok": True}, False
+                _ensure_chrome_running()
+                _ensure_daemon_bounded(8.0)
+                if self.agent is None:
+                    self._try_attach_existing_tab()
+                active_url = ((self.agent.state.get("page") or {}).get("url") or "") if self.agent is not None else ""
+                out: dict[str, Any] = {"ok": True}
+                if active_url and active_url != "about:blank":
+                    out["url"] = active_url
+                return out, False
             if cmd == "open":
                 return self._open(req), False
             if cmd == "predict":
@@ -1122,15 +1140,7 @@ class BridgeSession:
                 and str(agent.state.get("goal") or "").strip().lower().startswith(("type ", "enter ", "fill "))
             ):
                 try:
-                    for ev_type in ("rawKeyDown", "keyUp"):
-                        agent.browser.call(
-                            "Input.dispatchKeyEvent",
-                            type=ev_type,
-                            key="Enter",
-                            code="Enter",
-                            windowsVirtualKeyCode=13,
-                            nativeVirtualKeyCode=13,
-                        )
+                    _dispatch_key(agent.browser, "press_enter")
                     snap["status"] = "done"
                     agent.state["status"] = "done"
                 except Exception:

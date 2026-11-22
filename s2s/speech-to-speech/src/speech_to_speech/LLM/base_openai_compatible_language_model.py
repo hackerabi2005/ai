@@ -286,6 +286,8 @@ class BaseOpenAICompatibleHandler(BaseHandler[LLMIn, LLMOut], ABC):
         )
         self._async_runner: asyncio.Runner | None = None
         self._async_client: AsyncOpenAI | None = None
+        self._closed = ThreadingEvent()
+        self._warmup_thread: Thread | None = None
         self._extra_body = self._build_extra_body(base_url, disable_thinking, reasoning_effort)
         self._prefetch_worker_slots = BoundedSemaphore(PREFETCH_PROVIDER_WORKER_LIMIT)
         self._prefetch_workers_lock = Lock()
@@ -428,6 +430,8 @@ class BaseOpenAICompatibleHandler(BaseHandler[LLMIn, LLMOut], ABC):
     _audio_to_wav_base64 = staticmethod(audio_to_wav_base64)
 
     def cleanup(self) -> None:
+        self._closed.set()
+        warmup_thread = getattr(self, "_warmup_thread", None)
         runner = getattr(self, "_async_runner", None)
         client = getattr(self, "_async_client", None)
         self._async_runner = None
@@ -440,10 +444,12 @@ class BaseOpenAICompatibleHandler(BaseHandler[LLMIn, LLMOut], ABC):
                 finally:
                     runner.close()
         finally:
-            client = getattr(self, "client", None)
-            if client is not None:
+            sync_client = getattr(self, "client", None)
+            if sync_client is not None:
                 del self.client
-                client.close()
+                sync_client.close()
+            if warmup_thread is not None and warmup_thread.is_alive() and warmup_thread is not current_thread():
+                warmup_thread.join(timeout=1.0)
 
     # ── speculative-turn / cancellation gating ─────────────────────────────────
 

@@ -79,35 +79,69 @@ pub fn build_text_system_prompt(
 
 /// Port of `remove_markdown` (`s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py:118`).
 pub fn remove_markdown(text: String) -> Result<String, String> {
+    let (mut has_backtick, mut has_hash, mut has_bullet, mut has_emphasis) =
+        (false, false, false, false);
+    for &b in text.as_bytes() {
+        match b {
+            b'`' => has_backtick = true,
+            b'#' => has_hash = true,
+            b'-' | b'+' => has_bullet = true,
+            b'*' => {
+                has_bullet = true;
+                has_emphasis = true;
+            }
+            b'_' => has_emphasis = true,
+            _ => {}
+        }
+    }
+    if !(has_backtick || has_hash || has_bullet || has_emphasis) {
+        return Ok(text);
+    }
+
     let mut protected_code: Vec<String> = Vec::new();
     let mut cur = text;
-    if let Some(re) = FENCED_CODE_RE.as_ref() {
-        cur = re
-            .replace_all(&cur, |caps: &Captures<'_>| {
-                let idx = protected_code.len();
-                let body = caps.name("body").map_or("", |m| m.as_str()).to_string();
-                protected_code.push(body);
-                format!("\x00markdown-code-{idx}\x00")
-            })
-            .into_owned();
+    if has_backtick {
+        if cur.contains("```")
+            && let Some(re) = FENCED_CODE_RE.as_ref()
+        {
+            cur = re
+                .replace_all(&cur, |caps: &Captures<'_>| {
+                    let idx = protected_code.len();
+                    let body = caps.name("body").map_or("", |m| m.as_str()).to_string();
+                    protected_code.push(body);
+                    format!("\x00markdown-code-{idx}\x00")
+                })
+                .into_owned();
+        }
+        if cur.contains('`')
+            && let Some(re) = INLINE_CODE_RE.as_ref()
+        {
+            cur = re
+                .replace_all(&cur, |caps: &Captures<'_>| {
+                    let idx = protected_code.len();
+                    let body = caps.name("body").map_or("", |m| m.as_str()).to_string();
+                    protected_code.push(body);
+                    format!("\x00markdown-code-{idx}\x00")
+                })
+                .into_owned();
+        }
     }
-    if let Some(re) = INLINE_CODE_RE.as_ref() {
-        cur = re
-            .replace_all(&cur, |caps: &Captures<'_>| {
-                let idx = protected_code.len();
-                let body = caps.name("body").map_or("", |m| m.as_str()).to_string();
-                protected_code.push(body);
-                format!("\x00markdown-code-{idx}\x00")
-            })
-            .into_owned();
-    }
-    if let Some(re) = HEADING_RE.as_ref() {
+    if has_hash
+        && cur.contains('#')
+        && let Some(re) = HEADING_RE.as_ref()
+    {
         cur = re.replace_all(&cur, "").into_owned();
     }
-    if let Some(re) = BULLET_RE.as_ref() {
+    if has_bullet
+        && cur.bytes().any(|b| matches!(b, b'-' | b'*' | b'+'))
+        && let Some(re) = BULLET_RE.as_ref()
+    {
         cur = re.replace_all(&cur, "").into_owned();
     }
-    if let Some(re) = EMPHASIS_RE.as_ref() {
+    if has_emphasis
+        && cur.bytes().any(|b| matches!(b, b'*' | b'_'))
+        && let Some(re) = EMPHASIS_RE.as_ref()
+    {
         cur = re
             .replace_all(&cur, |caps: &Captures<'_>| {
                 caps.name("body").map_or("", |m| m.as_str()).to_string()

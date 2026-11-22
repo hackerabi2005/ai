@@ -9,6 +9,11 @@ from dataclasses import dataclass
 from typing import Any
 
 from speech_to_speech.language_codes import LANGUAGE_NAMES
+
+try:
+    import stt_rs as _stt_rs
+except ImportError:
+    _stt_rs = None  # type: ignore[assignment]
 from speech_to_speech.STT.openai_compatible_handler import (
     HttpTranscriptionOperation,
     HttpTranscriptionResult,
@@ -57,6 +62,8 @@ _ANNOTATIONS = re.compile("|".join(re.escape(token) for token in sorted(ANNOTATI
 
 def clean_transcript(text: str) -> str:
     """Remove annotations, retaining lexical speech even when noise is present."""
+    if _stt_rs is not None:
+        return _stt_rs.clean_transcript(text)
     text = _ANNOTATIONS.sub(" ", text)
     text = re.sub(r"\s+", " ", text).strip()
     text = re.sub(r"\s+([,.!?;:，。！？；：、])", r"\1", text)

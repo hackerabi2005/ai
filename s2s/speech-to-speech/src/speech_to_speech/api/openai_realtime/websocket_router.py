@@ -684,21 +684,33 @@ def create_app(
         token = (os.environ.get("JARVIS_API_TOKEN") or "").strip()
         if not api_url or not token:
             return None
-        client = tap_client[0]
-        if client is None:
-            client = httpx2.AsyncClient(timeout=0.5)
-            tap_client[0] = client
-        try:
-            resp = await client.post(
-                f"{api_url}/utterance",
-                headers={"Authorization": f"Bearer {token}"},
-                json={"text": event.transcript, "turn_id": event.turn_id, "session_id": session_id},
-            )
-            if resp.status_code == 200:
-                data = resp.json()
-                return data if isinstance(data, dict) else None
-        except Exception as exc:
-            logger.debug("Jarvis utterance tap skipped: %s", exc)
+        for attempt in range(2):
+            client = tap_client[0]
+            if client is None:
+                client = httpx2.AsyncClient(timeout=0.5)
+                tap_client[0] = client
+            try:
+                resp = await client.post(
+                    f"{api_url}/utterance",
+                    headers={"Authorization": f"Bearer {token}"},
+                    json={"text": event.transcript, "turn_id": event.turn_id, "session_id": session_id},
+                )
+                if resp.status_code == 200:
+                    data = resp.json()
+                    return data if isinstance(data, dict) else None
+                return None
+            except httpx2.TransportError as exc:
+                tap_client[0] = None
+                try:
+                    await client.aclose()
+                except Exception:
+                    pass
+                if attempt == 0:
+                    continue
+                logger.debug("Jarvis utterance tap skipped: %s", exc)
+            except Exception as exc:
+                logger.debug("Jarvis utterance tap skipped: %s", exc)
+                return None
         return None
 
     llm_proxy_usage = mount_llm_proxy(app, llm_proxy_config)

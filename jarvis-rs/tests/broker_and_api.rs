@@ -1438,3 +1438,120 @@ async fn generic_search_uses_active_searchable_site_after_open() {
     );
 }
 
+#[tokio::test]
+async fn pipeline_guard_blocks_concurrent_utterances_and_stop_aborts_open_url() {
+    struct DelayedOpenBridge {
+        started: Arc<Notify>,
+        release: Arc<Notify>,
+    }
+
+    impl BrowserBridge for DelayedOpenBridge {
+        fn open(
+            &self,
+            _goal: String,
+            url: Option<String>,
+            _background: bool,
+        ) -> BoxFuture<'_, Result<PageSummary, BridgeError>> {
+            let started = self.started.clone();
+            let release = self.release.clone();
+            Box::pin(async move {
+                started.notify_one();
+                release.notified().await;
+                Ok(fake_page(
+                    url.as_deref().unwrap_or("https://www.google.com"),
+                    "fp0",
+                ))
+            })
+        }
+        fn predict(&self) -> BoxFuture<'_, Result<PredictResult, BridgeError>> {
+            Box::pin(async { Err(BridgeError::new("unused", "unused")) })
+        }
+        fn act(&self, _fingerprint: String) -> BoxFuture<'_, Result<ActResult, BridgeError>> {
+            Box::pin(async { Err(BridgeError::new("unused", "unused")) })
+        }
+        fn cancel(&self) -> BoxFuture<'_, Result<Option<PageSummary>, BridgeError>> {
+            Box::pin(async { Ok(None) })
+        }
+        fn read_page(&self) -> BoxFuture<'_, Result<ReadPageResult, BridgeError>> {
+            Box::pin(async { Err(BridgeError::new("unused", "unused")) })
+        }
+        fn control(&self, action: String) -> BoxFuture<'_, Result<ControlResult, BridgeError>> {
+            Box::pin(async move {
+                Ok(ControlResult {
+                    action,
+                    closed: false,
+                    page: None,
+                    message: None,
+                })
+            })
+        }
+        fn close(&self) -> BoxFuture<'_, Result<(), BridgeError>> {
+            Box::pin(async { Ok(()) })
+        }
+    }
+
+    let (events_tx, mut events_rx) = tokio::sync::mpsc::unbounded_channel();
+    let started = Arc::new(Notify::new());
+    let release = Arc::new(Notify::new());
+    let broker = Arc::new(Broker::with_events(false, events_tx));
+    let bridge: Arc<dyn BrowserBridge> = Arc::new(DelayedOpenBridge {
+        started: started.clone(),
+        release: release.clone(),
+    });
+
+    // 1. Holding a PipelineGuard blocks concurrent utterances even when BrokerPhase is Idle.
+    let guard = broker.try_start_pipeline().expect("acquire pipeline guard");
+    assert!(broker.is_running().await);
+    let app = build_router(ApiState {
+        broker: broker.clone(),
+        bridge: bridge.clone(),
+        token: Arc::new("pipe-tok".into()),
+        quit_tx: None,
+        chat_window_until: Arc::new(tokio::sync::Mutex::new(None)),
+    });
+    let resp = app
+        .oneshot(
+            Request::builder()
+                .method("POST")
+                .uri("/utterance")
+                .header(header::AUTHORIZATION, "Bearer pipe-tok")
+                .header(header::CONTENT_TYPE, "application/json")
+                .body(Body::from(r#"{"text":"open youtube"}"#))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+    assert_eq!(resp.status(), StatusCode::OK);
+    let busy_ev = events_rx.recv().await.unwrap();
+    assert_eq!(
+        busy_ev,
+        AgentEvent::Say {
+            text: "Still working on the last task. Say stop to cancel.".into(),
+            interrupt: false,
+        }
+    );
+    drop(guard);
+    assert!(!broker.is_running().await);
+
+    // 2. Requesting stop while open_url is awaiting emits AgentEvent::Stopped instead of Opened.
+    let b = broker.clone();
+    let br = bridge.clone();
+    let handle = tokio::spawn(async move {
+        b.open_url(
+            br.as_ref(),
+            "Open Google".into(),
+            "https://www.google.com".into(),
+            "Google".into(),
+            false,
+        )
+        .await
+    });
+    started.notified().await;
+    broker.request_stop();
+    release.notify_one();
+    let err = handle.await.unwrap().unwrap_err();
+    assert_eq!(err.code, "stopped");
+    let stop_ev = events_rx.recv().await.unwrap();
+    assert_eq!(stop_ev, AgentEvent::Stopped);
+}
+

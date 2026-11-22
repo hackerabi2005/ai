@@ -3,8 +3,7 @@
 ## 1. Repository & Git Status
 - **Remote:** `https://github.com/hackerabi2005/ai.git` (`main`)
 - **Author:** `hackerabi2005 <abishekji2005@gmail.com>`
-- **Latest Commit:** `851696c` (`Fix s2s startup latency and auto-launch Chrome when closed`)
-- **Language Breakdown:** Configured via [.gitattributes](file:///c:/Users/Abish/Desktop/combinned%20jarvis/.gitattributes) so GitHub Linguist reports **100% Rust** across `jarvis-rs/` and `rust/`, while marking vendored/generated Python bindings accordingly. Over 230 unused Python/JS/HTML files (`-102,220` lines) were removed.
+- **Language Breakdown:** Configured via [.gitattributes](file:///c:/Users/Abish/Desktop/combinned%20jarvis/.gitattributes) so GitHub Linguist reports **100% Rust** across [jarvis-rs/](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs) and [rust/](file:///c:/Users/Abish/Desktop/combinned%20jarvis/rust).
 
 ---
 
@@ -12,8 +11,8 @@
 
 ```mermaid
 flowchart LR
-    Mic["Microphone / Silero VAD"] --> STT["Riva STT (NVCF gRPC ~580ms)"]
-    STT --> Router["jarvis-rs Router (0ms deterministic)"]
+    Mic["Microphone / ONNX Silero VAD"] --> STT["Riva STT (NVCF gRPC)"]
+    STT --> Router["jarvis-rs Router (<1ms deterministic)"]
     Router -->|Direct Voice Route| Broker["jarvis-rs Broker"]
     STT -->|Conversational / Q&A| LLM["Nemotron-3-Ultra LLM"]
     LLM -->|Tool Calls| Broker
@@ -23,78 +22,69 @@ flowchart LR
 ```
 
 ### Core Components
-1. **Rust Supervisor & Voice Router (`jarvis-rs/`)**
-   - [supervisor.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/supervisor.rs): Launches the local loopback tool API (`127.0.0.1`), warms Chrome in a non-blocking background `tokio::spawn` task, injects all 9 PyO3 crates into `PYTHONPATH`, and supervises the `speech-to-speech` runtime and `jev_bridge.py`.
-   - [router.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/router.rs): Intercepts 40+ browser, media, tab, scroll, zoom, search, and appearance voice commands in `<1ms` without waiting for an LLM round-trip.
-   - [broker.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/broker.rs): Executes fast opens, instant DOM click matching (`match_click`), context-aware site searches, and background Jev step loops (`MAX_STEPS = 60`).
-   - [policy.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/policy.rs): Enforces confirmation gates on sensitive actions (checkout, purchase, payment, delete, account changes, credential fields).
+1. **Rust Supervisor, Router, Broker & CLI (`jarvis-rs/`)**
+   - [supervisor.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/supervisor.rs): Checks `127.0.0.1:8765` availability before spawning, launches the local loopback tool API, warms Chrome in a non-blocking background `tokio::spawn` task (seeding initial active URL), injects all 9 PyO3 crates into `PYTHONPATH`, supervises `speech-to-speech` + `jev_bridge.py`, and runs per-spawn `announce_when_ready` (60s window).
+   - [router.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/router.rs): Deterministic `<1ms` voice router for 40+ browser, media, tab, scroll, zoom, search, and appearance commands.
+   - [broker.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/broker.rs) & [api.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/api.rs): Enforces `PipelineGuard` concurrency locking across multi-step voice pipelines, honors mid-flight `stop_requested` checks in `open_url` / `click_target`, and runs `is_risky_action` confirmation gates.
+   - [Cargo.toml](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/Cargo.toml): Includes `[profile.release]` (`opt-level = 3`, `lto = "thin"`, `codegen-units = 1`, `strip = "symbols"`).
 
-2. **PyO3 Rust Port Crates (`rust/`)**
-   - Mapped in [PORT_MAP.md](file:///c:/Users/Abish/Desktop/combinned%20jarvis/rust/PORT_MAP.md) and unified in [rust/app/src/lib.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/rust/app/src/lib.rs):
-     - `rust/jev-ultrafast-rs` (`fingerprint`, `validate_choice`, `action_space`, `field_context`) — `340/340` cases
-     - `rust/python-rs` (`page_summary`, `classify_error`) — `209/209` cases
-     - `rust/llm-rs` (`build_text_system_prompt`, `remove_markdown`, `remove_unspeechable`, `format_language_instruction`, `language_name_for_prompt`, `resolve_auto_language`, `build_voice_system_prompt`) — `1,603/1,603` cases
-     - `rust/tool-call-rs` (`find_json_tool_call_end`, `build_block_regex`) — `464/464` cases
-     - `rust/stt-rs` (`clean_transcript`, `build_prompt`) — `477/477` cases
-     - `rust/tts-rs` (`number_to_words`, `numbers_to_words`, `normalize`) — `470/470` cases
-     - `rust/utils-rs` (`safe_identifier`, `next_power_of_2`, `validate_device`) — `276/276` cases
-     - `rust/speech-languages-rs` (`normalize_language`) — `67/67` cases
-     - `rust/pipeline-rs` (`set_log_transcripts`, `transcript_for_log`) — `21/21` cases
-   - **Total Differential Verification:** `3,927/3,927` cases passing (`0` mismatches), `12/12` `rust-anything gate` checks passing per crate.
+2. **PyO3 Rust Port Crates (`rust/`) & Wired Call Sites**
+   - Mapped in [PORT_MAP.md](file:///c:/Users/Abish/Desktop/combinned%20jarvis/rust/PORT_MAP.md) and unified in [rust/app/src/lib.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/rust/app/src/lib.rs).
+   - Benchmark-verified Rust accelerators wired directly into Python (`try/except ImportError` fallbacks preserved):
+     - `llm_rs`: [LLM/utils.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/LLM/utils.py) (`remove_markdown` optimized with byte fast-path checks: `20.97x` faster on plain prose / `1.44x` on markdown, `1,603/1,603` diff cases matching; `remove_unspeechable` `3.84x` faster).
+     - `tool_call_rs`: [function_call.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/LLM/tool_call/function_call.py) (`find_json_tool_call_end` `15.97x` faster).
+     - `stt_rs`: [nemotron_transcribe.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/STT/nemotron_transcribe.py) (`clean_transcript` `6.45x` faster).
+     - `tts_rs`: [persian_normalization.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/TTS/persian_normalization.py) (`normalize` `2.64x` faster).
 
 ---
 
-## 3. Bugs & Latency Bottlenecks Resolved
+## 3. Fixes & Optimizations
 
-### A. Startup & Chrome Connection
-- **Auto-Launch Chrome When Closed ([jev_bridge.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/python/jev_bridge.py#L691-L706)):**
-  - `browser_harness/admin.py` had an unreachable `_launch_browser()` branch when the daemon exited with `fatal: chrome-not-running` (`pending_died` triggered `continue` before `_launch_browser()`).
-  - Added `_ensure_chrome_running()` before `ensure_daemon()` in `warm_browser`, `_try_attach_existing_tab`, and `_open` to automatically launch Chrome if no Chromium process is running.
-- **9-Second Faster Voice Pipeline Startup ([s2s_pipeline.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/s2s_pipeline.py#L1-L238)):**
-  - Removed unused top-level `import nltk` and moved `from transformers import HfArgumentParser` lazily into CLI parser functions so YAML startup (`-f jarvis_s2s.yaml`) skips loading `transformers` and `nltk` at import time.
-- **Missing `enable_visemes` After STV Cleanup ([module_arguments.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/arguments_classes/module_arguments.py#L229)):**
-  - Restored `enable_visemes: bool = False` on `ModuleArguments` after removing the unused `STV/` directory.
+### A. Cold Startup Speed (`29.14s` → `4.67s`) & Clean Shutdown
+- **ONNX Silero VAD Without PyTorch ([vad_iterator.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/VAD/vad_iterator.py), [vad_handler.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/VAD/vad_handler.py), [s2s_pipeline.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/s2s_pipeline.py)):**
+  - Replaced top-level `import torch` across VAD and pipeline modules with lazy `torch` loading and pure-NumPy `SileroOnnxModel` via `onnxruntime` (`max_diff = 4.23e-06` vs PyTorch JIT, matching trigger parity).
+  - `build_configured_server()` cold build runs in `4.67s` with `torch_loaded=False`.
+- **Spawn Audio Worker Isolation ([_audio_worker.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/api/openai_realtime/_audio_worker.py), [audio_client.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/api/openai_realtime/audio_client.py), [cli.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/cli.py)):**
+  - Extracted the spawned child-process audio loop into lightweight `_audio_worker.py` (`0.227s` import vs `1.703s` for `audio_client.py`).
+- **Non-Blocking Warmup & Thread-Safe Shutdown ([riva_stt_handler.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/STT/riva_stt_handler.py), [riva_tts_handler.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/TTS/riva_tts_handler.py), [chat_completions_language_model.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/LLM/chat_completions_language_model.py), [base_openai_compatible_language_model.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py)):**
+  - Moved Riva STT (`15s` warmup RPC, lock-protected `_grpc_lock`), Riva TTS, and LLM warmups onto tracked background daemon threads using sync client + `_closed` event guards and short `join(timeout=1.0)` on `cleanup()`. Eliminates cold `DEADLINE_EXCEEDED` startup blocks, cross-thread `asyncio.Runner` cleanup failures, and CPython `_enter_buffered_busy` stderr crashes on exit.
 
-### B. Riva STT Latency & Reliability
-- **3.3x Faster NVCF Unary gRPC ([riva_stt_handler.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/STT/riva_stt_handler.py#L46-L154)):**
-  - Enabled `enable_automatic_punctuation=True` (benchmarked on NVCF Parakeet CTC at `489ms–586ms` vs `1910ms` with punctuation disabled).
-  - Replaced all-zero warmup bytes (`np.zeros(16000)`, which caused NVCF Parakeet CTC to hang past `2.5s` with `DEADLINE_EXCEEDED`) with `0.25s` of dithered PCM (`b"\x01\x00\xff\xff" * 2000`) executed synchronously during `warmup()`.
-  - Added a `6.0s` unary gRPC timeout with automatic gRPC channel reset on `RpcError` and restored the NVCF HTTP fallback URL in [jarvis_s2s.yaml](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/config/jarvis_s2s.yaml#L39-L43).
-
-### C. Browser CDP & Navigation Speed
-- **Eliminated 5-Second Post-Click CDP Hang ([browser.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/borwse%20harness/jev-ultrafast/jev_ultrafast/browser.py#L510-L545)):**
-  - `Browser.observe()` previously ran a 150ms `Runtime.evaluate(..., awaitPromise=True)` promise after every click or fill. When a click triggered a page navigation (e.g., clicking a Google result to open YouTube), Chrome destroyed the execution context mid-promise, causing `browser-harness` to block for 5,000ms and throw `RuntimeError: Runtime.evaluate timed out after 5s waiting for the daemon`.
-  - Restricted the `awaitPromise=True` autocomplete waiter strictly to `fill` actions on `role="combobox"`, using a fast `25ms` sleep for clicks.
-- **Navigation & Concurrent Media Control Recovery ([jev_bridge.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/python/jev_bridge.py#L76-L89), [jev_bridge.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/python/jev_bridge.py#L1141-L1195)):**
-  - Treated `Runtime.evaluate timed out` and `Page.navigate timed out` as transient navigation errors (`_is_transient_nav_error`) so post-click navigation never resets the session as `chrome_not_ready`.
-  - Treated `ValueError("Observe and choose before acting")` (when a direct media/scroll command invalidates a pending prediction mid-step) as a clean `stale: True` retry.
-  - Auto-dispatched `Enter` after filling a search box when the goal starts with `"type "`, `"enter "`, or `"fill "`.
-
-### D. Deterministic Voice Routing
-- **Instant Local Appearance & Site Controls ([jev_bridge.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/python/jev_bridge.py#L740-L764), [router.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/router.rs), [broker.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/broker.rs)):**
-  - Matched Wikipedia/page appearance radio controls (`"text small/large"`, `"set color light/dark/automatic"`, `"width wide"`) directly via `_match_clickable_action` in `~15ms` (`0` Jev API calls).
-  - Added context-aware generic `"search <query>"` routing (`contextualize_generic_search`) so speaking `"search Python programming"` while on Wikipedia/YouTube/GitHub searches the active site immediately.
-  - Added fast `open_fast` fallback in `Broker::click_target` when `"select/click <known_site>"` is not matched on the current page.
-  - Added support for conversational prefixes before multi-tab close (`"Okay, thank you. Close three tabs."`), `"close this wikipedia"`, `"skip"` / `"skip skip skip"` (`skip_ad`), `"vol up"` / `"vol down"`, and verb-less `<query> in/on <site>` (`"mr beast in youtube"`).
+### B. Deadlock, Broken Imports & Protocol Fixes
+- **Bounded Chrome Warmup & CDP Keys ([jev_bridge.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/python/jev_bridge.py)):**
+  - Added `_ensure_daemon_bounded(8.0)` so `warm_browser` / tab attach never deadlocks Chrome's `Allow remote debugging?` popup, prewarms `jev` HTTP async, returns attached active URL to seed `Broker.record_initial_url`, and uses `_dispatch_key(browser, "press_enter")` (with `char` `\r` event).
+- **Removed Stale Deleted-Module Imports ([s2s_pipeline.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/s2s_pipeline.py)):**
+  - Fixed `HfArgumentParser` `F821` error and replaced references to deleted `diarization`, `STV.w2v_stv_handler`, and `TTS.phonon_tts_handler` with explicit `ValueError` errors.
+- **Loopback Tap Resilience ([websocket_router.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/api/openai_realtime/websocket_router.py)):**
+  - Retries `/utterance` once with a fresh `httpx2.AsyncClient` on `TransportError`.
+- **Offline-Friendly Diagnostics ([main.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/main.rs)):**
+  - Upgraded `jarvis doctor` to verify `.env` keys, Python venvs, `jarvis_s2s.yaml`, PyO3 extensions, Silero ONNX cache, port `127.0.0.1:8765`, `jev_bridge` ping, and treat unlaunched Chrome/daemon/Browser-Use-cloud lines as informational rather than fatal.
 
 ---
 
 ## 4. How to Run & Verify
 
-### Start Jarvis
+### Start Jarvis (Release)
 ```powershell
-cargo run --manifest-path "c:\Users\Abish\Desktop\combinned jarvis\jarvis-rs\Cargo.toml" -- run
+cargo run --release --manifest-path "c:\Users\Abish\Desktop\combinned jarvis\jarvis-rs\Cargo.toml" -- run
 ```
-Wait for `Ready — start speaking.` and `ASSISTANT: Jarvis ready.` before speaking. (If Chrome was just launched from a cold state, click **Allow** on Chrome's `"Allow remote debugging?"` prompt once.)
+Wait for `Ready — start speaking.` / `ASSISTANT: Jarvis ready.` before speaking.
 
-### Run Test Suites
+### Run Diagnostics & Test Suites
 ```powershell
-# Rust unit & router tests (29/29 passing)
-cargo test --manifest-path "c:\Users\Abish\Desktop\combinned jarvis\jarvis-rs\Cargo.toml"
+# System & config doctor
+.\jarvis-rs\target\release\jarvis.exe doctor
 
-# Python bridge unit tests (17/17 passing)
-python -m pytest "c:\Users\Abish\Desktop\combinned jarvis\jarvis-rs\python\test_jev_bridge.py" -q
+# Rust supervisor, router, broker & API tests (30 tests: 10 lib + 20 integration)
+cargo clippy --all-targets --manifest-path "jarvis-rs\Cargo.toml" -- -D warnings
+cargo test --manifest-path "jarvis-rs\Cargo.toml"
 
-# Unified Rust workspace check
-cargo check --manifest-path "c:\Users\Abish\Desktop\combinned jarvis\rust\app\Cargo.toml"
+# Unified Rust workspace & llm-rs
+cargo clippy --workspace --all-targets --manifest-path "rust\app\Cargo.toml" -- -D warnings
+cargo test --workspace --manifest-path "rust\app\Cargo.toml"
+cargo test --manifest-path "rust\llm-rs\Cargo.toml"
+
+# Python suites (use venv python directly so copied shebangs don't resolve old paths)
+.\borwse` harness\jev-ultrafast\.venv\Scripts\python.exe -m pytest jarvis-rs\python\test_jev_bridge.py -v
+.\s2s\speech-to-speech\.venv\Scripts\python.exe -m pytest jarvis-rs\python\test_jarvis_tools.py -v
+.\s2s\speech-to-speech\.venv\Scripts\python.exe -m ruff check --select E9,F63,F7,F82 jarvis-rs\python "borwse harness\jev-ultrafast\jev_ultrafast" s2s\speech-to-speech\src
 ```

@@ -119,7 +119,10 @@ class RivaSTTHandler(BaseSTTHandler):
         self._asr_service: Any = None
         self._streaming_capable = False
         self._grpc_backoff_until_s: float = 0.0
+        self._grpc_lock = Lock()
         self._stream_lock = Lock()
+        self._closed = Event()
+        self._warmup_thread: Thread | None = None
         self._session_generation = 0
         self._active_turn_id: str | None = None
         self._active_turn_revision: int | None = None
@@ -169,14 +172,15 @@ class RivaSTTHandler(BaseSTTHandler):
         )
 
     def _reset_grpc(self) -> None:
-        auth = getattr(self, "_auth", None)
-        channel = getattr(auth, "channel", None)
-        if channel is not None and hasattr(channel, "close"):
-            try:
-                channel.close()
-            except Exception:
-                pass
-        self._init_grpc()
+        with self._grpc_lock:
+            auth = getattr(self, "_auth", None)
+            channel = getattr(auth, "channel", None)
+            if channel is not None and hasattr(channel, "close"):
+                try:
+                    channel.close()
+                except Exception:
+                    pass
+            self._init_grpc()
 
     def _streaming_ready(self) -> bool:
         return bool(self._streaming_capable and self._asr_service is not None)
@@ -416,16 +420,49 @@ class RivaSTTHandler(BaseSTTHandler):
         return True, stream.final_text, elapsed
 
     def warmup(self) -> None:
-        """Warm the NVCF gRPC worker synchronously during startup with dithered PCM so the first utterance is fast."""
-        logger.info("Warming up %s (%s)", self.__class__.__name__, "gRPC" if self.use_grpc else "HTTP")
-        started_at_s = perf_counter()
-        try:
-            dither = np.frombuffer(b"\x01\x00\xff\xff" * 2000, dtype="<i2")
-            self._transcribe(dither, self.language_code)
-            logger.info("%s warmed up in %.3fs", self.__class__.__name__, perf_counter() - started_at_s)
-        except Exception as exc:
-            self._grpc_backoff_until_s = 0.0
-            logger.warning("%s warmup skipped (%s)", self.__class__.__name__, exc)
+        """Warm the NVCF worker in the background with dithered PCM without blocking startup."""
+        dither_pcm = b"\x01\x00\xff\xff" * 2000
+
+        def _bg_warm() -> None:
+            if self.stop_event.is_set() or self._closed.is_set():
+                return
+            logger.info("Warming up %s (%s) in background", self.__class__.__name__, "gRPC" if self.use_grpc else "HTTP")
+            started_at_s = perf_counter()
+            try:
+                if self.use_grpc:
+                    with self._grpc_lock:
+                        stub = getattr(self._asr_service, "stub", None)
+                        get_meta = getattr(self._auth, "get_auth_metadata", None)
+                    if stub is not None and callable(get_meta):
+                        from riva.client.proto import riva_asr_pb2 as rasr
+
+                        config = self._build_recognition_config(self.language_code)
+                        request = rasr.RecognizeRequest(config=config, audio=dither_pcm)
+                        # Cold NVCF gRPC workers routinely take 8-10s; use a generous warmup deadline
+                        # and never trip the live 60s HTTP backoff circuit breaker during warmup.
+                        stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 15.0))
+                    else:
+                        dither = np.frombuffer(dither_pcm, dtype="<i2")
+                        self._transcribe(dither, self.language_code)
+                else:
+                    self._transcribe_http(dither_pcm, self.language_code)
+                if self.stop_event.is_set() or self._closed.is_set():
+                    return
+                logger.info("%s warmed up in %.3fs", self.__class__.__name__, perf_counter() - started_at_s)
+            except Exception as exc:
+                self._grpc_backoff_until_s = 0.0
+                if self.stop_event.is_set() or self._closed.is_set():
+                    return
+                if self.use_grpc:
+                    try:
+                        self._reset_grpc()
+                    except Exception:
+                        pass
+                logger.warning("%s warmup skipped (%s)", self.__class__.__name__, exc)
+
+        thread = Thread(target=_bg_warm, name="riva-stt-warmup", daemon=True)
+        self._warmup_thread = thread
+        thread.start()
 
     def _resolve_request_language(self, selected: str | None) -> str:
         if not selected or selected == "auto":
@@ -492,8 +529,9 @@ class RivaSTTHandler(BaseSTTHandler):
         if self.http_url and perf_counter() < self._grpc_backoff_until_s:
             return self._transcribe_http(pcm_bytes, language_code)
         config = self._build_recognition_config(language_code)
-        stub = getattr(self._asr_service, "stub", None)
-        get_meta = getattr(self._auth, "get_auth_metadata", None)
+        with self._grpc_lock:
+            stub = getattr(self._asr_service, "stub", None)
+            get_meta = getattr(self._auth, "get_auth_metadata", None)
         if stub is not None and callable(get_meta):
             from riva.client.proto import riva_asr_pb2 as rasr
 
@@ -509,8 +547,9 @@ class RivaSTTHandler(BaseSTTHandler):
                         exc,
                     )
                     return self._transcribe_http(pcm_bytes, language_code)
-                stub = getattr(self._asr_service, "stub", None)
-                get_meta = getattr(self._auth, "get_auth_metadata", None)
+                with self._grpc_lock:
+                    stub = getattr(self._asr_service, "stub", None)
+                    get_meta = getattr(self._auth, "get_auth_metadata", None)
                 if stub is not None and callable(get_meta):
                     response = stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 6.0))
                 else:
@@ -575,6 +614,7 @@ class RivaSTTHandler(BaseSTTHandler):
         return isinstance(output, Transcription) and self.last_time > self.min_time_to_debug
 
     def cleanup(self) -> None:
+        self._closed.set()
         self.cancel_session()
         http_client = getattr(self, "_http_client", None)
         if http_client is not None:
@@ -589,3 +629,6 @@ class RivaSTTHandler(BaseSTTHandler):
                 pass
         self._auth = None
         self._asr_service = None
+        warmup_thread = getattr(self, "_warmup_thread", None)
+        if warmup_thread is not None and warmup_thread.is_alive():
+            warmup_thread.join(timeout=1.0)

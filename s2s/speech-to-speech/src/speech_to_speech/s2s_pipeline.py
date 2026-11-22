@@ -13,9 +13,10 @@ from queue import Queue
 from sys import modules, platform
 from threading import Event
 from types import FrameType
-from typing import Any, Literal, Optional, Sequence
+from typing import TYPE_CHECKING, Any, Literal, Optional, Sequence
 
-import torch
+if TYPE_CHECKING:
+    from transformers import HfArgumentParser
 
 from speech_to_speech.api.openai_realtime.pipeline_unit import NotifyingQueue, OutputSignal, PipelineUnit
 from speech_to_speech.arguments_classes.language_model_arguments import MLX_DEFAULT_LM_MODEL
@@ -302,6 +303,8 @@ def setup_logger(log_level: str) -> None:
 
     # torch compile logs
     if log_level == "debug":
+        import torch
+
         torch._logging.set_logs(graph_breaks=True, recompiles=True, cudagraphs=True)
 
 
@@ -328,6 +331,8 @@ def validate_torch_num_threads(value: Any) -> None:
 def apply_torch_num_threads(module_kwargs: ModuleArguments) -> None:
     """Apply an explicit --torch_num_threads; with it unset, leave PyTorch's thread count alone."""
     if module_kwargs.torch_num_threads is not None:
+        import torch
+
         torch.set_num_threads(module_kwargs.torch_num_threads)
 
 
@@ -419,44 +424,7 @@ def _build_handlers(
 
     side_handlers: list[Any] = []
     if module_kwargs.diarization_model_name:
-        from speech_to_speech.diarization import StreamingDiarizer
-        from speech_to_speech.diarization.streaming import DIARIZATION_DEVICES
-        from speech_to_speech.diarization.worker import DiarizationWorker
-
-        diarization_device = resolve_device(
-            module_kwargs.device or module_kwargs.diarization_device,
-            DIARIZATION_DEVICES,
-            "Nemotron diarization",
-        )
-        if diarization_device == "cpu":
-            logger.warning(
-                "Diarization is using CPU; sustained speech can outpace inference and disable speaker labels "
-                "until reconnect. CUDA, NPU, or MPS is recommended for live sessions."
-            )
-        diarizer = StreamingDiarizer.from_pretrained(
-            module_kwargs.diarization_model_name,
-            revision=module_kwargs.diarization_revision,
-            device=diarization_device,
-            dtype=module_kwargs.diarization_dtype,
-            streaming_mode=module_kwargs.diarization_streaming_mode,
-            threshold=module_kwargs.diarization_threshold,
-        )
-        if resource_ledger is not None:
-            resource_ledger.append(diarizer)
-        if diarizer.sample_rate != vad_handler_kwargs.sample_rate:
-            raise ValueError("Diarization and VAD must use the same audio sample rate.")
-        diarizer.warmup()
-        logger.info(
-            "Diarization ready: device=%s mode=%s; speaker labels will accompany completed transcriptions",
-            diarization_device,
-            module_kwargs.diarization_streaming_mode,
-        )
-        vad.diarization_worker = DiarizationWorker(diarizer, stop_event)
-        if resource_ledger is not None:
-            # The worker takes ownership after all model preparation succeeds.
-            resource_ledger.remove(diarizer)
-            resource_ledger.append(vad.diarization_worker)
-        side_handlers.append(vad.diarization_worker)
+        raise ValueError("Speaker diarization is not included in this Jarvis runtime.")
 
     needs_notifier = not stt_backend.spec.capabilities.bypasses_transcription_notifier
     stt_queue_out: Queue[Any] = stt_output_queue if needs_notifier else text_prompt_queue
@@ -547,22 +515,7 @@ def _build_handlers(
 
     handlers = [vad, *side_handlers, *speech_input_handlers, lm, lm_processor, tts]
     if module_kwargs.enable_visemes:
-        from speech_to_speech.STV.w2v_stv_handler import Wav2Vec2STVHandler
-
-        handlers.append(
-            Wav2Vec2STVHandler(
-                stop_event,
-                queue_in=tts_output_queue,
-                queue_out=send_audio_chunks_queue,
-                setup_kwargs={
-                    "model_name": module_kwargs.stv_model_name,
-                    "device": module_kwargs.device or module_kwargs.stv_device,
-                    "cancel_scope": cancel_scope,
-                },
-            )
-        )
-        if resource_ledger is not None:
-            resource_ledger.append(handlers[-1])
+        raise ValueError("Viseme generation (STV) is not included in this Jarvis runtime.")
     return handlers
 
 
@@ -828,17 +781,6 @@ def build_local_pipeline(args: ParsedArguments, stop_event: Event) -> ThreadMana
         tool_response_create=tool_response_create,
     )
     server_manager = build_pipeline(args, stop_event, host="127.0.0.1")
-    if args.tts_backend.name == "phonon":
-        from speech_to_speech.TTS.phonon_tts_handler import PhononTTSHandler
-
-        for handler in server_manager.handlers:
-            if isinstance(handler, PhononTTSHandler):
-                voice_choices = list(handler.voices)
-                if "default" in voice_choices:
-                    voice_choices.remove("default")
-                    voice_choices.insert(0, "default")
-                client_config = replace(client_config, voice=handler.voice, voice_choices=voice_choices)
-                break
     client = RealtimeAudioClient(stop_event, client_config)
     return ThreadManager([*server_manager.handlers, client])
 

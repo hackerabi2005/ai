@@ -568,21 +568,17 @@ async fn post_utterance(
 
         RouteAction::Pipeline(steps) => {
             *state.chat_window_until.lock().await = None;
-            if running || in_confirmation {
-                let msg = if in_confirmation {
-                    "Say yes or no first, or say stop."
-                } else {
-                    "Still working on the last task. Say stop to cancel."
-                };
-                state.broker.emit(AgentEvent::Say {
-                    text: msg.to_string(),
-                    interrupt: false,
-                });
+            let guard = if running || in_confirmation {
+                None
             } else {
+                state.broker.try_start_pipeline()
+            };
+            if let Some(_pipeline_guard) = guard {
                 state.broker.clear_stop_request();
                 let broker = state.broker.clone();
                 let bridge = state.bridge.clone();
                 tokio::spawn(async move {
+                    let _guard = _pipeline_guard;
                     for step in steps {
                         if broker.is_stop_requested() {
                             break;
@@ -591,6 +587,16 @@ async fn post_utterance(
                             break;
                         }
                     }
+                });
+            } else {
+                let msg = if in_confirmation {
+                    "Say yes or no first, or say stop."
+                } else {
+                    "Still working on the last task. Say stop to cancel."
+                };
+                state.broker.emit(AgentEvent::Say {
+                    text: msg.to_string(),
+                    interrupt: false,
                 });
             }
             Json(json!({
