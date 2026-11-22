@@ -700,20 +700,79 @@ def _ensure_daemon_bounded(wait_s: float = 8.0) -> None:
         ensure_daemon()
 
 
+def _is_target_browser_running(target_profile: Any) -> bool:
+    """Check whether the specific Chromium browser for *target_profile* is running."""
+    import platform
+    import subprocess
+
+    if platform.system() == "Windows":
+        exe_name = "chrome.exe"
+        if target_profile is not None:
+            try:
+                from browser_harness.admin import _browser_launch_spec
+
+                _, _, win_target = _browser_launch_spec(target_profile)
+                if win_target:
+                    exe_name = win_target if win_target.lower().endswith(".exe") else f"{win_target}.exe"
+            except Exception:
+                pass
+        try:
+            out = subprocess.check_output(
+                ["tasklist", "/FI", f"IMAGENAME eq {exe_name}"],
+                text=True,
+                errors="replace",
+                timeout=3,
+            ).lower()
+            return exe_name.lower() in out
+        except Exception:
+            return False
+    try:
+        from browser_harness.daemon import browser_running_for_profile, supported_browser_running
+
+        if target_profile is not None:
+            return bool(browser_running_for_profile(target_profile))
+        return bool(supported_browser_running())
+    except Exception:
+        return False
+
+
 def _ensure_chrome_running() -> None:
-    """Launch Chrome when closed before ensure_daemon() (works around browser_harness.admin pending_died skip)."""
+    """Launch the debugging-enabled Chromium browser when closed before ensure_daemon().
+
+    Unlike browser_harness.daemon.supported_browser_running(), this checks whether a live
+    DevToolsActivePort exists or whether the *specific* target browser (e.g. chrome.exe) is
+    running, so an unrelated Brave/Edge window without remote debugging never blocks Chrome launch.
+    """
     if getattr(ensure_daemon, "__module__", "") != "browser_harness.admin":
         return
     try:
         from browser_harness.admin import _launch_browser, daemon_alive
-        from browser_harness.daemon import supported_browser_running
+        from browser_harness.daemon import PROFILES, _devtools_port_live, remote_debugging_toggle_profiles
 
-        if daemon_alive() or supported_browser_running():
+        if daemon_alive() or any(_devtools_port_live(p) for p in PROFILES):
+            return
+        enabled = remote_debugging_toggle_profiles()
+        target_profile = (
+            enabled[0]
+            if enabled
+            else next((b for b in PROFILES if (b / "Local State").exists()), None)
+        )
+        if _is_target_browser_running(target_profile):
             return
         _launch_browser()
-        deadline = time.monotonic() + 8.0
-        while time.monotonic() < deadline and not supported_browser_running():
-            time.sleep(0.2)
+        deadline = time.monotonic() + 10.0
+        seen_process_at: float | None = None
+        while time.monotonic() < deadline:
+            if (target_profile is not None and _devtools_port_live(target_profile)) or any(
+                _devtools_port_live(p) for p in PROFILES
+            ):
+                return
+            if _is_target_browser_running(target_profile):
+                if seen_process_at is None:
+                    seen_process_at = time.monotonic()
+                elif time.monotonic() - seen_process_at >= 3.0:
+                    return
+            time.sleep(0.25)
     except Exception:
         pass
 
@@ -908,13 +967,14 @@ class BridgeSession:
             except Exception:
                 pass
 
-    def _try_attach_existing_tab(self) -> Any | None:
+    def _try_attach_existing_tab(self, *, ensure: bool = True) -> Any | None:
         """Attach to an existing Chrome tab when no Jarvis-opened tab is active."""
         if self._agent_cls is not Agent:
             return None
         try:
-            _ensure_chrome_running()
-            _ensure_daemon_bounded(8.0)
+            if ensure:
+                _ensure_chrome_running()
+                _ensure_daemon_bounded(8.0)
             tabs = _list_page_targets(prefer_real=True)
             if not tabs:
                 return None
@@ -945,9 +1005,9 @@ class BridgeSession:
             if cmd == "warm_browser":
                 _prewarm_jev_http_async()
                 _ensure_chrome_running()
-                _ensure_daemon_bounded(8.0)
+                _ensure_daemon_bounded(4.0)
                 if self.agent is None:
-                    self._try_attach_existing_tab()
+                    self._try_attach_existing_tab(ensure=False)
                 active_url = ((self.agent.state.get("page") or {}).get("url") or "") if self.agent is not None else ""
                 out: dict[str, Any] = {"ok": True}
                 if active_url and active_url != "about:blank":
@@ -1074,6 +1134,7 @@ class BridgeSession:
         target_url = url or "https://www.google.com"
         if self._agent_cls is Agent:
             _ensure_chrome_running()
+            _ensure_daemon_bounded(10.0)
         init_params = inspect.signature(self._agent_cls.__init__).parameters
         if skip_observe and "observe" in init_params:
             self.agent = self._agent_cls(target_url, goal, background=background, observe=False)

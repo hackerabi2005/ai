@@ -511,9 +511,32 @@ def test_press_enter_dispatches_char_cr_and_warm_browser_returns_attached_url(mo
     attached = FakeAgent("https://www.youtube.com/", "warm", background=False)
     attached.browser = browser
     attached.state["page"] = {"url": "https://www.youtube.com/", "title": "YouTube"}
-    monkeypatch.setattr(session, "_try_attach_existing_tab", lambda: setattr(session, "agent", attached))
+    monkeypatch.setattr(session, "_try_attach_existing_tab", lambda **_kw: setattr(session, "agent", attached))
     resp, should_exit = session.handle({"cmd": "warm_browser"})
     assert not should_exit
     assert resp == {"ok": True, "url": "https://www.youtube.com/"}
+
+
+def test_ensure_chrome_running_launches_chrome_even_when_other_browser_is_open(monkeypatch):
+    import browser_harness.admin as bh_admin
+    import browser_harness.daemon as bh_daemon
+    import jev_bridge
+
+    launched = []
+    live_checks = [False, False, True]
+
+    def fake_port_live(_profile):
+        return live_checks.pop(0) if live_checks else True
+
+    monkeypatch.setattr(bh_admin, "daemon_alive", lambda *a, **kw: False)
+    monkeypatch.setattr(bh_admin, "_launch_browser", lambda: launched.append(True))
+    monkeypatch.setattr(bh_daemon, "PROFILES", [Path("C:/Fake/Chrome/User Data")])
+    monkeypatch.setattr(bh_daemon, "remote_debugging_toggle_profiles", lambda: [Path("C:/Fake/Chrome/User Data")])
+    monkeypatch.setattr(bh_daemon, "_devtools_port_live", fake_port_live)
+    # Even if another browser (e.g., Brave) is running, target browser chrome.exe is NOT running.
+    monkeypatch.setattr(jev_bridge, "_is_target_browser_running", lambda _profile: False)
+
+    jev_bridge._ensure_chrome_running()
+    assert launched == [True]
 
 

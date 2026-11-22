@@ -1083,7 +1083,7 @@ class _AudioWorker:
             playback_buffer_ms=config.playback_buffer_ms,
             input_device=config.input_device,
             output_device=config.output_device,
-            echo_cancellation=True,
+            echo_cancellation=config.echo_cancellation,
             block_mic_during_playback=config.block_mic_during_playback,
         )
         self._process = context.Process(

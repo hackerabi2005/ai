@@ -147,6 +147,21 @@ async fn wait_for_quit(quit_rx: &mut watch::Receiver<bool>) {
     }
 }
 
+async fn kill_process_tree(child: &mut tokio::process::Child) {
+    #[cfg(windows)]
+    if let Some(pid) = child.id() {
+        let _ = Command::new("taskkill")
+            .args(["/T", "/F", "/PID", &pid.to_string()])
+            .stdin(Stdio::null())
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status()
+            .await;
+    }
+    let _ = child.start_kill();
+    let _ = tokio::time::timeout(Duration::from_secs(3), child.wait()).await;
+}
+
 pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), String> {
     preflight_check(&paths)?;
 
@@ -155,7 +170,7 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
         Ok(Ok(_))
     ) {
         return Err(format!(
-            "Port {S2S_ADDR} is already in use; stop any running s2s or jarvis instance first."
+            "Port {S2S_ADDR} is already in use; stop any running s2s/jarvis instance first (e.g. `Get-NetTCPConnection -LocalPort 8765`)."
         ));
     }
 
@@ -276,15 +291,13 @@ pub async fn run_supervised(paths: AppPaths, background: bool) -> Result<(), Str
             StopTrigger::CtrlC => {
                 info!("Ctrl+C received, shutting down Jarvis...");
                 broker.request_stop();
-                let _ = child.start_kill();
-                let _ = tokio::time::timeout(Duration::from_secs(3), child.wait()).await;
+                kill_process_tree(&mut child).await;
                 break;
             }
             StopTrigger::VoiceQuit => {
                 info!("Voice quit requested, waiting briefly for Goodbye audio...");
                 tokio::time::sleep(Duration::from_millis(1400)).await;
-                let _ = child.start_kill();
-                let _ = tokio::time::timeout(Duration::from_secs(3), child.wait()).await;
+                kill_process_tree(&mut child).await;
                 break;
             }
             StopTrigger::ChildExited(Ok(status)) if status.success() => {

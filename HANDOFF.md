@@ -50,14 +50,18 @@ flowchart LR
   - Moved Riva STT (`15s` warmup RPC, lock-protected `_grpc_lock`), Riva TTS, and LLM warmups onto tracked background daemon threads using sync client + `_closed` event guards and short `join(timeout=1.0)` on `cleanup()`. Eliminates cold `DEADLINE_EXCEEDED` startup blocks, cross-thread `asyncio.Runner` cleanup failures, and CPython `_enter_buffered_busy` stderr crashes on exit.
 
 ### B. Deadlock, Broken Imports & Protocol Fixes
-- **Bounded Chrome Warmup & CDP Keys ([jev_bridge.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/python/jev_bridge.py)):**
-  - Added `_ensure_daemon_bounded(8.0)` so `warm_browser` / tab attach never deadlocks Chrome's `Allow remote debugging?` popup, prewarms `jev` HTTP async, returns attached active URL to seed `Broker.record_initial_url`, and uses `_dispatch_key(browser, "press_enter")` (with `char` `\r` event).
+- **Target-Browser Chrome Auto-Launch, Bounded Warmup & CDP Keys ([jev_bridge.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/python/jev_bridge.py)):**
+  - Replaced generic `supported_browser_running()` in `_ensure_chrome_running()` with `_devtools_port_live` + target-browser executable check (`_is_target_browser_running`), so an unrelated Brave/Edge window never blocks Google Chrome from auto-launching when Chrome is closed.
+  - Added `_ensure_daemon_bounded` (`4.0s` in `warm_browser`, `10.0s` in `_open`), avoided duplicate `ensure_daemon` calls in `_try_attach_existing_tab(ensure=False)`, prewarmed `jev` HTTP async, returned attached active URL to seed `Broker.record_initial_url`, and used `_dispatch_key(browser, "press_enter")` (with `char` `\r` event).
+- **Windows Process-Tree Shutdown & `echo_cancellation` Passthrough ([supervisor.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/supervisor.rs), [audio_client.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/api/openai_realtime/audio_client.py)):**
+  - Added `kill_process_tree()` (`taskkill /T /F /PID` on Windows) so exiting via `Ctrl+C` or voice quit terminates both `s2s` and its spawned `_AudioWorker` child without leaving port `127.0.0.1:8765` occupied.
+  - Restored `echo_cancellation=config.echo_cancellation` passthrough in `_AudioWorker`.
 - **Removed Stale Deleted-Module Imports ([s2s_pipeline.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/s2s_pipeline.py)):**
   - Fixed `HfArgumentParser` `F821` error and replaced references to deleted `diarization`, `STV.w2v_stv_handler`, and `TTS.phonon_tts_handler` with explicit `ValueError` errors.
 - **Loopback Tap Resilience ([websocket_router.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/api/openai_realtime/websocket_router.py)):**
   - Retries `/utterance` once with a fresh `httpx2.AsyncClient` on `TransportError`.
 - **Offline-Friendly Diagnostics ([main.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/main.rs)):**
-  - Upgraded `jarvis doctor` to verify `.env` keys, Python venvs, `jarvis_s2s.yaml`, PyO3 extensions, Silero ONNX cache, port `127.0.0.1:8765`, `jev_bridge` ping, and treat unlaunched Chrome/daemon/Browser-Use-cloud lines as informational rather than fatal.
+  - Upgraded `jarvis doctor` to verify `.env` keys, Python venvs, `jarvis_s2s.yaml`, PyO3 extensions, Silero ONNX cache, port `127.0.0.1:8765`, Chrome remote-debugging profile + live CDP port status, and `jev_bridge` ping while treating unlaunched Chrome/daemon/Browser-Use-cloud lines as informational.
 
 ---
 

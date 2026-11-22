@@ -163,6 +163,21 @@ async fn run_doctor(paths: &AppPaths) -> ExitCode {
     }
 
     if paths.jev_python.is_file() {
+        let cdp_check = Command::new(&paths.jev_python)
+            .args([
+                "-c",
+                "from browser_harness.daemon import PROFILES, _devtools_port_live, remote_debugging_toggle_profiles; \
+                 en = remote_debugging_toggle_profiles(); \
+                 live = [str(p) for p in PROFILES if _devtools_port_live(p)]; \
+                 print(f'debug_profiles={[str(p) for p in en]} cdp_live={bool(live)}')",
+            ])
+            .current_dir(&paths.jev_dir)
+            .output();
+        if let Ok(out) = cdp_check {
+            if out.status.success() {
+                println!("chrome cdp check: {}", String::from_utf8_lossy(&out.stdout).trim());
+            }
+        }
         let bh = Command::new(&paths.jev_python)
             .args(["-m", "browser_harness.run", "--doctor"])
             .current_dir(&paths.jev_dir)
