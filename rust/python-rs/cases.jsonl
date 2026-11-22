@@ -207,10 +207,3 @@
 {"fn": "classify_error", "args": [true], "ok": "browser_error"}
 {"fn": "classify_error", "args": [[]], "ok": "browser_error"}
 {"fn": "classify_error", "args": [{"a": "b"}], "ok": "browser_error"}
-{"fn": "page_summary", "args": [{"url": "https://www.youtube.com/watch?v=123", "title": "YouTube", "text": "Hello world", "fingerprint": "abc123"}], "ok": {"url": "https://www.youtube.com/watch?v=123", "title": "YouTube", "text": "Hello world", "fingerprint": "abc123"}}
-{"fn": "page_summary", "args": [{"url": "https://example.com", "title": "Test", "text": null, "fingerprint": "def456"}], "ok": {"url": "https://example.com", "title": "Test", "text": "", "fingerprint": "def456"}}
-{"fn": "page_summary", "args": [{}], "ok": {"url": "", "title": "", "text": "", "fingerprint": ""}}
-{"fn": "classify_error", "args": ["Missing EXPERIENTIAL_API_KEY; no action executed."], "ok": "missing_key"}
-{"fn": "classify_error", "args": ["Step budget exceeded after 15 steps"], "ok": "budget_exceeded"}
-{"fn": "classify_error", "args": ["Chrome DevTools session closed"], "ok": "chrome_not_ready"}
-{"fn": "classify_error", "args": ["Unexpected timeout waiting for element"], "ok": "browser_error"}

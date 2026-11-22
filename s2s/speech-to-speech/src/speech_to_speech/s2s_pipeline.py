@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import json
 import logging
@@ -13,9 +15,7 @@ from threading import Event
 from types import FrameType
 from typing import Any, Literal, Optional, Sequence
 
-import nltk
 import torch
-from transformers import HfArgumentParser
 
 from speech_to_speech.api.openai_realtime.pipeline_unit import NotifyingQueue, OutputSignal, PipelineUnit
 from speech_to_speech.arguments_classes.language_model_arguments import MLX_DEFAULT_LM_MODEL
@@ -58,16 +58,6 @@ from speech_to_speech.STT.transcription_notifier import TranscriptionNotifier
 from speech_to_speech.utils.thread_manager import ThreadManager
 from speech_to_speech.utils.utils import resolve_device
 from speech_to_speech.VAD.vad_handler import VADHandler
-
-# Ensure that the necessary NLTK resources are available
-try:
-    nltk.data.find("tokenizers/punkt_tab")
-except (LookupError, OSError):
-    nltk.download("punkt_tab")
-try:
-    nltk.data.find("taggers/averaged_perceptron_tagger_eng")
-except (LookupError, OSError):
-    nltk.download("averaged_perceptron_tagger_eng")
 
 # caching allows ~50% compilation time reduction
 # see https://docs.google.com/document/d/1y5CRfMLdwEoF1nTk9q8qEu1mgMUuUtvhklPKJ2emLU8/edit#heading=h.o2asbxsrp1ma
@@ -156,6 +146,8 @@ def _parse_selected_cli_configs(
             if spec.config_type not in selected_types and spec.config_type not in inactive_types:
                 inactive_types.append(spec.config_type)
 
+    from transformers import HfArgumentParser
+
     compatibility_parser = HfArgumentParser(
         tuple(inactive_types),  # type: ignore[arg-type]
         add_help=False,
@@ -243,6 +235,8 @@ def parse_arguments(
             *(spec.config_type for spec in selected_specs),
         ]
     )
+    from transformers import HfArgumentParser
+
     parser = HfArgumentParser(tuple(argument_classes), prog=f"speech-to-speech {command}")  # type: ignore[arg-type]
     mac_action = parser._option_string_actions.pop("--mac_optimal_settings")
     mac_action.option_strings = [option for option in mac_action.option_strings if option != "--mac_optimal_settings"]

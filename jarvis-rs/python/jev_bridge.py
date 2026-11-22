@@ -688,6 +688,24 @@ def _prewarm_jev_http_async() -> None:
     threading.Thread(target=_warm, name="jev-http-prewarm", daemon=True).start()
 
 
+def _ensure_chrome_running() -> None:
+    """Launch Chrome when closed before ensure_daemon() (works around browser_harness.admin pending_died skip)."""
+    if getattr(ensure_daemon, "__module__", "") != "browser_harness.admin":
+        return
+    try:
+        from browser_harness.admin import _launch_browser, daemon_alive
+        from browser_harness.daemon import supported_browser_running
+
+        if daemon_alive() or supported_browser_running():
+            return
+        _launch_browser()
+        deadline = time.monotonic() + 8.0
+        while time.monotonic() < deadline and not supported_browser_running():
+            time.sleep(0.2)
+    except Exception:
+        pass
+
+
 def _list_page_targets(*, prefer_real: bool = True) -> list[dict[str, Any]]:
     """Return user-browsable Chrome page targets via CDP."""
     raw = cdp("Target.getTargets").get("targetInfos", [])
@@ -883,6 +901,7 @@ class BridgeSession:
         if self._agent_cls is not Agent:
             return None
         try:
+            _ensure_chrome_running()
             ensure_daemon()
             tabs = _list_page_targets(prefer_real=True)
             if not tabs:
@@ -912,6 +931,7 @@ class BridgeSession:
             if cmd == "ping":
                 return {"ok": True, "pid": os.getpid()}, False
             if cmd == "warm_browser":
+                _ensure_chrome_running()
                 ensure_daemon()
                 _prewarm_jev_http_async()
                 return {"ok": True}, False
@@ -1034,6 +1054,8 @@ class BridgeSession:
                 self.close_agent()
 
         target_url = url or "https://www.google.com"
+        if self._agent_cls is Agent:
+            _ensure_chrome_running()
         init_params = inspect.signature(self._agent_cls.__init__).parameters
         if skip_observe and "observe" in init_params:
             self.agent = self._agent_cls(target_url, goal, background=background, observe=False)
