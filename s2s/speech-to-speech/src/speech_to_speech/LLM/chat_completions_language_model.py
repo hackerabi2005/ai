@@ -340,8 +340,6 @@ class ChatCompletionsApiModelHandler(BaseOpenAICompatibleHandler):
     def warmup(self) -> None:
         from threading import Thread
 
-        from speech_to_speech.LLM.base_openai_compatible_language_model import WARMUP_MAX_RETRIES
-
         def _bg_warm() -> None:
             sync_client = getattr(self, "client", None)
             if self._closed.is_set() or sync_client is None:
@@ -349,7 +347,7 @@ class ChatCompletionsApiModelHandler(BaseOpenAICompatibleHandler):
             logger.info(f"Warming up {self.__class__.__name__} in background")
             start = time.time()
             try:
-                sync_client.with_options(max_retries=WARMUP_MAX_RETRIES).chat.completions.create(
+                sync_client.with_options(max_retries=1).chat.completions.create(
                     model=self.model_name,
                     messages=[
                         {"role": "system", "content": "You are a helpful assistant"},
@@ -357,7 +355,7 @@ class ChatCompletionsApiModelHandler(BaseOpenAICompatibleHandler):
                     ],
                     max_tokens=16,
                     extra_body=self._extra_body,
-                    timeout=min(self.request_timeout_s, 10.0),
+                    timeout=min(self.request_timeout_s, 8.0),
                 )
                 if self._closed.is_set():
                     return

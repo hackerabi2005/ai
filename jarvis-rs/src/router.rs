@@ -962,7 +962,49 @@ fn is_new_tab_phrase(target: &str) -> bool {
     )
 }
 
+fn clean_search_query(raw: &str) -> String {
+    let mut out = String::with_capacity(raw.len());
+    let mut prev_space = true;
+    let chars: Vec<char> = raw.chars().collect();
+    let mut i = 0;
+    while i < chars.len() {
+        let c = chars[i];
+        if c == '.' {
+            // Collapse STT ellipsis / repeated dots ("mr.. beast" -> "mr beast") and trailing dots
+            // while keeping single intra-token dots like "github.com" or "node.js".
+            let start = i;
+            while i < chars.len() && chars[i] == '.' {
+                i += 1;
+            }
+            let count = i - start;
+            let prev_alnum = start > 0 && chars[start - 1].is_alphanumeric();
+            let next_alnum = i < chars.len() && chars[i].is_alphanumeric();
+            if count == 1 && prev_alnum && next_alnum {
+                out.push('.');
+                prev_space = false;
+            } else if !prev_space {
+                out.push(' ');
+                prev_space = true;
+            }
+            continue;
+        }
+        if c.is_whitespace() || matches!(c, ',' | ';' | '!' | '?') {
+            if !prev_space {
+                out.push(' ');
+                prev_space = true;
+            }
+        } else {
+            out.push(c);
+            prev_space = false;
+        }
+        i += 1;
+    }
+    out.trim().to_string()
+}
+
 fn route_site_search(site: &'static SiteEntry, query: &str, new_tab: bool) -> RouteAction {
+    let cleaned = clean_search_query(query);
+    let query = if cleaned.is_empty() { query.trim() } else { cleaned.as_str() };
     if let Some(search_url) = direct_search_url(site, query) {
         return RouteAction::OpenUrl {
             goal: format!("Search {} for {}.", site.name, query),
@@ -1843,7 +1885,8 @@ fn classify_inner(raw: &str, in_confirmation: bool, task_running: bool) -> Route
     }
 
     if let Some(caps) = SEARCH_GENERIC_RE.captures(base_cmd) {
-        let query = caps[1].trim();
+        let cleaned = clean_search_query(caps[1].trim());
+        let query = if cleaned.is_empty() { caps[1].trim() } else { cleaned.as_str() };
         if !query.is_empty() {
             let explicit_google =
                 base_cmd.starts_with("google ") || base_cmd.starts_with("search the web ");
@@ -2828,5 +2871,19 @@ mod tests {
             ),
             None
         );
+        match classify("Search mr.. beast.", false, false) {
+            RouteAction::OpenUrl { url, site_name, .. } => {
+                assert_eq!(url, "https://www.google.com/search?q=mr+beast");
+                assert_eq!(site_name, "Google search for mr beast");
+            }
+            other => panic!("expected OpenUrl for mr.. beast, got {other:?}"),
+        }
+        match classify("search youtube for node.js.. tutorial", false, false) {
+            RouteAction::OpenUrl { url, site_name, .. } => {
+                assert_eq!(url, "https://www.youtube.com/results?search_query=node.js+tutorial");
+                assert_eq!(site_name, "YouTube search for node.js tutorial");
+            }
+            other => panic!("expected OpenUrl for node.js tutorial, got {other:?}"),
+        }
     }
 }

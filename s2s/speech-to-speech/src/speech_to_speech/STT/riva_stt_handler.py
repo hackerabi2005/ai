@@ -139,12 +139,12 @@ class RivaSTTHandler(BaseSTTHandler):
         self.warmup()
 
     def _make_http_client(self) -> httpx2.Client:
-        http_read = min(self.timeout, 8.0)
+        http_read = min(self.timeout, 5.0)
         timeout = httpx2.Timeout(
             http_read,
-            connect=min(self.timeout, 5.0),
-            write=min(self.timeout, 8.0),
-            pool=min(self.timeout, 5.0),
+            connect=min(self.timeout, 4.0),
+            write=min(self.timeout, 5.0),
+            pool=min(self.timeout, 4.0),
         )
         return httpx2.Client(timeout=timeout)
 
@@ -327,7 +327,11 @@ class RivaSTTHandler(BaseSTTHandler):
         latest_interim = ""
         last_partial = ""
         try:
-            for resp in self._asr_service.streaming_response_generator(
+            with self._grpc_lock:
+                asr_service = self._asr_service
+            if asr_service is None:
+                raise RuntimeError("Riva ASR service is closed")
+            for resp in asr_service.streaming_response_generator(
                 audio_chunks=self._iter_stream_audio(stream),
                 streaming_config=streaming_cfg,
             ):
@@ -431,15 +435,29 @@ class RivaSTTHandler(BaseSTTHandler):
             try:
                 if self.use_grpc:
                     with self._grpc_lock:
-                        stub = getattr(self._asr_service, "stub", None)
+                        asr_service = self._asr_service
+                        stub = getattr(asr_service, "stub", None)
                         get_meta = getattr(self._auth, "get_auth_metadata", None)
-                    if stub is not None and callable(get_meta):
+                    if self._streaming_capable and asr_service is not None:
+                        import riva.client
+
+                        scfg = riva.client.StreamingRecognitionConfig(
+                            config=self._build_recognition_config(self.language_code),
+                            interim_results=False,
+                        )
+                        for _ in asr_service.streaming_response_generator(
+                            audio_chunks=iter([dither_pcm]),
+                            streaming_config=scfg,
+                        ):
+                            if self.stop_event.is_set() or self._closed.is_set():
+                                break
+                    elif stub is not None and callable(get_meta):
                         from riva.client.proto import riva_asr_pb2 as rasr
 
                         config = self._build_recognition_config(self.language_code)
                         request = rasr.RecognizeRequest(config=config, audio=dither_pcm)
                         # Cold NVCF gRPC workers routinely take 8-10s; use a generous warmup deadline
-                        # and never trip the live 60s HTTP backoff circuit breaker during warmup.
+                        # and never trip the live HTTP backoff circuit breaker during warmup.
                         stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 15.0))
                     else:
                         dither = np.frombuffer(dither_pcm, dtype="<i2")
@@ -525,7 +543,7 @@ class RivaSTTHandler(BaseSTTHandler):
         raise last_exc
 
     def _transcribe_grpc(self, pcm_bytes: bytes, language_code: str) -> str:
-        # Circuit breaker: after a unary gRPC stall, use fast HTTP fallback for 60s instead of repeated timeouts.
+        # Circuit breaker: only after repeated gRPC failures, briefly fall back to HTTP (15s).
         if self.http_url and perf_counter() < self._grpc_backoff_until_s:
             return self._transcribe_http(pcm_bytes, language_code)
         config = self._build_recognition_config(language_code)
@@ -536,23 +554,30 @@ class RivaSTTHandler(BaseSTTHandler):
             from riva.client.proto import riva_asr_pb2 as rasr
 
             request = rasr.RecognizeRequest(config=config, audio=pcm_bytes)
+            rpc_timeout = min(self.timeout, 9.0)
             try:
-                response = stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 6.0))
-            except Exception as exc:
+                response = stub.Recognize(request, metadata=get_meta(), timeout=rpc_timeout)
+            except Exception as first_exc:
                 self._reset_grpc()
-                if self.http_url and not self.stop_event.is_set():
-                    self._grpc_backoff_until_s = perf_counter() + 60.0
-                    logger.warning(
-                        "Riva unary gRPC failed (%s); switching to HTTP fallback for 60s and resetting channel",
-                        exc,
-                    )
-                    return self._transcribe_http(pcm_bytes, language_code)
-                with self._grpc_lock:
-                    stub = getattr(self._asr_service, "stub", None)
-                    get_meta = getattr(self._auth, "get_auth_metadata", None)
-                if stub is not None and callable(get_meta):
-                    response = stub.Recognize(request, metadata=get_meta(), timeout=min(self.timeout, 6.0))
-                else:
+                if self.stop_event.is_set():
+                    raise
+                logger.warning("Riva unary gRPC failed (%s); retrying once on fresh channel", first_exc)
+                try:
+                    with self._grpc_lock:
+                        stub = getattr(self._asr_service, "stub", None)
+                        get_meta = getattr(self._auth, "get_auth_metadata", None)
+                    if stub is None or not callable(get_meta):
+                        raise first_exc
+                    response = stub.Recognize(request, metadata=get_meta(), timeout=rpc_timeout)
+                except Exception as exc:
+                    self._reset_grpc()
+                    if self.http_url and not self.stop_event.is_set():
+                        self._grpc_backoff_until_s = perf_counter() + 15.0
+                        logger.warning(
+                            "Riva unary gRPC retry failed (%s); falling back to HTTP for 15s",
+                            exc,
+                        )
+                        return self._transcribe_http(pcm_bytes, language_code)
                     raise
         else:
             response = self._asr_service.offline_recognize(pcm_bytes, config)

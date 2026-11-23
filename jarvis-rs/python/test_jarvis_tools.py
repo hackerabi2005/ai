@@ -32,7 +32,7 @@ def test_jarvis_s2s_yaml_validates_with_thinking_off():
     validate_config(doc)
     resolved = resolve_config(doc, environ={"NVIDIA_API_KEY": "test-nv-key"}, include_client=True)
     llm_cfg = resolved.pipelines["jarvis"].stages["llm"].selection.config
-    assert llm_cfg["model_name"] == "nvidia/nemotron-3-ultra-550b-a55b"
+    assert llm_cfg["model_name"] == "nvidia/nemotron-3.5-lightning-30b-a3b"
     assert llm_cfg["disable_thinking"] is True
     assert (
         ChatCompletionsApiModelHandler._build_extra_body(
@@ -49,7 +49,7 @@ def test_jarvis_s2s_yaml_validates_with_thinking_off():
 
     stt_cfg = resolved.pipelines["jarvis"].stages["stt"].selection.config
     assert stt_cfg["use_grpc"] is True
-    assert stt_cfg["streaming"] is False
+    assert stt_cfg["streaming"] is True
     assert stt_cfg["word_time_offsets"] is False
 
     client = build_configured_client(resolved, local=True)
