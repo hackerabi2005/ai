@@ -11,7 +11,7 @@
 
 ```mermaid
 flowchart LR
-    Mic["Microphone / ONNX Silero VAD"] --> STT["Riva Streaming gRPC STT (~245ms post-speech)"]
+    Mic["Microphone / ONNX Silero VAD"] --> STT["Riva Unary gRPC STT + 25s Keepalive (100% API)"]
     STT --> Router["jarvis-rs Router (<1ms deterministic)"]
     Router -->|Direct Voice Route| Broker["jarvis-rs Broker"]
     STT -->|Conversational / Q&A| LLM["Nemotron-3.5-Lightning (~658ms TTFT)"]
@@ -47,7 +47,7 @@ flowchart LR
 - **Spawn Audio Worker Isolation ([_audio_worker.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/api/openai_realtime/_audio_worker.py), [audio_client.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/api/openai_realtime/audio_client.py), [cli.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/cli.py)):**
   - Extracted the spawned child-process audio loop into lightweight `_audio_worker.py` (`0.227s` import vs `1.703s` for `audio_client.py`).
 - **Non-Blocking Warmup, Streaming STT & Fast NIM LLM ([jarvis_s2s.yaml](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/config/jarvis_s2s.yaml), [riva_stt_handler.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/STT/riva_stt_handler.py), [riva_tts_handler.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/TTS/riva_tts_handler.py), [chat_completions_language_model.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/LLM/chat_completions_language_model.py), [base_openai_compatible_language_model.py](file:///c:/Users/Abish/Desktop/combinned%20jarvis/s2s/speech-to-speech/src/speech_to_speech/LLM/base_openai_compatible_language_model.py)):**
-  - Enabled `riva_stt_streaming: true` (`245ms` post-speech measured at 1× cadence vs `5,126ms` unary cold), warmed streaming gRPC in background, raised unary gRPC fallback timeout (`6.0s → 9.0s`), retried gRPC once on a fresh channel before HTTP fallback, cut HTTP backoff (`60s → 15s`) and HTTP read timeout (`8s → 5s`).
+  - Kept `riva_stt_streaming: false` (unary gRPC avoids NVCF Parakeet CTC streaming timeouts and `CANCELLED: Channel closed!` cascades), added a `~1ms` RMS silence gate (`rms < 0.004`) to drop mic noise without API calls, added a `25s` background gRPC keepalive ping to keep the NVCF worker warm (`~389–619ms`), and capped unary retry to `8.0s` × 2 (eliminating the `41s` retry cascade).
   - Switched LLM from timing-out `nvidia/nemotron-3-ultra-550b-a55b` (`>16s ReadTimeout`) to `nvidia/nemotron-3.5-lightning-30b-a3b` (`658ms` TTFT / `698ms` total) and capped background LLM warmup to `max_retries=1, timeout=8.0s`.
   - Moved Riva STT/TTS and LLM warmups onto tracked background daemon threads using sync client + `_closed` event guards and short `join(timeout=1.0)` on `cleanup()`, eliminating cross-thread `asyncio.Runner` cleanup failures and CPython `_enter_buffered_busy` stderr crashes on exit.
   - Added `clean_search_query()` in [router.rs](file:///c:/Users/Abish/Desktop/combinned%20jarvis/jarvis-rs/src/router.rs) to clean STT ellipsis punctuation (`"mr.. beast"` → `"mr beast"`) while preserving domains (`"node.js"`).

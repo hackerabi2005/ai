@@ -49,7 +49,7 @@ def test_jarvis_s2s_yaml_validates_with_thinking_off():
 
     stt_cfg = resolved.pipelines["jarvis"].stages["stt"].selection.config
     assert stt_cfg["use_grpc"] is True
-    assert stt_cfg["streaming"] is True
+    assert stt_cfg["streaming"] is False
     assert stt_cfg["word_time_offsets"] is False
 
     client = build_configured_client(resolved, local=True)

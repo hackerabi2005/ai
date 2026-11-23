@@ -123,6 +123,8 @@ class RivaSTTHandler(BaseSTTHandler):
         self._stream_lock = Lock()
         self._closed = Event()
         self._warmup_thread: Thread | None = None
+        self._keepalive_thread: Thread | None = None
+        self._last_rpc_at_s: float = 0.0
         self._session_generation = 0
         self._active_turn_id: str | None = None
         self._active_turn_revision: int | None = None
@@ -139,12 +141,12 @@ class RivaSTTHandler(BaseSTTHandler):
         self.warmup()
 
     def _make_http_client(self) -> httpx2.Client:
-        http_read = min(self.timeout, 5.0)
+        http_read = min(self.timeout, 4.0)
         timeout = httpx2.Timeout(
             http_read,
-            connect=min(self.timeout, 4.0),
-            write=min(self.timeout, 5.0),
-            pool=min(self.timeout, 4.0),
+            connect=min(self.timeout, 3.0),
+            write=min(self.timeout, 4.0),
+            pool=min(self.timeout, 3.0),
         )
         return httpx2.Client(timeout=timeout)
 
@@ -482,6 +484,38 @@ class RivaSTTHandler(BaseSTTHandler):
         self._warmup_thread = thread
         thread.start()
 
+        if self.use_grpc:
+            def _bg_keepalive() -> None:
+                # Keep NVCF gRPC HTTP/2 connection & worker warm during idle stretches
+                # so the next spoken command avoids a 3-8s cold worker hit.
+                ping_pcm = b"\x01\x00\xff\xff" * 800  # 0.1s dithered PCM
+                while not self._closed.wait(timeout=25.0):
+                    if self.stop_event.is_set() or self._closed.is_set():
+                        return
+                    if perf_counter() - self._last_rpc_at_s < 22.0:
+                        continue
+                    try:
+                        with self._grpc_lock:
+                            stub = getattr(self._asr_service, "stub", None)
+                            get_meta = getattr(self._auth, "get_auth_metadata", None)
+                        if stub is not None and callable(get_meta):
+                            from riva.client.proto import riva_asr_pb2 as rasr
+
+                            cfg = self._build_recognition_config(self.language_code)
+                            req = rasr.RecognizeRequest(config=cfg, audio=ping_pcm)
+                            stub.Recognize(req, metadata=get_meta(), timeout=4.0)
+                            self._last_rpc_at_s = perf_counter()
+                    except Exception:
+                        if not self._closed.is_set() and not self.stop_event.is_set():
+                            try:
+                                self._reset_grpc()
+                            except Exception:
+                                pass
+
+            ka = Thread(target=_bg_keepalive, name="riva-stt-keepalive", daemon=True)
+            self._keepalive_thread = ka
+            ka.start()
+
     def _resolve_request_language(self, selected: str | None) -> str:
         if not selected or selected == "auto":
             return self.language_code
@@ -543,9 +577,6 @@ class RivaSTTHandler(BaseSTTHandler):
         raise last_exc
 
     def _transcribe_grpc(self, pcm_bytes: bytes, language_code: str) -> str:
-        # Circuit breaker: only after repeated gRPC failures, briefly fall back to HTTP (15s).
-        if self.http_url and perf_counter() < self._grpc_backoff_until_s:
-            return self._transcribe_http(pcm_bytes, language_code)
         config = self._build_recognition_config(language_code)
         with self._grpc_lock:
             stub = getattr(self._asr_service, "stub", None)
@@ -554,33 +585,25 @@ class RivaSTTHandler(BaseSTTHandler):
             from riva.client.proto import riva_asr_pb2 as rasr
 
             request = rasr.RecognizeRequest(config=config, audio=pcm_bytes)
-            rpc_timeout = min(self.timeout, 9.0)
+            rpc_timeout = min(self.timeout, 8.0)
             try:
                 response = stub.Recognize(request, metadata=get_meta(), timeout=rpc_timeout)
+                self._last_rpc_at_s = perf_counter()
             except Exception as first_exc:
                 self._reset_grpc()
                 if self.stop_event.is_set():
                     raise
                 logger.warning("Riva unary gRPC failed (%s); retrying once on fresh channel", first_exc)
-                try:
-                    with self._grpc_lock:
-                        stub = getattr(self._asr_service, "stub", None)
-                        get_meta = getattr(self._auth, "get_auth_metadata", None)
-                    if stub is None or not callable(get_meta):
-                        raise first_exc
-                    response = stub.Recognize(request, metadata=get_meta(), timeout=rpc_timeout)
-                except Exception as exc:
-                    self._reset_grpc()
-                    if self.http_url and not self.stop_event.is_set():
-                        self._grpc_backoff_until_s = perf_counter() + 15.0
-                        logger.warning(
-                            "Riva unary gRPC retry failed (%s); falling back to HTTP for 15s",
-                            exc,
-                        )
-                        return self._transcribe_http(pcm_bytes, language_code)
-                    raise
+                with self._grpc_lock:
+                    stub = getattr(self._asr_service, "stub", None)
+                    get_meta = getattr(self._auth, "get_auth_metadata", None)
+                if stub is None or not callable(get_meta):
+                    raise first_exc
+                response = stub.Recognize(request, metadata=get_meta(), timeout=rpc_timeout)
+                self._last_rpc_at_s = perf_counter()
         else:
             response = self._asr_service.offline_recognize(pcm_bytes, config)
+            self._last_rpc_at_s = perf_counter()
         return " ".join(
             res.alternatives[0].transcript.strip() for res in response.results if res.alternatives
         ).strip()
@@ -601,17 +624,22 @@ class RivaSTTHandler(BaseSTTHandler):
             return
 
         if pred_text is None:
-            try:
-                pred_text = self._transcribe(vad_audio.audio, request_language)
-            except Exception as exc:
-                logger.error("Riva STT failed turn=%s rev=%s: %s", vad_audio.turn_id, vad_audio.turn_revision, exc)
-                yield TranscriptionFailure(
-                    message="riva transcription request failed",
-                    turn_id=vad_audio.turn_id,
-                    turn_revision=vad_audio.turn_revision,
-                    speech_stopped_at_s=vad_audio.speech_end_at_s,
-                )
-                return
+            audio_arr = np.asarray(vad_audio.audio, dtype=np.float32)
+            rms = float(np.sqrt(np.mean(np.square(audio_arr)))) if audio_arr.size else 0.0
+            if rms < 0.004:
+                pred_text = ""
+            else:
+                try:
+                    pred_text = self._transcribe(vad_audio.audio, request_language)
+                except Exception as exc:
+                    logger.error("Riva STT failed turn=%s rev=%s: %s", vad_audio.turn_id, vad_audio.turn_revision, exc)
+                    yield TranscriptionFailure(
+                        message="riva transcription request failed",
+                        turn_id=vad_audio.turn_id,
+                        turn_revision=vad_audio.turn_revision,
+                        speech_stopped_at_s=vad_audio.speech_end_at_s,
+                    )
+                    return
 
         if tracker is not None and not tracker.is_latest(vad_audio.turn_id, vad_audio.turn_revision):
             return
@@ -657,3 +685,6 @@ class RivaSTTHandler(BaseSTTHandler):
         warmup_thread = getattr(self, "_warmup_thread", None)
         if warmup_thread is not None and warmup_thread.is_alive():
             warmup_thread.join(timeout=1.0)
+        ka_thread = getattr(self, "_keepalive_thread", None)
+        if ka_thread is not None and ka_thread.is_alive():
+            ka_thread.join(timeout=1.0)

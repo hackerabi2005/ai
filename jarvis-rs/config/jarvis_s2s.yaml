@@ -39,7 +39,7 @@ blocks:
       riva_stt_word_time_offsets: false
       riva_stt_http_url: https://1598d209-5e27-4d3c-8079-4751568b1081.invocation.api.nvcf.nvidia.com/v1/audio/transcriptions
       riva_stt_use_grpc: true
-      riva_stt_streaming: true
+      riva_stt_streaming: false
 
   llm:
     kind: llm
