@@ -592,7 +592,7 @@ static GOAL_VERB_RE: LazyLock<Regex> = LazyLock::new(|| {
         .unwrap()
 });
 static LIST_TABS_RE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"^(?:how\s+many\s+tabs(?:\s+are\s+open)?|what\s+tabs\s+are\s+open|which\s+tabs\s+are\s+open|list\s+(?:the\s+|open\s+)?tabs)$")
+    Regex::new(r"^(?:how\s+many\s+tabs(?:\s+are\s+open)?|what\s+tabs\s+are\s+open|which\s+tabs\s+are\s+open|list\s+(?:the\s+|open\s+)?tabs|what\s+is\s+this\s+tab|which\s+tab\s+is\s+this)$")
         .unwrap()
 });
 static CLOSE_DIALOG_RE: LazyLock<Regex> = LazyLock::new(|| {
@@ -653,7 +653,7 @@ static NEW_TAB_PREFIX_RE: LazyLock<Regex> =
 static THEN_SPLIT_RE: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"(?i)(?:,|\.)?\s+(?:and\s+)?then\s+").unwrap());
 static PAUSE_VIDEO_RE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"^(?:pause(?:\s+(?:(?:the|this|that)\s+)?(?:video|music|song|audio|podcast|track|movie|episode|stream|playback|it))?|stop\s+(?:(?:the|this|that)\s+)?(?:video|music|song|audio|podcast|track|movie|episode|stream|playback))$")
+    Regex::new(r"^(?:pause(?:\s+(?:(?:the|this|that)\s+)?(?:video|music|song|audio|podcast|track|movie|episode|stream|playback|it))?(?:\.?\s+(?:the\s+)?video)?|stop\s+(?:(?:the|this|that)\s+)?(?:video|music|song|audio|podcast|track|movie|episode|stream|playback))$")
         .unwrap()
 });
 static PLAY_VIDEO_RE: LazyLock<Regex> = LazyLock::new(|| {
@@ -697,7 +697,7 @@ static PREV_TRACK_RE: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(r"^(?:previous|prev)\s+(?:video|song|track|episode)$").unwrap()
 });
 static SKIP_AD_RE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"^skip\s+(?:(?:the|this|that)\s+)?(?:ads?|adds?|air|at|hat|intro|recap)|^skip\s+(?:this|it)$|^skip(?:\s+skip)*$")
+    Regex::new(r"^skip\s+(?:(?:the|this|that)\s+)?(?:ads?|adds?|air|at|hat|intro|recap)|^skip\s+(?:this|that|it)$|^skip(?:\s+skip)*$")
         .unwrap()
 });
 static OPEN_SETTINGS_RE: LazyLock<Regex> = LazyLock::new(|| {
@@ -829,9 +829,16 @@ fn strip_polite_prefix(norm: &str) -> &str {
             "right ",
             "yeah ",
             "yes ",
+            "hey. ",
             "hey ",
+            "hi. ",
             "hi ",
+            "hello. ",
             "hello ",
+            "yo. ",
+            "yo ",
+            "bro. ",
+            "bro ",
             "and ",
             "thank you. ",
             "thank you ",
@@ -2885,5 +2892,9 @@ mod tests {
             }
             other => panic!("expected OpenUrl for node.js tutorial, got {other:?}"),
         }
+        assert_eq!(classify("Bro, scroll down", false, false), RouteAction::Control("scroll_down".into()));
+        assert_eq!(classify("Skip that", false, false), RouteAction::Control("skip_ad".into()));
+        assert_eq!(classify("Pause the video. The video", false, false), RouteAction::Control("pause_video".into()));
+        assert_eq!(classify("What is this tab?", false, false), RouteAction::Control("list_tabs".into()));
     }
 }

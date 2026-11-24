@@ -540,3 +540,25 @@ def test_ensure_chrome_running_launches_chrome_even_when_other_browser_is_open(m
     assert launched == [True]
 
 
+def test_switch_tab_includes_chrome_new_tab_page(monkeypatch):
+    import jev_bridge
+
+    targets = [
+        {"targetId": "t-ntp", "type": "page", "url": "chrome://new-tab-page/", "title": "New Tab"},
+        {"targetId": "t-yt", "type": "page", "url": "https://www.youtube.com/", "title": "YouTube"},
+    ]
+    monkeypatch.setattr(jev_bridge, "cdp", lambda method, **kw: {"targetInfos": targets} if method == "Target.getTargets" else {})
+    switched = []
+    session = BridgeSession(agent_cls=FakeAgent, default_background=False)
+    agent = FakeAgent("chrome://new-tab-page/", "New Tab", background=False)
+    agent.browser.target = "t-ntp"
+    agent.browser.switch_to_target = lambda tid, activate=True: switched.append(tid)
+    agent.browser.evaluate.return_value = ["https://www.youtube.com/", "YouTube"]
+    session.agent = agent
+
+    res, _ = session.handle({"cmd": "control", "action": "switch_tab_next"})
+    assert res["ok"] is True
+    assert switched == ["t-yt"]
+    assert res["message"] == "Switched to YouTube."
+
+

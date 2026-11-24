@@ -794,7 +794,6 @@ def _list_page_targets(*, prefer_real: bool = True) -> list[dict[str, Any]]:
                 "chrome://tab-search",
                 "chrome://read-anything",
                 "chrome://history-clusters",
-                "chrome://new-tab-page",
             )
         )
     ]
@@ -1393,7 +1392,7 @@ class BridgeSession:
         raise RuntimeError("match_click retry exhausted")
 
     def _switch_tab(self, agent: Any, action: str) -> dict[str, Any]:
-        tabs = _list_page_targets(prefer_real=True)
+        tabs = _list_page_targets(prefer_real=False)
         if not tabs:
             raise ValueError("No browser tab is open; start a browser task first.")
         cur_id = getattr(agent.browser, "target", None)
